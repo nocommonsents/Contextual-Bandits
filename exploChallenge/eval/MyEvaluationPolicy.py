@@ -22,11 +22,11 @@ class MyEvaluationPolicy(EvaluationPolicy):
     logFrequency = 0;
     linesToSkip = 0;
 
-    def __init__(self, a, b = None, c = None):
+    def __init__(self, a, b = None, c = None, d = None):
         if type(a) == type(1):
             self.__init1__(a)
         else:
-            self.__init2__(a, b, c)
+            self.__init2__(a, b, c, d)
 
 
     def __init1__(self, linesToSkip):
@@ -37,26 +37,25 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.logFrequency = -1
 
 
-    def __init2__(self, outputStream, logFrequency, linesToSkip):
+    def __init2__(self, outputStream, logFrequency, linesToSkip, outputFile):
         self.clicks = 0;
         self.evaluations = 0;
         self.linesToSkip = linesToSkip;
         self.lines = 0;
         self.logFrequency = logFrequency;
         self.logger = outputStream
-        self.logger.write("lines evaluations clicks score \n")
+        self.outputFile = outputFile
+        self.outputFile.write("Lines Evaluations Clicks CTR \n")
+        self.logger.write("Lines Evaluations Clicks CTR \n")
 
 
 
     #@Override
     def log(self):
-        # Cut down on runtime by not printing to console every intermediate result
-        # Test file: 150615 log lines
-        # Runtime: 741521 ms printing every result vs. 528971 ms printing every 1000th
-        if (self.lines % 1000 == 0):
+        if (self.lines % 500 == 0):
             self.logger.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
+            self.outputFile.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
         self.logger.flush()
-
     #@Override
     def getResult(self):
         try:

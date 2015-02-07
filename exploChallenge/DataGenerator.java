@@ -13,15 +13,24 @@ public class DataGenerator {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-		final double PROB_OF_CLICK = 0.25;
-		final int NUMBER_OF_ARTICLES = 25;
+		
+		/* Probability that a user clicks on a particular article
+		 * Should this be dependent on the feature vector or a constant for a given simulation
+		*/
+		
+		final double PROB_OF_CLICK = 0.1;	
+		final int NUMBER_OF_ARTICLES = 10000;
+		final int NUMBER_OF_CANDIDATE_ARTICLES = 50;
 		final int NUMBER_OF_FEATURES = 136;
-		final int NUMBER_OF_LOG_LINES = 10000;
+		final int NUMBER_OF_LOG_LINES = 5000000;
+		final int NUMBER_OF_USERS = 500;
 
-		int binaryResult;
+
+		int currentArticleId;
 		int currentValue;
 		int featureNumber = 2; // start at 2 since feature 1 is always present
 		int index;
+		int reward;
 		int timestamp = 100000;
 		String allArticlesString = "";
 		String featureString = "";
@@ -29,44 +38,71 @@ public class DataGenerator {
 		PrintWriter writer = new PrintWriter("sampleData.txt", "UTF-8");
 		Random rnd = new Random();
 		ArrayList<Integer> possibleArticles = new ArrayList<Integer>();
+		int[] userList = new int[NUMBER_OF_USERS-1];
 
 		// Generate id numbers for fake articles
 		for (int number = 0; number < NUMBER_OF_ARTICLES; number++){
 			int n = 100000 + rnd.nextInt(900000);
-			// If article id has already been generated, add one more iteration to loop
+			// If article id has already been generated, don't count this iteration of the loop
 			if (possibleArticles.contains(n)){
 				number--;
-				System.out.println("Duplicate article ID generated.  Creating another..." + n);
+				//System.out.println("Duplicate article ID generated.  Creating another..." + n);
 			}
 			else {
 				possibleArticles.add(n);
 			}
 			//System.out.println(n);
 		}
+		
+		// Generate fake users
+		
+		/* Create a string of features that describe each user-article interaction
+		 * Example:  1 4 24 67 132 for 136 possible feature vector values
+		 */
+		for (int number = 0; number < NUMBER_OF_USERS; number++) {
+			featureString = "1";
+			featureNumber = 2;
+			while (featureNumber <= NUMBER_OF_FEATURES){
+				// Generate random features from a list of NUMBER_OF_FEATURES potentials
+				featureNumber += rnd.nextInt(NUMBER_OF_FEATURES) + 1;
+				if (featureNumber <= NUMBER_OF_FEATURES){
+					featureString += " " + featureNumber;
+				}
+			}
+		}
 
 		// Generate log lines
 		for (int number = 0; number < NUMBER_OF_LOG_LINES; number++){
-			// Copy article IDs so that we can make changes to list without permanently altering list of articles
+			// Generate a list of NUMBER_CANDIDATE_ARTICLES candidate articles for the recommendation
 			ArrayList<Integer> copyPossibleArticles = new ArrayList<Integer>();
-
-			copyPossibleArticles.addAll(possibleArticles);
+			for (int articlesSoFar = 0; articlesSoFar < NUMBER_OF_CANDIDATE_ARTICLES; articlesSoFar++){
+				currentArticleId = rnd.nextInt(possibleArticles.size());
+				if (copyPossibleArticles.contains(currentArticleId)){
+					articlesSoFar--;
+					//System.out.println("Duplicate candidate article generated.  Creating another..." + currentArticleId);
+				}
+				else {
+					copyPossibleArticles.add(currentArticleId);
+				}
+			}
 			if (number == 0){
 				timestamp = 100000;
 			}
 			else {
 				timestamp += rnd.nextInt(10);
 			}
-			index = rnd.nextInt(possibleArticles.size());
-			currentValue = possibleArticles.get(index);
+			index = rnd.nextInt(copyPossibleArticles.size());
+			currentValue = copyPossibleArticles.get(index);
 			if (new Random().nextDouble() <= PROB_OF_CLICK){
-				binaryResult = 1;
+				reward = 1;
 			}
 			else {
-				binaryResult = 0;
+				reward = 0;
 			}
 
 			while (featureNumber <= NUMBER_OF_FEATURES){
-				featureNumber += rnd.nextInt(NUMBER_OF_FEATURES);
+				// Generate random features from a list of NUMBER_OF_FEATURES potentials
+				featureNumber += rnd.nextInt(NUMBER_OF_FEATURES) + 1;
 				if (featureNumber <= NUMBER_OF_FEATURES){
 					featureString += " " + featureNumber;
 				}
@@ -76,9 +112,11 @@ public class DataGenerator {
 				allArticlesString += "|id-" + value + " ";
 			}
 
-			String line = timestamp + " " + "id-" + currentValue + " " + binaryResult + 
+			String line = timestamp + " " + "id-" + currentValue + " " + reward + 
 			" " + "|user 1" + featureString + " " + allArticlesString;
-			System.out.println(number);
+			if (number % 10000 == 0){
+				System.out.println("Done with log line number " + number + ".");
+			}
 			writer.println(line);
 
 			featureNumber = 2;
@@ -90,6 +128,7 @@ public class DataGenerator {
 			//			|id-563938 |id-564335 |id-564418 |id-564604 |id-565364 |id-565479 |id-565515
 			//			|id-565533 |id-565561 |id-565589 |id-565648 |id-565747 |id-565822
 		}
+		System.out.println("Data generator complete.");
 		writer.close();
 
 	}

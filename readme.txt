@@ -1,10 +1,19 @@
-All the code related to your work should go in the myPolicy folder. The exploChallenge one can be overwritten during the evaluation.
+Run project with ./go.bat command (must be in exploChallenge folder)
 
-To launch a test process, just execute 
-./go.sh 
+3.5 GB Yahoo data set is on Google Drive
 
-To build the submission file use 
-./build_submission.sh 
+Goal is to create different simulated input files to compare performance of contextual bandit algorithms
 
-If you want to build your own zip submission file please take care to NOT include the yahooTest.txt file.
+Simulated input files will vary the number of users, number of features, probability of click, etc.
 
+We will then test the same contextual bandit algorithms on the Yahoo data set to compare performance on real-world data
+
+Contextual bandit policy is set in exploChallenge > Main.py in main method
+
+To-do:
+- (Done) Save results to file, including the contextual bandit used and the input parameters used (number of users, number of features, etc.)
+(Not done) Could this be improved by automatically writing the different policies to different files?  For example, UCB1 might go to “UCB1_output.txt” while EXP3 might go to “EXP3_output.txt”
+
+- In exploChallenge > eval > MyEvaluationPolicy.py, have log method print out every x evaluations, not x lines (creates duplicates when doing this…either fix this code or can create duplicate filter when plotting data)
+
+- Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to set a single click-through rate for each simulation.  This is done right now in the DataGenerator.java file.

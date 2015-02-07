@@ -38,7 +38,7 @@ from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
-from time import gmtime, strftime
+from time import strftime
 
 
 
@@ -81,7 +81,7 @@ class Main:
 
         generator = FromFileLogLineGenerator(reader)
 
-        outputFile.write("Simulation started at: " + strftime("%Y-%m-%d %H:%M:%S", gmtime()) + "\n")
+        outputFile.write("Simulation started at: " + strftime("%Y-%m-%d %H:%M:%S") + "\n")
 
         ## Pick a single contextual bandit algorithm
         #policy = MyPolicy()

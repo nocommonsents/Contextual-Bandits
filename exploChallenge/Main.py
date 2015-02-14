@@ -85,36 +85,47 @@ class Main:
         #policy = MyPolicy()
         #policyName = "MyPolicy"
         #outputFile.write("Policy: MyPolicy\n")
-        #policy = RandomPolicy()
-        #policyName = "Random"
-        #outputFile.write("Policy: Random\n")
-        policy = eGreedy(0.2)
-        policyName = "eGreedy" + str(policy.getEpsilon())
-        outputFile.write("Policy: eGreedy\n")  # Should we print epsilon value too?
+
+        policy = RandomPolicy()
+        policyName = "Random"
+        outputFile.write("Policy: Random\n")
+
+        #policy = eGreedy(0.2)
+        #policyName = "eGreedy" + str(policy.getEpsilon())
+        #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+
         #policy = Softmax()
         #policyName = "Softmax"
         #outputFile.write("Policy: Softmax\n")
+
         #policy = UCB1()
         #policyName = "UCB1"
         #outputFile.write("Policy: UCB1\n")
+
         #policy = EXP3(0.5)
         #policyName = "EXP3" + str(policy.getGamma())
-        #outputFile.write("Policy: EXP3\n")
+        #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
+
         #policy = MostClick()
         #policyName = "MostClick"
         #outputFile.write("Policy: Most Clicked\n")
+
         #policy = Clickrate()
         #policyName = "ClickRate"
         #outputFile.write("Policy: Click Rate\n")
+
         #policy = Naive3()
         #policyName = "Naive3"
         #outputFile.write("Policy: Naive3\n")
+
         #policy = Contextualclick()
         #policyName = "ContextualClick"
         #outputFile.write("Policy: Contextual Click\n")
+
         #policy = LinearBayes()
         #policyName = "LinearBayes"
         #outputFile.write("Policy: Linear Bayes\n")
+
         #policy = LinearBayesFtu()
         #policyName = "LinearBayesFTU"
         #outputFile.write("Policy: Linear Bayes FTU\n")

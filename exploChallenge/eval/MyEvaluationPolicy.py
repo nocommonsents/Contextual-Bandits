@@ -54,7 +54,6 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.logger.write("Policy,Evaluations,CTR,Input File\n")
 
 
-
     #@Override
     def log(self):
         if (self.evaluations % 100 == 0 and self.evaluations != self.lastEvaluationNumber):
@@ -62,6 +61,7 @@ class MyEvaluationPolicy(EvaluationPolicy):
             self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
             self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
         self.logger.flush()
+
     #@Override
     def getResult(self):
         try:

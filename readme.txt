@@ -13,8 +13,8 @@ Contextual bandit policy is set in exploChallenge > Main.py in main method
 To-do:
 - (Done) Save results to file, including the contextual bandit used and the input parameters used (number of users, number of features, etc.)
 
+- (Done) In exploChallenge > eval > MyEvaluationPolicy.py, have log method print out every x evaluations, not x lines without creating duplicate lines (prints duplicates until next evaluation using that particular contextual bandit)
+
 - When printing out the contextual bandit used to the output file, also print out the parameters (epsilon, alpha, etc.)
 
-- In exploChallenge > eval > MyEvaluationPolicy.py, have log method print out every x evaluations, not x lines without creating duplicate lines (prints duplicates until next evaluation using that particular contextual bandit)
-
-- Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to set a single click-through rate for each simulation.  This is done right now in the DataGenerator.java file.
+- Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to explicitly set a single click-through rate for each simulation, though it could likely learn from that as well.  This is done right now in the DataGenerator.java file.

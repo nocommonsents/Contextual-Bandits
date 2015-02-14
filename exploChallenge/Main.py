@@ -81,12 +81,12 @@ class Main:
         ## Pick a single contextual bandit algorithm and corresponding output file
         #policy = MyPolicy()
         #outputFile.write("Policy: MyPolicy\n")
-        policy = RandomPolicy()
-        outputFile.write("Policy: Random\n")
+        #policy = RandomPolicy()
+        #outputFile.write("Policy: Random\n")
         #policy = eGreedy()
         #outputFile.write("Policy: eGreedy\n")  # Should we print epsilon value too?
-        #policy = Softmax()
-        #outputFile.write("Policy: Softmax\n")
+        policy = Softmax()
+        outputFile.write("Policy: Softmax\n")
         #policy = UCB1()
         #outputFile.write("Policy: UCB1\n")
         #policy = EXP3()

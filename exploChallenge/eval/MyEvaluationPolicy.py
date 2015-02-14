@@ -21,6 +21,7 @@ class MyEvaluationPolicy(EvaluationPolicy):
     logger = io.StringIO();
     logFrequency = 0;
     linesToSkip = 0;
+    lastEvaluation = 0;
 
     def __init__(self, a, b = None, c = None, d = None):
         if type(a) == type(1):
@@ -35,6 +36,7 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.evaluations = 0
         self.lines = 0
         self.logFrequency = -1
+        self.lastEvaluationNumber = 0
 
 
     def __init2__(self, outputStream, logFrequency, linesToSkip, outputFile):
@@ -44,6 +46,7 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.lines = 0;
         self.logFrequency = logFrequency;
         self.logger = outputStream
+        self.lastEvaluationNumber = 0
         self.outputFile = outputFile
         self.outputFile.write("Lines Evaluations Clicks CTR \n")
         self.logger.write("Lines Evaluations Clicks CTR \n")
@@ -52,7 +55,8 @@ class MyEvaluationPolicy(EvaluationPolicy):
 
     #@Override
     def log(self):
-        if (self.lines % 500 == 0):
+        if (self.evaluations % 10 == 0 and self.evaluations != self.lastEvaluationNumber):
+            self.lastEvaluationNumber = self.evaluations
             self.logger.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
             self.outputFile.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
         self.logger.flush()

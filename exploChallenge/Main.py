@@ -65,11 +65,14 @@ class Main:
 
 
         try:
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-all"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
+            #inputFileShort = "s"   # Simulated data = "s"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-all"
+            inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
         except:
+            print "Problem with input file."
             logStep = 1
 
 
@@ -80,31 +83,43 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
         #policy = MyPolicy()
+        #policyName = "MyPolicy"
         #outputFile.write("Policy: MyPolicy\n")
         #policy = RandomPolicy()
+        #policyName = "Random"
         #outputFile.write("Policy: Random\n")
         #policy = eGreedy()
+        #policyName = "eGreedy"
         #outputFile.write("Policy: eGreedy\n")  # Should we print epsilon value too?
         policy = Softmax()
+        policyName = "Softmax"
         outputFile.write("Policy: Softmax\n")
         #policy = UCB1()
+        #policyName = "UCB1"
         #outputFile.write("Policy: UCB1\n")
         #policy = EXP3()
+        #policyName = "EXP3"
         #outputFile.write("Policy: EXP3\n")
-        #policy = Mostclick()
+        #policy = MostClick()
+        #policyName = "MostClick"
         #outputFile.write("Policy: Most Clicked\n")
         #policy = Clickrate()
+        #policyName = "ClickRate"
         #outputFile.write("Policy: Click Rate\n")
         #policy = Naive3()
+        #policyName = "Naive3"
         #outputFile.write("Policy: Naive3\n")
         #policy = Contextualclick()
+        #policyName = "ContextualClick"
         #outputFile.write("Policy: Contextual Click\n")
         #policy = LinearBayes()
+        #policyName = "LinearBayes"
         #outputFile.write("Policy: Linear Bayes\n")
         #policy = LinearBayesFtu()
+        #policyName = "LinearBayesFTU"
         #outputFile.write("Policy: Linear Bayes FTU\n")
 
-        evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, outputFile)
+        evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 
         ## Only use the second one for the EXP3 algorithm
         ev = Evaluator(generator, evalPolicy, policy)

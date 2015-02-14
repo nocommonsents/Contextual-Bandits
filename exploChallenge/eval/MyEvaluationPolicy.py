@@ -23,11 +23,11 @@ class MyEvaluationPolicy(EvaluationPolicy):
     linesToSkip = 0;
     lastEvaluation = 0;
 
-    def __init__(self, a, b = None, c = None, d = None):
+    def __init__(self, a, b = None, c = None, d = None, e = None, f = None):
         if type(a) == type(1):
             self.__init1__(a)
         else:
-            self.__init2__(a, b, c, d)
+            self.__init2__(a, b, c, d, e, f)
 
 
     def __init1__(self, linesToSkip):
@@ -39,7 +39,7 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.lastEvaluationNumber = 0
 
 
-    def __init2__(self, outputStream, logFrequency, linesToSkip, outputFile):
+    def __init2__(self, outputStream, logFrequency, linesToSkip, policy, inputFileShortened, outputFile):
         self.clicks = 0;
         self.evaluations = 0;
         self.linesToSkip = linesToSkip;
@@ -47,18 +47,20 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.logFrequency = logFrequency;
         self.logger = outputStream
         self.lastEvaluationNumber = 0
+        self.policyName = policy
+        self.inputFileShort = inputFileShortened
         self.outputFile = outputFile
-        self.outputFile.write("Lines Evaluations Clicks CTR \n")
-        self.logger.write("Lines Evaluations Clicks CTR \n")
+        self.outputFile.write("Policy,Evaluations,CTR,Input File\n")
+        self.logger.write("Policy,Evaluations,CTR,Input File\n")
 
 
 
     #@Override
     def log(self):
-        if (self.evaluations % 10 == 0 and self.evaluations != self.lastEvaluationNumber):
+        if (self.evaluations % 100 == 0 and self.evaluations != self.lastEvaluationNumber):
             self.lastEvaluationNumber = self.evaluations
-            self.logger.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
-            self.outputFile.write(str(self.lines) + " " + str(self.evaluations) + " " + str(self.clicks) + " " + str(self.getResult()) + "\n")
+            self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
+            self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
         self.logger.flush()
     #@Override
     def getResult(self):

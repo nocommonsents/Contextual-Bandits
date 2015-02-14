@@ -88,17 +88,17 @@ class Main:
         #policy = RandomPolicy()
         #policyName = "Random"
         #outputFile.write("Policy: Random\n")
-        #policy = eGreedy()
-        #policyName = "eGreedy"
-        #outputFile.write("Policy: eGreedy\n")  # Should we print epsilon value too?
-        policy = Softmax()
-        policyName = "Softmax"
-        outputFile.write("Policy: Softmax\n")
+        policy = eGreedy(0.2)
+        policyName = "eGreedy" + str(policy.getEpsilon())
+        outputFile.write("Policy: eGreedy\n")  # Should we print epsilon value too?
+        #policy = Softmax()
+        #policyName = "Softmax"
+        #outputFile.write("Policy: Softmax\n")
         #policy = UCB1()
         #policyName = "UCB1"
         #outputFile.write("Policy: UCB1\n")
-        #policy = EXP3()
-        #policyName = "EXP3"
+        #policy = EXP3(0.5)
+        #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3\n")
         #policy = MostClick()
         #policyName = "MostClick"

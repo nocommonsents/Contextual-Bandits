@@ -14,11 +14,13 @@ def rargmax(x):
 class eGreedy(ContextualBanditPolicy):
 
 
-    def __init__(self):
-        self.epsilon = 0.1
+    def __init__(self, epsilon):
+        self.epsilon = epsilon
         self.counts = {}
         self.values = {}
 
+    def getEpsilon(self):
+        return self.epsilon
 
 
     def getActionToPerform(self, visitor,possibleActions):

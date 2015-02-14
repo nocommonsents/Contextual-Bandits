@@ -19,10 +19,12 @@ def categorical_draw(x):
 class EXP3(ContextualBanditPolicy):
 
 
-    def __init__(self):
-        self.gamma = 0.5
+    def __init__(self, gamma):
+        self.gamma = gamma
         self.weights = {}
 
+    def getGamma(self):
+        return self.gamma
 
     def getActionToPerform(self, visitor,possibleActions):
         psweights ={}

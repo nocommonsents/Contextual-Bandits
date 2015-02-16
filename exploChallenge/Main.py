@@ -61,7 +61,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputs.txt", "a+")
+        outputFile = open("banditOutputsGreedy10.txt", "a+")
 
 
         try:
@@ -86,16 +86,16 @@ class Main:
         #policyName = "MyPolicy"
         #outputFile.write("Policy: MyPolicy\n")
 
-        policy = RandomPolicy()
-        policyName = "Random"
-        outputFile.write("Policy: Random\n")
+        #policy = RandomPolicy()
+        #policyName = "Random"
+        #outputFile.write("Policy: Random\n")
 
-        #policy = eGreedy(0.2)
-        #policyName = "eGreedy" + str(policy.getEpsilon())
-        #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+        policy = eGreedy(0.1)
+        policyName = "eGreedy" + str(policy.getEpsilon())
+        outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        #policy = Softmax()
-        #policyName = "Softmax"
+        #policy = Softmax(0.1)
+        #policyName = "Softmax" + str(policy.getTemp())
         #outputFile.write("Policy: Softmax\n")
 
         #policy = UCB1()

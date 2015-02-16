@@ -19,11 +19,13 @@ def categorical_draw(x):
 class Softmax(ContextualBanditPolicy):
 
 
-    def __init__(self):
-        self.temperature = 0.1
+    def __init__(self, temp):
+        self.temperature = temp
         self.counts = {}
         self.values = {}
 
+    def getTemp(self):
+        return self.temperature
 
     def getActionToPerform(self, visitor,possibleActions):
         psvalues = {}

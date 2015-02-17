@@ -1,5 +1,6 @@
-__author__ = 'dai.shi'
+__author__ = 'bixlermike'
 
+import math
 import random as rn
 import numpy as np
 import operator
@@ -11,11 +12,11 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return rn.choice(indices)
 
-class eGreedy(ContextualBanditPolicy):
+class eAnnealing(ContextualBanditPolicy):
 
 
-    def __init__(self, epsilon):
-        self.epsilon = epsilon
+    def __init__(self):
+        self.epsilon = {}
         self.counts = {}
         self.values = {}
 
@@ -31,6 +32,9 @@ class eGreedy(ContextualBanditPolicy):
                 self.values[action.getID()] = 1.0
 
         psvalues = [self.values[a.getID()] for a in possibleActions]
+
+        t = sum(self.counts) + 1
+        self.epsilon = 1 / math.log(t + 0.0000001)
 
         if rn.random() > self.epsilon:
             action = possibleActions[rargmax(psvalues)]

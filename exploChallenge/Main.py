@@ -29,6 +29,7 @@ from exploChallenge.logs.yahoo.YahooVisitor import YahooVisitor
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.eGreedy import eGreedy
+from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
@@ -93,6 +94,10 @@ class Main:
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+
+        #policy = eAnnealing()
+        #policyName = "eAnnealing"
+        #outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())

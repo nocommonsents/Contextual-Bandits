@@ -11,10 +11,7 @@ We will then test the same contextual bandit algorithms on the Yahoo data set to
 Contextual bandit policy is set in exploChallenge > Main.py in main method
 
 To-do:
-- (Done) Save results to file, including the contextual bandit used and the input parameters used (number of users, number of features, etc.)
 
-- (Done) In exploChallenge > eval > MyEvaluationPolicy.py, have log method print out every x evaluations, not x lines without creating duplicate lines (prints duplicates until next evaluation using that particular contextual bandit)
+- Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to explicitly set a single click-through rate for each simulation, though our bandit algorithms should be able to learn from that as well.  This is done right now in the DataGenerator.java file.
 
-- (Done for eGreedy and EXP3) When printing out the contextual bandit used to the output file, also print out the parameters (epsilon, alpha, etc.)
-
-- Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to explicitly set a single click-through rate for each simulation, though it could likely learn from that as well.  This is done right now in the DataGenerator.java file.
+- (Highest priority) Need to fix EnsemblePolicy class to allow for a combination of the other policies to be used.  For example, a simple version of this might randomly pick one of the other contextual policies for some number of steps, and after that pick the policy with the highest average reward.  Or we might have each contextual policy vote on which article to pick, and we weight their picks by their average rewards to that point to choose one article.

@@ -37,12 +37,12 @@ class EnsembleModel(ContextualBanditPolicy):
         return
 
     #@Override
-
     def getPolicyToPerform(self):
         # Add more complex logic to policy selection later...
         self.chosenPolicy =  random.choice(self.policies)
         return
 
+    #@Override
     def getActionToPerform(self, ctx, possibleActions):
         self.chosenPolicy.getActionToPerform(self, ctx, possibleActions)
         return

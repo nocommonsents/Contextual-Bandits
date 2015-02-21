@@ -40,6 +40,8 @@ from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
+from exploChallenge.policies.EnsembleModel import EnsembleModel
+
 from time import strftime
 
 
@@ -62,14 +64,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsUCB1.txt", "a+")
+        outputFile = open("banditOutputsSimulatedseAnnealings.txt", "a+")
 
 
         try:
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
-            #inputFileShort = "s"   # Simulated data = "s"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-all"
-            inputFileShort = "y"    # Yahoo! data = "y"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
+            inputFileShort = "s"   # Simulated data = "s"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-all"
+            #inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
         except:
@@ -95,17 +97,17 @@ class Main:
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealing()
-        #policyName = "eAnnealing"
-        #outputFile.write("Policy: eAnnealing\n")
+        policy = eAnnealing()
+        policyName = "eAnnealing"
+        outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())
         #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
-        policy = UCB1()
-        policyName = "UCB1"
-        outputFile.write("Policy: UCB1\n")
+        #policy = UCB1()
+        #policyName = "UCB1"
+        #outputFile.write("Policy: UCB1\n")
 
         #policy = EXP3(0.5)
         #policyName = "EXP3" + str(policy.getGamma())
@@ -134,6 +136,10 @@ class Main:
         #policy = LinearBayesFtu()
         #policyName = "LinearBayesFTU"
         #outputFile.write("Policy: Linear Bayes FTU\n")
+
+        #policy = EnsembleModel()
+        #policyName = "Ensemble"
+        #outputFile.write("Policy: Ensemble\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

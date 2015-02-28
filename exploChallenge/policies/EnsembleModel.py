@@ -2,6 +2,7 @@ import numpy as np
 import random
 import re
 
+from exploChallenge.eval.MyEvaluationPolicy import MyEvaluationPolicy
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.eGreedy import eGreedy
@@ -37,6 +38,7 @@ class EnsembleModel(ContextualBanditPolicy):
         self.policy_four_score = 0
         self.policy_scores = [self.policy_one_score, self.policy_two_score, self.policy_three_score,
                               self.policy_four_score]
+        self.policy_rewards = [0, 0, 0, 0]
         self.chosen_policy = None
 
     #@Override

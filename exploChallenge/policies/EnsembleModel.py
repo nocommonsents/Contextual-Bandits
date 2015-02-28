@@ -32,18 +32,41 @@ class EnsembleModel(ContextualBanditPolicy):
         self.policy_three = UCB1()
         self.policy_four = Naive3()
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four]
-        self.policy_one_score = 0
-        self.policy_two_score = 0
-        self.policy_three_score = 0
-        self.policy_four_score = 0
+        self.policy_one_score = 10
+        self.policy_two_score = 10
+        self.policy_three_score = 10
+        self.policy_four_score = 10
         self.policy_scores = [self.policy_one_score, self.policy_two_score, self.policy_three_score,
                               self.policy_four_score]
-        self.policy_rewards = [0, 0, 0, 0]
+        self.policy_proportions = []
+        self.policy_cutoffs = []
         self.chosen_policy = None
+        self.total_score = 40
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
-        self.chosen_policy =  str(random.choice(self.policies))
+
+        self.policy_proportions = [float(self.policy_one_score)/self.total_score, float(self.policy_two_score)/self.total_score,
+                                   float(self.policy_three_score)/self.total_score, float(self.policy_four_score)/self.total_score]
+        self.policy_cutoffs = [float(self.policy_proportions[0]),float(self.policy_proportions[0]+self.policy_proportions[1]),
+                           float(self.policy_proportions[0]+self.policy_proportions[1]+self.policy_proportions[2]),1.0]
+        #print "Proportions " + str(self.policy_proportions)
+        #print "Cutoffs " + str(self.policy_cutoffs)
+
+        random_number = random.random()
+
+        if (random_number < self.policy_cutoffs[0]):
+            self.chosen_policy =  str(self.policies[0])
+        elif (random_number < self.policy_cutoffs[1]):
+            self.chosen_policy = str(self.policies[1])
+        elif (random_number < self.policy_cutoffs[2]):
+            self.chosen_policy = str(self.policies[2])
+        else:
+            self.chosen_policy = str(self.policies[3])
+        #print "Policy chosen was " + str(self.chosen_policy)
+
+
+
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             #print "Choice is Annealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
@@ -65,13 +88,18 @@ class EnsembleModel(ContextualBanditPolicy):
         #print "Updating policy " + str(self.chosen_policy)
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             self.policy_one.updatePolicy(content, chosen_arm, reward)
+            self.policy_one_score += reward
         elif (re.match('<exploChallenge\.policies\.Softmax',self.chosen_policy)):
             self.policy_two.updatePolicy(content, chosen_arm, reward)
+            self.policy_two_score += reward
         elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
             self.policy_three.updatePolicy(content, chosen_arm, reward)
+            self.policy_three_score += reward
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
             self.policy_four.updatePolicy(content, chosen_arm, reward)
+            self.policy_four_score += reward
         else:
             print "Error in updatePolicy!"
+        self.total_score += reward
         return
 

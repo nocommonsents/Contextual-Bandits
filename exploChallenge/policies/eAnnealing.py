@@ -25,7 +25,6 @@ class eAnnealing(ContextualBanditPolicy):
 
 
     def getActionToPerform(self, visitor, possibleActions):
-
         for action in possibleActions:
             if action.getID() not in self.counts:
                 self.counts[action.getID()] = 1.0

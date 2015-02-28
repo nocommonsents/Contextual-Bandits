@@ -38,7 +38,6 @@ class Evaluator:
             #print self.generator.getPossibleActions()
 
             a = self.policy.getActionToPerform(logLine.getContext(), self.generator.getPossibleActions())
-            #print a
             if a not in self.generator.getPossibleActions():
                 raise IllegalChoiceOfArticleException
             self.evalPolicy.evaluate(logLine, a)

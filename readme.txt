@@ -14,4 +14,6 @@ To-do:
 
 - Think about how to create simulated data that algorithms can learn from.  I don’t think it’s accurate to explicitly set a single click-through rate for each simulation, though our bandit algorithms should be able to learn from that as well.  This is done right now in the DataGenerator.java file.  So far, the contextual bandits have not done well at all on simulated data (hardly better than random guessing).
 
-- (Highest priority - have version working that picks random policy at each time step) Need to fix EnsemblePolicy class to allow for a combination of the other policies to be used.  For example, a simple version of this might randomly pick one of the other contextual policies for some number of steps, and after that pick the policy with the highest average reward.  Or we might have each contextual policy vote on which article to pick, and we weight their picks by their average rewards to that point to choose one article.
+- Create different version of ensemble model.  Right now have:
+    - Version that picks one of four policies completely at random and picks the arm chosen by the policy
+    - Version that uses version of Softmax algorithm to pick an arm (Need to add exponential and temperature components)

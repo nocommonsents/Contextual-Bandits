@@ -21,7 +21,7 @@ from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
 def rargmax(x):
     return np.argmax(x)
 
-class EnsembleModel(ContextualBanditPolicy):
+class EnsembleSoftmaxModel(ContextualBanditPolicy):
 
 
 

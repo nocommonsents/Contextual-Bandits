@@ -40,7 +40,8 @@ from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
-from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleModel
+from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
+from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
 
 from time import strftime
 
@@ -64,7 +65,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmax0.1.txt", "a+")
+        outputFile = open("banditOutputsEnsembleRandom.txt", "a+")
 
 
         try:
@@ -102,9 +103,9 @@ class Main:
         #policyName = "eAnnealing"
         #outputFile.write("Policy: eAnnealing\n")
 
-        policy = Softmax(0.1)
-        policyName = "Softmax" + str(policy.getTemp())
-        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        #policy = Softmax(0.1)
+        #policyName = "Softmax" + str(policy.getTemp())
+        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"
@@ -137,6 +138,10 @@ class Main:
         #policy = LinearBayesFtu()
         #policyName = "LinearBayesFTU"
         #outputFile.write("Policy: Linear Bayes FTU\n")
+
+        policy = EnsembleRandomModel()
+        policyName = "EnsembleRandom"
+        outputFile.write("Policy: EnsembleRandom\n")
 
         #policy = EnsembleSoftmaxModel()
         #policyName = "EnsembleSoftmax"

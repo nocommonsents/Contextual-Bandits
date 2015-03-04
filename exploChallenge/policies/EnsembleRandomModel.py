@@ -19,7 +19,8 @@ from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
-class EnsembleModel(ContextualBanditPolicy):
+
+class EnsembleRandomModel(ContextualBanditPolicy):
 
 
     def __init__(self):
@@ -29,19 +30,7 @@ class EnsembleModel(ContextualBanditPolicy):
         self.policy_three = UCB1()
         self.policy_four = Naive3()
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four]
-        self.policy_one_score = 0
-        self.policy_two_score = 0
-        self.policy_three_score = 0
-        self.policy_four_score = 0
-        self.policy_scores = [self.policy_one_score, self.policy_two_score, self.policy_three_score,
-                              self.policy_four_score]
         self.chosen_policy = None
-
-    #@Override
-    def getPolicyToPerform(self):
-        # Add more complex logic to policy selection later...
-        self.chosenPolicy =  random.choice(self.policies)
-        return
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
@@ -64,7 +53,6 @@ class EnsembleModel(ContextualBanditPolicy):
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward):
-        self.chosenPolicy.updatePolicy(self, content, chosen_arm, reward)
         #print "Updating policy " + str(self.chosen_policy)
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             self.policy_one.updatePolicy(content, chosen_arm, reward)

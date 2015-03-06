@@ -65,7 +65,8 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandom.txt", "a+")
+        outputFile = open("banditOutputsEnsembleSoftmax.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
@@ -139,13 +140,13 @@ class Main:
         #policyName = "LinearBayesFTU"
         #outputFile.write("Policy: Linear Bayes FTU\n")
 
-        policy = EnsembleRandomModel()
-        policyName = "EnsembleRandom"
-        outputFile.write("Policy: EnsembleRandom\n")
+        #policy = EnsembleRandomModel()
+        #policyName = "EnsembleRandom"
+        #outputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleSoftmaxModel()
-        #policyName = "EnsembleSoftmax"
-        #outputFile.write("Policy: EnsembleSoftmax\n")
+        policy = EnsembleSoftmaxModel(0.1)
+        policyName = "EnsembleSoftmax"
+        outputFile.write("Policy: EnsembleSoftmax\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

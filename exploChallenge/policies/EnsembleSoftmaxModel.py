@@ -31,29 +31,35 @@ class EnsembleSoftmaxModel(ContextualBanditPolicy):
         self.policy_three = UCB1()
         self.policy_four = Naive3()
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four]
-        self.policy_one_score = 10
-        self.policy_two_score = 10
-        self.policy_three_score = 10
-        self.policy_four_score = 10
+        self.policy_one_score = 0
+        self.policy_two_score = 0
+        self.policy_three_score = 0
+        self.policy_four_score = 0
         self.policy_scores = [self.policy_one_score, self.policy_two_score, self.policy_three_score,
                               self.policy_four_score]
+        self.policy_one_count = 0
+        self.policy_two_count = 0
+        self.policy_three_count = 0
+        self.policy_four_count = 0
+        self.policy_counts = [self.policy_one_count, self.policy_two_count, self.policy_three_count,
+                              self.policy_four_count]
         self.policy_proportions = []
         self.policy_cutoffs = []
         self.chosen_policy = None
-        self.total_score = 40
         self.temperature = temp
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
 
         z = (math.exp(float(self.policy_one_score)/self.temperature) + math.exp(float(self.policy_two_score)/self.temperature) +
-             math.exp(float(self.policy_three_score)/self.temperature) + math.exp(float(self.policy_four_score)/self.temperature)) / self.temperature
-        self.policy_proportions = [math.exp(float(self.policy_one_score))/z, math.exp(float(self.policy_two_score))/z,
-                                   math.exp(float(self.policy_three_score))/z, math.exp(float(self.policy_four_score))/z]
+             math.exp(float(self.policy_three_score)/self.temperature) + math.exp(float(self.policy_four_score)/self.temperature))
+        #print z
+        self.policy_proportions = [math.exp(float(self.policy_one_score)/self.temperature)/z, math.exp(float(self.policy_two_score)/self.temperature)/z,
+                                   math.exp(float(self.policy_three_score)/self.temperature)/z, math.exp(float(self.policy_four_score)/self.temperature)/z]
         self.policy_cutoffs = [float(self.policy_proportions[0]),float(self.policy_proportions[0]+self.policy_proportions[1]),
                            float(self.policy_proportions[0]+self.policy_proportions[1]+self.policy_proportions[2]),1.0]
-        print "Proportions " + str(self.policy_proportions)
-        print "Cutoffs " + str(self.policy_cutoffs)
+        #print "Proportions " + str(self.policy_proportions)
+        #print "Cutoffs " + str(self.policy_cutoffs)
 
         random_number = random.random()
 
@@ -90,18 +96,29 @@ class EnsembleSoftmaxModel(ContextualBanditPolicy):
         #print "Updating policy " + str(self.chosen_policy)
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             self.policy_one.updatePolicy(content, chosen_arm, reward)
-            self.policy_one_score += reward
+            self.policy_one_count +=1
+            if reward is True:
+                self.policy_one_score = ((self.policy_one_count - 1) / float(self.policy_one_count)) * self.policy_one_score + (1 / float(self.policy_one_count))
+            #print "Policy one score is: " + str(self.policy_one_score)
         elif (re.match('<exploChallenge\.policies\.Softmax',self.chosen_policy)):
             self.policy_two.updatePolicy(content, chosen_arm, reward)
-            self.policy_two_score += reward
+            self.policy_two_count +=1
+            if reward is True:
+                self.policy_two_score = ((self.policy_two_count - 1) / float(self.policy_two_count)) * self.policy_two_score + (1 / float(self.policy_two_count))
+            #print "Policy two score is: " + str(self.policy_two_score)
         elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
             self.policy_three.updatePolicy(content, chosen_arm, reward)
-            self.policy_three_score += reward
+            self.policy_three_count +=1
+            if reward is True:
+                self.policy_three_score = ((self.policy_three_count - 1) / float(self.policy_three_count)) * self.policy_three_score + (1 / float(self.policy_three_count))
+            #print "Policy three score is: " + str(self.policy_three_score)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
             self.policy_four.updatePolicy(content, chosen_arm, reward)
-            self.policy_four_score += reward
+            self.policy_four_count +=1
+            if reward is True:
+                self.policy_four_score = ((self.policy_four_count - 1) / float(self.policy_four_count)) * self.policy_four_score + (1 / float(self.policy_four_count))
+            #print "Policy four score is: " + str(self.policy_four_score)
         else:
             print "Error in updatePolicy!"
-        self.total_score += reward
         return
 

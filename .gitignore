@@ -4,3 +4,7 @@ exploChallenge/sampleData.txt
 banditOutputs*
 *.pyc
 testing.txt
+
+banditCtrOutputSummary.txt
+
+banditRuntimeOutputSummary.txt

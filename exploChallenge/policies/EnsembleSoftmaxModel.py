@@ -73,8 +73,6 @@ class EnsembleSoftmaxModel(ContextualBanditPolicy):
             self.chosen_policy = str(self.policies[3])
         #print "Policy chosen was " + str(self.chosen_policy)
 
-
-
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             #print "Choice is Annealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)

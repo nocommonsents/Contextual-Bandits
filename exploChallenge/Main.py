@@ -43,6 +43,7 @@ from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
 from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingModel
+from exploChallenge.policies.EnsemblePositiveReinforcementModel import EnsemblePositiveReinforcementModel
 
 from time import strftime
 
@@ -152,6 +153,10 @@ class Main:
         #policy = EnsembleEAnnealingModel()
         #policyName = "EnsembleEAnnealing"
         #outputFile.write("Policy: EnsembleEAnnealing\n")
+
+        policy = EnsemblePositiveReinforcementModel()
+        policyName = "EnsemblePositiveReinforcement"
+        outputFile.write("Policy: EnsemblePositiveReinforcement\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

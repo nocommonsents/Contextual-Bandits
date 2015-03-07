@@ -1,0 +1,5 @@
+python create_mean_aer_plot.py
+python create_min_aer_plot.py
+python create_max_aer_plot.py
+python create_var_aer_plot.py
+python create_stdev_aer_plot.py

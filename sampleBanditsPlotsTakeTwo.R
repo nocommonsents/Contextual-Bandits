@@ -1,13 +1,13 @@
 library(ggplot2)
 library(reshape2)
-all_data <- read.csv(file="banditTesting.csv")
+all_data <- read.csv(file="banditMeanAERSummary.csv")
 
 meltdf <- melt(all_data,id="t")
 ggplot(meltdf,aes(x=t,y=value,colour=variable,group=variable)) + 
     geom_line() + ggtitle('Contextual Bandit Comparison') + theme(plot.title = element_text(size=16, face="bold", vjust=2)) + 
-labs(x="Trial", y=expression(paste("Cumulative Reward"))) +
+labs(x="Num Evals", y=expression(paste("Average Expected Reward"))) +
 theme(legend.title = element_text(size=12, face="bold"))+
-  scale_color_discrete(name="Bandit Algorithm")
+  scale_color_discrete(name="Algorithm")
 
 #labs(x="Date", y=expression(paste("Temperature ( ", degree ~ F, #" )")), title="Temperature")
 #ggplot(data = all_data, aes(x=t, y=ucb_0.001)) +

@@ -18,9 +18,9 @@ my %all_ctr_hash;
 my %total_runtime_hash; my %count_runtime_hash;
 my %all_runtime_hash;
 
-my $ctr_filename = 'banditCtrOutputSummary.txt';
+my $ctr_filename = 'banditCtrOutputSummary.csv';
 open(OUTPUT, '>', $ctr_filename) or die "Could not open file '$ctr_filename'";
-my $runtime_filename = 'banditRuntimeOutputSummary.txt';
+my $runtime_filename = 'banditRuntimeOutputSummary.csv';
 open(OUTPUT2, '>', $runtime_filename) or die "Could not open file '$runtime_filename'";
 
 for my $file (@files) {
@@ -79,7 +79,7 @@ foreach $key1 (sort keys %total_ctr_hash){
 	print OUTPUT "$key1,$count,$mean,$min,$max,$var,$stdev\n";
 }
 print OUTPUT2 "Runtime Summary\n";
-print OUTPUT2 "Key,Number of Runtime Values, Mean Runtime, Min Runtime, Max Runtime, Var Runtime, Stdev Runtime, All Runtimes\n";
+print OUTPUT2 "Key,,,Number of Runtime Values, Mean Runtime, Min Runtime, Max Runtime, Var Runtime, Stdev Runtime, All Runtimes\n";
 foreach $key2 (sort keys %total_runtime_hash){
 	$temp_hash_to_string = "$all_runtime_hash{$key2}";
 	@runtime_array = split /,/,$temp_hash_to_string;

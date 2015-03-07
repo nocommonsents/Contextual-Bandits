@@ -61,8 +61,7 @@ for my $file (@files) {
 		}
 	}
 }
-print OUTPUT "Click-through Rate Summary\n";
-print OUTPUT "Key,Number of CTR Values, Mean CTR, Min CTR, Max CTR, Var CTR, Stdev CTR\n";
+print OUTPUT "Key,NumberofCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
 foreach $key1 (sort keys %total_ctr_hash){
 	$temp_hash_to_string = "$all_ctr_hash{$key1}";
 	@ctr_array = split /,/,$temp_hash_to_string;
@@ -78,7 +77,7 @@ foreach $key1 (sort keys %total_ctr_hash){
 	$stdev = sprintf("%.10f", $stdev);
 	print OUTPUT "$key1,$count,$mean,$min,$max,$var,$stdev\n";
 }
-print OUTPUT2 "Key,Number of Runtime Values, Mean Runtime, Min Runtime, Max Runtime, Var Runtime, Stdev Runtime, All Runtimes\n";
+print OUTPUT2 "Key,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime,AllRuntimes\n";
 foreach $key2 (sort keys %total_runtime_hash){
 	$temp_hash_to_string = "$all_runtime_hash{$key2}";
 	@runtime_array = split /,/,$temp_hash_to_string;

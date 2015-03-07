@@ -28,7 +28,7 @@ open OUTPUT5, '>', $output_file_5 or die "Could not open output file 5 for writi
 #Policy, Dataset, NumEvals, NumRuns, MeanAER, MinAER, MaxAER, VarAER, StDevAER
 #eAnnealing	y	100	28	0.037857143	0.01	0.07	0.000306349	0.017502834
 while (<INPUT>){
-	if ($. == 1 || $. == 2){
+	if ($. == 1){
 		next;
 	}
 	@line = split /,/, $_;

@@ -1,0 +1,8 @@
+source("sampleBanditsPlotsTakeTwo.R")
+source("sampleBanditsPlotsTakeTwo.R")
+plot(cars)
+dev.off()
+dev.off()
+sessionInfo()
+dev.cur()
+source("sampleBanditsPlotsTakeTwo.R")

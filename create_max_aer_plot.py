@@ -42,6 +42,6 @@ ax.yaxis.grid(color='gray', linestyle='dashed')
 ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
-plt.savefig("plots/maxAER.png")
+plt.savefig("plots/maxAER.png", bbox_inches='tight')
 
 

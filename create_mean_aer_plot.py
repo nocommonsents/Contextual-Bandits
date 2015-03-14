@@ -42,6 +42,7 @@ ax.yaxis.grid(color='gray', linestyle='dashed')
 ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
-plt.savefig("plots/averageAER.png")
+#plt.tight_layout()
+plt.savefig("plots/averageAER.png", bbox_inches='tight')
 
 

@@ -67,15 +67,15 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleSoftmax.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsEnsembleEAnnealing.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
             #inputFileShort = "s"   # Simulated data = "s"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
             inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
@@ -94,9 +94,9 @@ class Main:
         #policyName = "MyPolicy"
         #outputFile.write("Policy: MyPolicy\n")
 
-        #policy = RandomPolicy()
-        #policyName = "Random"
-        #outputFile.write("Policy: Random\n")
+        policy = RandomPolicy()
+        policyName = "Random"
+        outputFile.write("Policy: Random\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -146,17 +146,17 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        policy = EnsembleSoftmaxModel(0.1)
-        policyName = "EnsembleSoftmax"
-        outputFile.write("Policy: EnsembleSoftmax\n")
+        #policy = EnsembleSoftmaxModel(0.1)
+        #policyName = "EnsembleSoftmax"
+        #outputFile.write("Policy: EnsembleSoftmax\n")
 
         #policy = EnsembleEAnnealingModel()
         #policyName = "EnsembleEAnnealing"
         #outputFile.write("Policy: EnsembleEAnnealing\n")
 
-        policy = EnsemblePositiveReinforcementModel()
-        policyName = "EnsemblePositiveReinforcement"
-        outputFile.write("Policy: EnsemblePositiveReinforcement\n")
+        #policy = EnsemblePositiveReinforcementModel()
+        #policyName = "EnsemblePositiveReinforcement"
+        #outputFile.write("Policy: EnsemblePositiveReinforcement\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

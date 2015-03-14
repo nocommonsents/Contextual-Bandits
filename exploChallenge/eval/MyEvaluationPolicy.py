@@ -11,6 +11,7 @@
 #package exploChallenge.eval;
 
 import io
+import time
 from exploChallenge.eval.EvaluationPolicy import EvaluationPolicy
 
 class MyEvaluationPolicy(EvaluationPolicy):

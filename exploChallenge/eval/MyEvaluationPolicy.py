@@ -38,6 +38,8 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.lines = 0
         self.logFrequency = -1
         self.lastEvaluationNumber = 0
+        currentTimeMillis = lambda:  int(round(time.time() * 1000))
+        self.startTime = currentTimeMillis()
 
 
     def __init2__(self, outputStream, logFrequency, linesToSkip, policy, inputFileShortened, outputFile):
@@ -51,16 +53,19 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.policyName = policy
         self.inputFileShort = inputFileShortened
         self.outputFile = outputFile
-        self.outputFile.write("Policy,Evaluations,CTR,Input File\n")
-        self.logger.write("Policy,Evaluations,CTR,Input File\n")
+        currentTimeMillis = lambda:  int(round(time.time() * 1000))
+        self.startTime = currentTimeMillis()
+        self.outputFile.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (ms)\n")
+        self.logger.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (ms)\n")
 
 
     #@Override
     def log(self):
         if (self.evaluations % 100 == 0 and self.evaluations != self.lastEvaluationNumber):
+            currentTimeMillis = lambda:  int(round(time.time() * 1000))
             self.lastEvaluationNumber = self.evaluations
-            self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
-            self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "\n")
+            self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str(currentTimeMillis() - self.startTime) + "\n")
+            self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str(currentTimeMillis() - self.startTime) +"\n")
         self.logger.flush()
 
     #@Override

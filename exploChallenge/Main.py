@@ -67,15 +67,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleEAnnealing.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsEXP3WithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/sampleData.txt"
-            #inputFileShort = "s"   # Simulated data = "s"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
             inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
@@ -94,9 +92,9 @@ class Main:
         #policyName = "MyPolicy"
         #outputFile.write("Policy: MyPolicy\n")
 
-        policy = RandomPolicy()
-        policyName = "Random"
-        outputFile.write("Policy: Random\n")
+        #policy = RandomPolicy()
+        #policyName = "Random"
+        #outputFile.write("Policy: Random\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -114,9 +112,9 @@ class Main:
         #policyName = "UCB1"
         #outputFile.write("Policy: UCB1\n")
 
-        #policy = EXP3(0.5)
-        #policyName = "EXP3" + str(policy.getGamma())
-        #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
+        policy = EXP3(0.5)
+        policyName = "EXP3" + str(policy.getGamma())
+        outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
         #policy = MostClick()
         #policyName = "MostClick"
@@ -161,8 +159,8 @@ class Main:
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 
         ## Only use the second one for the EXP3 algorithm
-        ev = Evaluator(generator, evalPolicy, policy)
-        #ev = EvaluatorEXP3(generator, evalPolicy, policy)
+        #ev = Evaluator(generator, evalPolicy, policy)
+        ev = EvaluatorEXP3(generator, evalPolicy, policy)
 
 
         value = ev.runEvaluation()

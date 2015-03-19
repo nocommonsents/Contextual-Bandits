@@ -55,8 +55,8 @@ class MyEvaluationPolicy(EvaluationPolicy):
         self.outputFile = outputFile
         currentTimeMillis = lambda:  int(round(time.time() * 1000))
         self.startTime = currentTimeMillis()
-        self.outputFile.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (ms)\n")
-        self.logger.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (ms)\n")
+        self.outputFile.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (s)\n")
+        self.logger.write("Policy,Input File,Evaluations,CTR,Cumulative Runtime (s)\n")
 
 
     #@Override
@@ -64,8 +64,8 @@ class MyEvaluationPolicy(EvaluationPolicy):
         if (self.evaluations % 100 == 0 and self.evaluations != self.lastEvaluationNumber):
             currentTimeMillis = lambda:  int(round(time.time() * 1000))
             self.lastEvaluationNumber = self.evaluations
-            self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str(currentTimeMillis() - self.startTime) + "\n")
-            self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str(currentTimeMillis() - self.startTime) +"\n")
+            self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str((float(currentTimeMillis()) - self.startTime)/1000) + "\n")
+            self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str((float(currentTimeMillis()) - self.startTime)/1000) +"\n")
         self.logger.flush()
 
     #@Override

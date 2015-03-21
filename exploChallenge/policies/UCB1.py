@@ -42,12 +42,15 @@ class UCB1(ContextualBanditPolicy):
 
 
     def updatePolicy(self, content, chosen_arm, reward):
-        self.counts[chosen_arm.getID()] = self.counts[chosen_arm.getID()] + 1
-        n = self.counts[chosen_arm.getID()]
+        try:
+            self.counts[chosen_arm.getID()] = self.counts[chosen_arm.getID()] + 1
+            n = self.counts[chosen_arm.getID()]
 
-        value = self.values[chosen_arm.getID()]
-        new_value = ((n - 1) / float(n)) * value + (1 / float(n)) * reward
-        self.values[chosen_arm.getID()] = new_value
-        return
+            value = self.values[chosen_arm.getID()]
+            new_value = ((n - 1) / float(n)) * value + (1 / float(n)) * reward
+            self.values[chosen_arm.getID()] = new_value
+            return
+        except:
+            return
 
 

@@ -43,7 +43,8 @@ from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
 from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingModel
-from exploChallenge.policies.EnsemblePositiveReinforcementModel import EnsemblePositiveReinforcementModel
+from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
+from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
 
 from time import strftime
 
@@ -67,7 +68,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEXP3WithTime.txt", "a+")
+        outputFile = open("banditOutputsUCB1WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -108,13 +109,13 @@ class Main:
         #policyName = "Softmax" + str(policy.getTemp())
         #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
-        #policy = UCB1()
-        #policyName = "UCB1"
-        #outputFile.write("Policy: UCB1\n")
+        policy = UCB1()
+        policyName = "UCB1"
+        outputFile.write("Policy: UCB1\n")
 
-        policy = EXP3(0.5)
-        policyName = "EXP3" + str(policy.getGamma())
-        outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
+        #policy = EXP3(0.5)
+        #policyName = "EXP3" + str(policy.getGamma())
+        #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
         #policy = MostClick()
         #policyName = "MostClick"
@@ -152,15 +153,23 @@ class Main:
         #policyName = "EnsembleEAnnealing"
         #outputFile.write("Policy: EnsembleEAnnealing\n")
 
+        #policy = EnsembleEAnnealingUpdateAllModel()
+        #policyName = "EnsembleEAnnealingUpdateAll"
+        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+
         #policy = EnsemblePositiveReinforcementModel()
         #policyName = "EnsemblePositiveReinforcement"
         #outputFile.write("Policy: EnsemblePositiveReinforcement\n")
 
+        #policy = EnsembleTestModel()
+        #policyName = "EnsembleTest"
+        #outputFile.write("Policy: EnsembleTest\n")
+
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 
         ## Only use the second one for the EXP3 algorithm
-        #ev = Evaluator(generator, evalPolicy, policy)
-        ev = EvaluatorEXP3(generator, evalPolicy, policy)
+        ev = Evaluator(generator, evalPolicy, policy)
+        #ev = EvaluatorEXP3(generator, evalPolicy, policy)
 
 
         value = ev.runEvaluation()

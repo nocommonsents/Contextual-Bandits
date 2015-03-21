@@ -43,22 +43,20 @@ class Naive3(ContextualBanditPolicy):
         #     choice = rn.choice(possibleActions)
 
         self.t += 1
-
         self.used[choice.getID()] += 1
-
-        '''
-        if (self.t % 10000) == 1:
-            print [self.used[key.getID()] for key in possibleActions], len(possibleActions) - len(self.used.keys())
-        '''
         return choice
 
     def updatePolicy(self, c, a, reward):
-        self.clicks[a.getID()] += reward
-        self.selections[a.getID()] += 1.0
-        for f, p in enumerate(c.getFeatures()):
-            # Feature is "on" and there is a reward given the article
-            self.clicksPerFeature[a.getID()][f] += p * float(reward)
-            # Feature is present is given the article
-            self.selectionsPerFeature[a.getID()][f] += p
+        try:
+            self.clicks[a.getID()] += reward
+            self.selections[a.getID()] += 1.0
+            for f, p in enumerate(c.getFeatures()):
+                # Feature is "on" and there is a reward given the article
+                self.clicksPerFeature[a.getID()][f] += p * float(reward)
+                # Feature is present is given the article
+                self.selectionsPerFeature[a.getID()][f] += p
 
-            #self.pai[a.getID()] += features * (float(reward) - self.pai[a.getID()]) / (1.0 + self.selections[a.getID()])
+                #self.pai[a.getID()] += features * (float(reward) - self.pai[a.getID()]) / (1.0 + self.selections[a.getID()])
+            return
+        except:
+            return

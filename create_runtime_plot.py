@@ -40,7 +40,6 @@ for line in data:
     maxs.append(float(max))
     vars.append(float(var))
     stdevs.append(float(stdev))
-    #print dict[policy]
     #ax.bar((N*count)+ind, dict[policy], width, color=next(colors))
     count+=1
 

@@ -1,3 +1,5 @@
+use strict;
+
 use Cwd qw();
 use File::Slurp;
 use Statistics::Descriptive qw(:all);
@@ -41,7 +43,7 @@ for my $file (@files) {
 			elsif ($_ =~ /([\w\d\.]+),(\w+),(\d+),([\d\.]+),([\d\.]+)/){
 				$current_parameters = "$1,$2,$3";
 				# Bin times into 10 second buckets
-				$time_bin = int($5/10);
+				$time_bin = int($5/10)*10;
 				$time_parameters = "$1,$2,$time_bin";
 				
 				$total_ctr_hash{$current_parameters} += $4;
@@ -54,13 +56,13 @@ for my $file (@files) {
 				}
 				
 				#print $_;
-				$total_time_vs_ctr_hash{$time_parameters} += $5;
+				$total_time_vs_ctr_hash{$time_parameters} += $4;
 				$count_time_vs_ctr_hash{$time_parameters}++;
 				if ($count_time_vs_ctr_hash{$time_parameters} == 1) {
-					$all_time_vs_ctr_hash{$time_parameters} = $5;
+					$all_time_vs_ctr_hash{$time_parameters} = $4;
 				}
 				else {
-					$all_time_vs_ctr_hash{$time_parameters} = "$all_time_vs_ctr_hash{$time_parameters},$5";
+					$all_time_vs_ctr_hash{$time_parameters} = "$all_time_vs_ctr_hash{$time_parameters},$4";
 				}
 			}
 			# Sample line: Total runtime: 2296449 ms

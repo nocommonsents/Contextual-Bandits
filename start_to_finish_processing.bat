@@ -1,5 +1,5 @@
-perl processSummaryStats.pl
 perl outputSummaryStats.pl
+perl processSummaryStats.pl
 python create_mean_aer_plot.py
 python create_min_aer_plot.py
 python create_max_aer_plot.py

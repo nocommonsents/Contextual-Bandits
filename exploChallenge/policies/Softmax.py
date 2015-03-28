@@ -14,7 +14,7 @@ def categorical_draw(x):
         cum_prob += prob
         if cum_prob > z:
             return p
-    return x.iterkeys().next()
+    return len(x)-1
 
 class Softmax(ContextualBanditPolicy):
 
@@ -57,7 +57,7 @@ class Softmax(ContextualBanditPolicy):
 
             value = self.values[chosen_arm.getID()]
             if reward is True:
-                new_value = ((n - 1) / float(n)) * value + (1 / float(n))
+                new_value = ((n - 1) / float(n)) * value + (1 / float(n)) * reward
                 self.values[chosen_arm.getID()] = new_value
             return
         except:

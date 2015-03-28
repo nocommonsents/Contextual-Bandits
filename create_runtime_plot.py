@@ -70,5 +70,4 @@ ax.yaxis.grid(color='gray', linestyle='dashed')
 #ax.legend((rects1[0], rects2[0], rects3[0], rects4[0], rects5[0], rects6[0], rects7[0]), ('Min','Mean','Max'))
 #ax.legend((rects1[0], rects2[0], rects3[0], rects1[1], rects2[1], rects3[1], rects1[2], rects2[2]), (policies))
 plt.savefig("plots/runtimeComparison.png")
-
-plt.show()
+#plt.show()

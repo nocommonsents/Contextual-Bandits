@@ -142,8 +142,8 @@ while (<INPUT2>){
 }
 
 # Print out header row
-print OUTPUT6 "Time bin,";
-print OUTPUT7 "Time bin,";
+print OUTPUT6 "TimeBin,";
+print OUTPUT7 "TimeBin,";
 foreach my $key (keys %all_time_vs_ctr_policies_hash) {
 	print OUTPUT6 "$key,";
 	print OUTPUT7 "$key,";

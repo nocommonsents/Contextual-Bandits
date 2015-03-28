@@ -6,10 +6,10 @@ use Statistics::Descriptive qw(:all);
 
 my $path = Cwd::cwd();
 my @files = read_dir $path;
-my @files_to_process = $full_candidate_article_string =~ m/(\d+)/g;
+my @files_to_process = my $full_candidate_article_string =~ m/(\d+)/g;
 
-my $key1; my $key2;
-my $current_policy; my $current_parameters; my $std_dev; my $temp_hash_to_string;
+my $key1; my $key2; my $key3;
+my $current_policy; my $current_parameters; my $time_parameters; my $std_dev; my $temp_hash_to_string;
 my $stat; my $count; my $mean; my $min; my $max; my $var; my $stdev;
 my $converted_runtime; my $time_bin;
 

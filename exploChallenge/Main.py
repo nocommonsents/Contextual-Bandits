@@ -34,12 +34,9 @@ from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
-from exploChallenge.policies.Mostclick import Mostclick
-from exploChallenge.policies.Clickrate import Clickrate
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
-from exploChallenge.policies.LinearBayesFtu import LinearBayesFtu
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
 from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
@@ -69,7 +66,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
+        outputFile = open("banditOutputsSoftmax0.01WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -90,9 +87,6 @@ class Main:
         outputFile.write("Input file: " + os.path.basename(inputFile) + "\n")
 
         ## Pick a single contextual bandit algorithm and corresponding output file
-        #policy = MyPolicy()
-        #policyName = "MyPolicy"
-        #outputFile.write("Policy: MyPolicy\n")
 
         #policy = RandomPolicy()
         #policyName = "Random"
@@ -104,11 +98,11 @@ class Main:
 
         #policy = eAnnealing()
         #policyName = "eAnnealing"
-        #outputFile.write("Policy: eAnnealing\n")
+        #utputFile.write("Policy: eAnnealing\n")
 
-        #policy = Softmax(0.1)
-        #policyName = "Softmax" + str(policy.getTemp())
-        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        policy = Softmax(0.01)
+        policyName = "Softmax" + str(policy.getTemp())
+        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"
@@ -117,14 +111,6 @@ class Main:
         #policy = EXP3(0.5)
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
-
-        #policy = MostClick()
-        #policyName = "MostClick"
-        #outputFile.write("Policy: Most Clicked\n")
-
-        #policy = Clickrate()
-        #policyName = "ClickRate"
-        #outputFile.write("Policy: Click Rate\n")
 
         #policy = Naive3()
         #policyName = "Naive3"
@@ -138,17 +124,13 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: Linear Bayes\n")
 
-        #policy = LinearBayesFtu()
-        #policyName = "LinearBayesFTU"
-        #outputFile.write("Policy: Linear Bayes FTU\n")
-
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        policy = EnsembleRandomModelUpdateAll()
-        policyName = "EnsembleRandomUpdateAll"
-        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        #policy = EnsembleRandomModelUpdateAll()
+        #policyName = "EnsembleRandomUpdateAll"
+        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleSoftmaxModel(0.1)
         #policyName = "EnsembleSoftmax"
@@ -161,10 +143,6 @@ class Main:
         #policy = EnsembleEAnnealingUpdateAllModel()
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
-
-        #policy = EnsemblePositiveReinforcementModel()
-        #policyName = "EnsemblePositiveReinforcement"
-        #outputFile.write("Policy: EnsemblePositiveReinforcement\n")
 
         #policy = EnsembleTestModel()
         #policyName = "EnsembleTest"

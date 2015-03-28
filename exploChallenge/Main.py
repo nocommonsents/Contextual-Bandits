@@ -36,6 +36,7 @@ from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
+from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
@@ -43,6 +44,8 @@ from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
 from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingModel
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
+
+from exploChallenge.policies.Tester import Tester
 
 from time import strftime
 
@@ -66,7 +69,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmax0.01WithTime.txt", "a+")
+        outputFile = open("banditOutputsNaiveBayes3WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -88,9 +91,21 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
+        #policy = Tester(1.0, 1.0)
+        #policyName = "Tester" + str(policy.getPriors())
+        #outputFile.write("Policy: Tester" + str(policy.getPriors()) + "\n")
+
         #policy = RandomPolicy()
         #policyName = "Random"
         #outputFile.write("Policy: Random\n")
+
+        #policy = Contextualclick()
+        #policyName = "ContextualClick"
+        #outputFile.write("Policy: ContextualClick\n")
+
+        #policy = GMPolicy()
+        #policyName = "GMPolicy"
+        #outputFile.write("Policy: GM\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -100,9 +115,9 @@ class Main:
         #policyName = "eAnnealing"
         #utputFile.write("Policy: eAnnealing\n")
 
-        policy = Softmax(0.01)
-        policyName = "Softmax" + str(policy.getTemp())
-        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        #policy = Softmax(0.01)
+        #policyName = "Softmax" + str(policy.getTemp())
+        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"
@@ -112,9 +127,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        #policy = Naive3()
-        #policyName = "Naive3"
-        #outputFile.write("Policy: Naive3\n")
+        policy = Naive3()
+        policyName = "Naive3"
+        outputFile.write("Policy: Naive3\n")
 
         #policy = Contextualclick()
         #policyName = "ContextualClick"
@@ -144,7 +159,7 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleTestModel()
+        #policy = EnsembleTestModel(1.0, 1.0)
         #policyName = "EnsembleTest"
         #outputFile.write("Policy: EnsembleTest\n")
 

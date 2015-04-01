@@ -37,6 +37,7 @@ from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.GMPolicy import GMPolicy
+from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
@@ -69,7 +70,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsNaiveBayes3WithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -107,6 +108,10 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GM\n")
 
+        #policy = LinUCB()
+        #policyName = "LinUCB"
+        #outputFile.write("Policy: LinUCB\n")
+
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
@@ -127,9 +132,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        policy = Naive3()
-        policyName = "Naive3"
-        outputFile.write("Policy: Naive3\n")
+        #policy = Naive3()
+        #policyName = "Naive3"
+        #outputFile.write("Policy: Naive3\n")
 
         #policy = Contextualclick()
         #policyName = "ContextualClick"
@@ -143,9 +148,9 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleRandomModelUpdateAll()
-        #policyName = "EnsembleRandomUpdateAll"
-        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        policy = EnsembleRandomModelUpdateAll()
+        policyName = "EnsembleRandomUpdateAll"
+        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleSoftmaxModel(0.1)
         #policyName = "EnsembleSoftmax"

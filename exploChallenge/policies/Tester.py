@@ -7,6 +7,7 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 class Tester(ContextualBanditPolicy):
 
     def __init__(self, prior_alpha, prior_beta):
+        ## Bayesian Bandit algorithm
         self.prior_alpha = prior_alpha
         self.prior_beta = prior_beta
         self.successes = {}

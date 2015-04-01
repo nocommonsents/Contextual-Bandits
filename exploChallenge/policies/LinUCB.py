@@ -37,6 +37,7 @@ class LinUCB:
             self.theta[key] = np.zeros((self.d, 1))
 
     def update(self, reward):
+        # updatePolicy
         if reward == -1:
             pass
         elif reward == 1 or reward == 0:
@@ -53,6 +54,7 @@ class LinUCB:
             pass
 
     def recommend(self, timestamp, user_features, articles):
+        # getActionToPerform
         xaT = np.array([user_features])
         xa = np.transpose(xaT)
         #art_max = -1
@@ -80,88 +82,6 @@ class LinUCB:
 
         return self.a_max
 
-    # UCB2
-class UCB2:
-    def __init__(self):
-
-        # upper bound coefficient
-        self.alpha = 0.1
-
-        self.article_features = {}
-
-        self.a_max = 0
-        self.epoch = 0
-        self.n = 0
-
-    # Evaluator will call this function and pass the article features.
-    # Check evaluator.py description for details.
-    def set_articles(self, art):
-        for key in art:
-            # tuple (xj, nj, rj)
-            self.article_features[key] = (0, 0, 0)
-
-    # This function will be called by the evaluator.
-    # Check task description for details.
-    def update(self, reward):
-        if self.epoch > 0: # still in the middle of an epoch
-            self.epoch -= 1
-        if reward == -1:
-            pass
-        elif reward == 1 or reward == 0:
-            # update
-            # first time play
-            if self.article_features[self.a_max][1] == 0:
-                self.article_features[self.a_max] = (reward, 1, 1)
-            else: # not the first time, check epoch
-                nj = self.article_features[self.a_max][1] + 1
-                xj = (self.article_features[self.a_max][0]*self.article_features[self.a_max][1] + reward)/nj
-                if self.epoch > 0: # still in the middle of an epoch
-                    rj = self.article_features[self.a_max][2]
-                else: # epoch finished
-                    rj = self.article_features[self.a_max][2] + 1
-                self.article_features[self.a_max] = (xj, nj, rj)
-        else:
-            # error
-            pass
-
-    # This function will be called by the evaluator.
-    # Check task description for details.
-    def recommend(self, timestamp, user_features, articles):
-
-        for article in articles:
-            if self.article_features[article][1] == 0:
-                self.n += 1
-                self.a_max = article
-                return self.a_max
-
-        if self.epoch == 0:
-            old_a = -1
-            old_ucb = 0
-
-            for article in articles:
-                xj = self.article_features[article][0]
-                rj = self.article_features[article][2]
-                nj = self.article_features[article][1]
-                tr = math.ceil(math.pow((1+self.alpha), rj))
-                anr = math.sqrt((1+self.alpha)*math.log(math.e*self.n/tr)/(2*tr))
-                new_ucb =  xj + anr
-                if old_a == -1:
-                    old_ucb = new_ucb
-                    old_a = article
-                else:
-                    if new_ucb > old_ucb:
-                        old_a = article
-                        old_ucb = new_ucb
-
-            rj = self.article_features[old_a][2]
-            tr1 = math.ceil(math.pow((1+self.alpha), rj+1))
-            tr = math.ceil(math.pow((1+self.alpha), rj))
-            self.epoch = max(1, tr1 - tr)
-            self.a_max = old_a
-
-        self.n += 1
-
-        return self.a_max
 
 
 LinUCBObj = None
@@ -172,8 +92,6 @@ def set_articles(art):
     global LinUCBObj#, UCB2Obj
     LinUCBObj = LinUCB()
     LinUCBObj.set_articles(art)
-    #UCB2Obj = UCB2()
-    #UCB2Obj.set_articles(art)
 
 def update(reward):
     #global t
@@ -187,7 +105,4 @@ def update(reward):
 # This function will be called by the evaluator.
 # Check task description for details.
 def recommend(timestamp, user_features, articles):
-    #if t > 5000000:
-    #    return UCB2Obj.reccomend(timestamp, user_features, articles)
-    #else:
-    return LinUCBObj.reccomend(timestamp, user_features, articles)
+    return LinUCBObj.recommend(timestamp, user_features, articles)

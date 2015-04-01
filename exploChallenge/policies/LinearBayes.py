@@ -24,9 +24,6 @@ class LinearBayes(ContextualBanditPolicy):
         self.FeatureSelections = np.ones(136)
         return
 
-
-
-
     def getActionToPerform(self, visitor,possibleActions):
         pai = {}
         pa = {}

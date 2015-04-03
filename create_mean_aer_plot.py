@@ -27,9 +27,9 @@ ax.plot(data['t'],data['Softmax01'], label='Softmax(0.1)')
 ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)')
 ax.plot(data['t'],data['UCB1'], label='UCB1')
 ax.plot(data['t'],data['Naive3'], label='Naive Bayes')
-ax.plot(data['t'],data['EnsembleRandom'], label='EnsRandom', color='lawngreen')
-ax.plot(data['t'],data['EnsembleSoftmax'], label='EnsSoftmax', color='fuchsia')
-ax.plot(data['t'],data['EnsembleEAnnealing'], label='EnsEAnnealing', color = 'gold')
+#ax.plot(data['t'],data['EnsembleRandom'], label='EnsRandom', color='lawngreen')
+#ax.plot(data['t'],data['EnsembleSoftmax'], label='EnsSoftmax', color='fuchsia')
+#ax.plot(data['t'],data['EnsembleEAnnealing'], label='EnsEAnnealing', color = 'gold')
 
 
 box = ax.get_position()

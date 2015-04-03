@@ -27,7 +27,7 @@ class Softmax(ContextualBanditPolicy):
     def getTemp(self):
         return self.temperature
 
-    def getActionToPerform(self, visitor,possibleActions):
+    def getActionToPerform(self, visitor, possibleActions):
         psvalues = {}
         probs = {}
 

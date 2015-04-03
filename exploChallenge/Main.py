@@ -15,7 +15,7 @@
 import os
 import sys
 import time
-
+import numpy as np
 
 
 from myPolicy.MyPolicy import MyPolicy
@@ -29,6 +29,7 @@ from exploChallenge.logs.yahoo.YahooVisitor import YahooVisitor
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.eGreedy import eGreedy
+from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
@@ -36,6 +37,7 @@ from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
+from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinearBayes import LinearBayes
@@ -46,7 +48,7 @@ from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingMo
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
 
-from exploChallenge.policies.Tester import Tester
+from exploChallenge.policies.BayesianBandit import BayesianBandit
 
 from time import strftime
 
@@ -70,13 +72,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
             inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
@@ -92,9 +94,9 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
-        #policy = Tester(1.0, 1.0)
-        #policyName = "Tester" + str(policy.getPriors())
-        #outputFile.write("Policy: Tester" + str(policy.getPriors()) + "\n")
+        #policy = BayesianBandit(1.0, 1.0)
+        #policyName = "BayesianBandit" + str(policy.getPriors())
+        #outputFile.write("Policy: BayesianBandit" + str(policy.getPriors()) + "\n")
 
         #policy = RandomPolicy()
         #policyName = "Random"
@@ -115,6 +117,12 @@ class Main:
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+
+        A0 = np.eye(136)
+        b0 = np.zeros(136)
+        policy = eGreedyContextual(0.1, RidgeRegressor(A0,b0))
+        policyName = "eGreedyContextual" + str(policy.getEpsilon())
+        outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
         #policy = eAnnealing()
         #policyName = "eAnnealing"
@@ -148,9 +156,9 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        policy = EnsembleRandomModelUpdateAll()
-        policyName = "EnsembleRandomUpdateAll"
-        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        #policy = EnsembleRandomModelUpdateAll()
+        #policyName = "EnsembleRandomUpdateAll"
+        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleSoftmaxModel(0.1)
         #policyName = "EnsembleSoftmax"

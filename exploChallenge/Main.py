@@ -29,7 +29,6 @@ from exploChallenge.logs.yahoo.YahooVisitor import YahooVisitor
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.eGreedy import eGreedy
-from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
@@ -37,7 +36,6 @@ from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
-from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinearBayes import LinearBayes
@@ -72,13 +70,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
             inputFileShort = "y"    # Yahoo! data = "y"
             reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
@@ -110,19 +108,13 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GM\n")
 
-        #policy = LinUCB()
-        #policyName = "LinUCB"
-        #outputFile.write("Policy: LinUCB\n")
+        policy = LinUCB()
+        policyName = "LinUCB"
+        outputFile.write("Policy: LinUCB\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
-
-        A0 = np.eye(136)
-        b0 = np.zeros(136)
-        policy = eGreedyContextual(0.1, RidgeRegressor(A0,b0))
-        policyName = "eGreedyContextual" + str(policy.getEpsilon())
-        outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
         #policy = eAnnealing()
         #policyName = "eAnnealing"

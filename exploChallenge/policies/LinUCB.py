@@ -1,7 +1,6 @@
 #!/usr/bin/env python2.7
 
 import numpy as np
-import math
 from scipy import linalg
 
 
@@ -9,7 +8,7 @@ from scipy import linalg
 class LinUCB:
     def __init__(self):
         # upper bound coefficient
-        self.alpha = 3 # if worse -> 2.9, 2.8 1 + np.sqrt(np.log(2/delta)/2)
+        self.alpha = 0.01 # if worse -> 2.9, 2.8 1 + np.sqrt(np.log(2/delta)/2)
         self.r1 = 0.5 # if worse -> 0.7, 0.8
         self.r0 = -20 # if worse, -19, -21
         # dimension of user features = d
@@ -18,7 +17,7 @@ class LinUCB:
         self.Aa = {}
         # AaI : store the inverse of all Aa matrix
         self.AaI = {}
-        # ba : collection of vectors to compute disjoin part, d*1
+        # ba : collection of vectors to compute disjoint part, d*1
         self.ba = {}
 
         self.a_max = 0
@@ -27,6 +26,9 @@ class LinUCB:
         self.x = None
         self.xT = None
         # linUCB
+
+    def getAlpha(self):
+        return self.alpha
 
     def getActionToPerform(self, visitor, possibleActions):
         # getActionToPerform
@@ -42,13 +44,9 @@ class LinUCB:
                 self.ba[article.getID()] = np.zeros((self.d, 1))
                 self.AaI[article.getID()] = np.identity(self.d)
                 self.theta[article.getID()] = np.zeros((self.d, 1))
-
-
-        for article in possibleActions:
-            #print xaT.shape
-            #print self.theta[article.getID()].shape
-            #print float(np.dot(xaT, self.theta[article.getID()]))
             pa = np.array([float(np.dot(xaT, self.theta[article.getID()]) + self.alpha * np.sqrt(np.dot(xaT.dot(self.AaI[article.getID()]), xa)))])
+
+
         self.a_max = possibleActions[divmod(pa.argmax(), pa.shape[0])[1]]
         self.x = xa
         self.xT = xaT
@@ -58,29 +56,20 @@ class LinUCB:
 
     def updatePolicy(self, c, a, reward):
         # updatePolicy
-        if reward == -1:
-            pass
-        elif reward == 1 or reward == 0:
-            if reward == 1:
-                r = self.r1
-            else:
-                r = self.r0
-            #print self.x.shape
-            #print self.xT.shape
-
-            # Calculation works...problem likely in self.a_max
-            #self.a_max = str(self.a_max)
-            #print self.Aa[self.a_max]
-            #self.Aa[chosen_article] += float(np.dot(self.x, self.xT))
-            self.Aa[self.a_max.getID()] += self.x.dot(self.xT)
-            self.ba[self.a_max.getID()] += r * self.x
-            self.AaI[self.a_max.getID()] = linalg.solve(self.Aa[self.a_max.getID()], np.identity(self.d))
-            self.theta[self.a_max.getID()] = self.AaI[self.a_max.getID()].dot(self.ba[self.a_max.getID()])
+        if reward == 1:
+            r = self.r1
+        elif reward == 0:
+            r = self.r0
         else:
-            # error
             pass
 
-    #def __hash__(self): return hash(id(self))
+        self.Aa[self.a_max.getID()] += self.x.dot(self.xT)
+        self.ba[self.a_max.getID()] += r * self.x
+        self.AaI[self.a_max.getID()] = linalg.solve(self.Aa[self.a_max.getID()], np.identity(self.d))
+        self.theta[self.a_max.getID()] = self.AaI[self.a_max.getID()].dot(self.ba[self.a_max.getID()])
+        #self.theta[self.a_max.getID()] = self.AaI[self.a_max.getID()]*(self.ba[self.a_max.getID()])
+
+        #def __hash__(self): return hash(id(self))
     #def __eq__(self, x): return x is self
     #def __ne__(self, x): return x is not self
 

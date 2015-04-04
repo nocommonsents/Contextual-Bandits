@@ -70,7 +70,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
+        outputFile = open("banditOutputsSoftmax0.01WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -108,9 +108,9 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GM\n")
 
-        policy = LinUCB()
-        policyName = "LinUCB"
-        outputFile.write("Policy: LinUCB\n")
+        #policy = LinUCB()
+        #policyName = "LinUCB" + str(policy.getAlpha())
+        #outputFile.write("Policy: LinUCB\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -120,9 +120,9 @@ class Main:
         #policyName = "eAnnealing"
         #utputFile.write("Policy: eAnnealing\n")
 
-        #policy = Softmax(0.01)
-        #policyName = "Softmax" + str(policy.getTemp())
-        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        policy = Softmax(0.01)
+        policyName = "Softmax" + str(policy.getTemp())
+        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"

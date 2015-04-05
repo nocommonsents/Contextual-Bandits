@@ -36,8 +36,10 @@ from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
 from exploChallenge.policies.Contextualclick import Contextualclick
+from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinUCB import LinUCB
+from exploChallenge.policies.LinUCBUpdate import LinUCBUpdate
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
@@ -46,7 +48,6 @@ from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingMo
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
 
-from exploChallenge.policies.BayesianBandit import BayesianBandit
 
 from time import strftime
 
@@ -70,15 +71,16 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmax0.01WithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
             inputFileShort = "y"    # Yahoo! data = "y"
-            reader = YahooLogLineReader(inputFile, 136)
+            reader = YahooLogLineReader(inputFile, 29)
             logStep = 1
         except:
             print "Problem with input file."
@@ -92,9 +94,9 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
-        #policy = BayesianBandit(1.0, 1.0)
-        #policyName = "BayesianBandit" + str(policy.getPriors())
-        #outputFile.write("Policy: BayesianBandit" + str(policy.getPriors()) + "\n")
+        #policy = ThompsonSampling(1.0, 1.0)
+        #policyName = "ThompsonSampling" + str(policy.getPriors())
+        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
 
         #policy = RandomPolicy()
         #policyName = "Random"
@@ -112,6 +114,10 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
+        policy = LinUCBUpdate()
+        policyName = "LinUCBUpdate" + str(policy.getAlpha())
+        outputFile.write("Policy: LinUCBUpdate\n")
+
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
@@ -120,9 +126,9 @@ class Main:
         #policyName = "eAnnealing"
         #utputFile.write("Policy: eAnnealing\n")
 
-        policy = Softmax(0.01)
-        policyName = "Softmax" + str(policy.getTemp())
-        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        #policy = Softmax(0.1)
+        #policyName = "Softmax" + str(policy.getTemp())
+        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"

@@ -94,6 +94,7 @@ class YahooLogLineReader(LogLineReader):
         scanLine.next()
 
         while scanLine.hasNext():
+            print scanLine.nextInt()
             features[scanLine.nextInt() - 1] = 1
 
         self.possibleActions = list()

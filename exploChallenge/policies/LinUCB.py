@@ -8,8 +8,8 @@ from scipy import linalg
 class LinUCB:
     def __init__(self):
         # upper bound coefficient
-        self.alpha = 0.01 # if worse -> 2.9, 2.8 1 + np.sqrt(np.log(2/delta)/2)
-        self.r1 = 0.5 # if worse -> 0.7, 0.8
+        self.alpha = 0.2 # if worse -> 2.9, 2.8 1 + np.sqrt(np.log(2/delta)/2)
+        self.r1 = 1 # if worse -> 0.7, 0.8
         self.r0 = -20 # if worse, -19, -21
         # dimension of user features = d
         self.d = 136

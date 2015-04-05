@@ -4,7 +4,7 @@ from scipy.stats import beta
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 
-class BayesianBandit(ContextualBanditPolicy):
+class ThompsonSampling(ContextualBanditPolicy):
 
     def __init__(self, prior_alpha, prior_beta):
         ## Bayesian Bandit algorithm
@@ -34,9 +34,9 @@ class BayesianBandit(ContextualBanditPolicy):
                 self.successes[action.getID()] = 0.0
                 self.trials[action.getID()] = 0.0
             #Construct beta distribution for posterior
-            #dist = beta(self.prior[0]+self.successes[action.getID()],
-            #            self.prior[1]+self.trials[action.getID()]-self.successes[action.getID()])
-            dist = beta(self.prior_alpha,self.prior_beta)
+            dist = beta(self.prior[0]+self.successes[action.getID()],
+                        self.prior[1]+self.trials[action.getID()]-self.successes[action.getID()])
+            #dist = beta(self.prior_alpha,self.prior_beta)
             #Draw sample from beta distribution
             sampled_theta += [dist.rvs()]
         # Return the index of the sample with the largest value

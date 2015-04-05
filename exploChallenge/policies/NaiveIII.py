@@ -16,6 +16,7 @@ def rargmax(vector):
 
 class Naive3(ContextualBanditPolicy):
     def __init__(self):
+        self.d = 29
         self.clicks = {}
         self.selections = {}
         self.clicksPerFeature = {}
@@ -29,8 +30,8 @@ class Naive3(ContextualBanditPolicy):
             if article.getID() not in self.clicks:
                 self.clicks[article.getID()] = 1.0 #Optimistic
                 self.selections[article.getID()] = 1.0
-                self.clicksPerFeature[article.getID()] = np.ones(136)
-                self.selectionsPerFeature[article.getID()] = np.ones(136)
+                self.clicksPerFeature[article.getID()] = np.ones(self.d)
+                self.selectionsPerFeature[article.getID()] = np.ones(self.d)
                 self.used[article.getID()] = 0
 
             #print sum(visitor.getFeatures()*self.clicksPerFeature[article.getID()])

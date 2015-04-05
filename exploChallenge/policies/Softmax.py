@@ -1,7 +1,6 @@
 __author__ = 'dai.shi'
 
 import random
-import operator
 import math
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy

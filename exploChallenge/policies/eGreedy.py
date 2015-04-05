@@ -33,8 +33,7 @@ class eGreedy(ContextualBanditPolicy):
         psvalues = [self.values[a.getID()] for a in possibleActions]
 
         if rn.random() > self.epsilon:
-            action = possibleActions[rargmax(psvalues)]
-            return action
+            return possibleActions[rargmax(psvalues)]
 
         else:
             randomIndex = rn.randint(0, len(possibleActions) - 1)

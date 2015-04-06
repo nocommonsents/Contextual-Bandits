@@ -40,6 +40,8 @@ from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinUCBUpdate import LinUCBUpdate
+from exploChallenge.policies.MostClicked import MostClicked
+from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
@@ -71,16 +73,19 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsMostRecentWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
+
             inputFileShort = "y"    # Yahoo! data = "y"
-            reader = YahooLogLineReader(inputFile, 29)
+            reader = YahooLogLineReader(inputFile, 136)
             logStep = 1
         except:
             print "Problem with input file."
@@ -94,29 +99,21 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
-        #policy = ThompsonSampling(1.0, 1.0)
-        #policyName = "ThompsonSampling" + str(policy.getPriors())
-        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
-
         #policy = RandomPolicy()
         #policyName = "Random"
         #outputFile.write("Policy: Random\n")
 
+        #policy = MostClicked()
+        #policyName = "MostClicked"
+        #outputFile.write("Policy: MostClicked\n")
+
+        policy = MostRecent()
+        policyName = "MostRecent"
+        outputFile.write("Policy: MostRecent\n")
+
         #policy = Contextualclick()
         #policyName = "ContextualClick"
         #outputFile.write("Policy: ContextualClick\n")
-
-        #policy = GMPolicy()
-        #policyName = "GMPolicy"
-        #outputFile.write("Policy: GM\n")
-
-        #policy = LinUCB()
-        #policyName = "LinUCB" + str(policy.getAlpha())
-        #outputFile.write("Policy: LinUCB\n")
-
-        policy = LinUCBUpdate()
-        policyName = "LinUCBUpdate" + str(policy.getAlpha())
-        outputFile.write("Policy: LinUCBUpdate\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -142,6 +139,10 @@ class Main:
         #policyName = "Naive3"
         #outputFile.write("Policy: Naive3\n")
 
+        #policy = ThompsonSampling(1.0, 1.0)
+        #policyName = "ThompsonSampling" + str(policy.getPriors())
+        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
+
         #policy = Contextualclick()
         #policyName = "ContextualClick"
         #outputFile.write("Policy: Contextual Click\n")
@@ -149,6 +150,14 @@ class Main:
         #policy = LinearBayes()
         #policyName = "LinearBayes"
         #outputFile.write("Policy: Linear Bayes\n")
+
+        #policy = GMPolicy()
+        #policyName = "GMPolicy"
+        #outputFile.write("Policy: GM\n")
+
+        #policy = LinUCBUpdate()
+        #policyName = "LinUCBUpdate" + str(policy.getAlpha())
+        #outputFile.write("Policy: LinUCBUpdate\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"

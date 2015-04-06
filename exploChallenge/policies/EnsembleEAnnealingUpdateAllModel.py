@@ -5,18 +5,11 @@ import numpy as np
 import random
 import re
 
-from exploChallenge.eval.MyEvaluationPolicy import MyEvaluationPolicy
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
-from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
-from exploChallenge.policies.Softmax import Softmax
-from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
-from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.NaiveIII import Naive3
-from exploChallenge.policies.Contextualclick import Contextualclick
-from exploChallenge.policies.LinearBayes import LinearBayes
 
 class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 

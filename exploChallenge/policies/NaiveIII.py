@@ -16,7 +16,7 @@ def rargmax(vector):
 
 class Naive3(ContextualBanditPolicy):
     def __init__(self):
-        self.d = 29
+        self.d = 136
         self.clicks = {}
         self.selections = {}
         self.clicksPerFeature = {}
@@ -47,15 +47,15 @@ class Naive3(ContextualBanditPolicy):
         self.used[choice.getID()] += 1
         return choice
 
-    def updatePolicy(self, c, a, reward):
+    def updatePolicy(self, context, action, reward):
         try:
-            self.clicks[a.getID()] += reward
-            self.selections[a.getID()] += 1.0
-            for f, p in enumerate(c.getFeatures()):
+            self.clicks[action.getID()] += reward
+            self.selections[action.getID()] += 1.0
+            for f, p in enumerate(context.getFeatures()):
                 # Feature is "on" and there is a reward given the article
-                self.clicksPerFeature[a.getID()][f] += p * float(reward)
+                self.clicksPerFeature[action.getID()][f] += p * float(reward)
                 # Feature is present is given the article
-                self.selectionsPerFeature[a.getID()][f] += p
+                self.selectionsPerFeature[action.getID()][f] += p
 
                 #self.pai[a.getID()] += features * (float(reward) - self.pai[a.getID()]) / (1.0 + self.selections[a.getID()])
             return

@@ -7,7 +7,7 @@ class GMPolicy():
 
     def __init__(self):
         """Constructor for GMPolicy"""
-        self.dimension = 136   # Number of features
+        self.dimension = 50   # Number of features
 
         self.B = {}  # np.identity(self.dimension)
         self.Binv = {}
@@ -16,9 +16,8 @@ class GMPolicy():
 
         R = 5
         delta = .05
-        d = 136
         self.asd = np.zeros(35)
-        self.v2 = R * R * (np.log(1 / delta) * 24. / d)
+        self.v2 = R * R * (np.log(1 / delta) * 24. / self.dimension)
 
 
     def getActionToPerform(self, visitor, possibleActions):

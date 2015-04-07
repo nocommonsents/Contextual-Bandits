@@ -55,7 +55,7 @@ class LinUCBUpdate:
                 self.AI[article.getID()] = np.identity(self.d)
                 self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
                 self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
-                self.ID_to_article[article.getID()] = article
+            self.ID_to_article[article.getID()] = article
             #pa = np.array([float(np.dot(self.thetaT[article.getID()], x)) + self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x))))])
             #self.pa[article.getID()] = np.array([float(np.dot(self.thetaT[article.getID()], x)) + self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x))))])
             self.pa[article.getID()] = [float(np.dot(self.thetaT[article.getID()], x)) + float(self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x)))))]
@@ -73,6 +73,7 @@ class LinUCBUpdate:
         self.x = x
         self.xT = xT
         self.pa = {}
+        self.ID_to_article = {}
         #print "Action is " + str(self.a_max) + " " + str(self.a_max.getID())
         return self.a_max
 

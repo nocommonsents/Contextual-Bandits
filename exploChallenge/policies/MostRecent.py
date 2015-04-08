@@ -1,11 +1,13 @@
 __author__ = 'bixlermike'
+# Adapted from methods devised by Dai Shi
+
+# Final verification 8 Apr 2015
 
 import numpy as np
 import random as rn
 import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
-
 
 def rargmax(x):
     m = np.amax(x)
@@ -18,18 +20,18 @@ class MostRecent(ContextualBanditPolicy):
         self.arrival_times = {}
         return
 
-    def getActionToPerform(self, visitor,possibleActions):
+    def getActionToPerform(self, visitor, possibleActions):
 
         for action in possibleActions:
             if action.getID() not in self.arrival_times:
                 self.arrival_times[action.getID()] = int(time.time())
 
         all_times = [self.arrival_times[a.getID()] for a in possibleActions]
-        action = possibleActions[rargmax(all_times)]
 
+        action = possibleActions[rargmax(all_times)]
         return action
 
     def updatePolicy(self, content, chosen_arm, reward):
-       pass
+        pass
 
 

@@ -1,4 +1,5 @@
-__author__ = 'bixlermike'
+__original_author__ = 'dai.shi'
+__revised__ = 'bixlermike'
 
 # Final verification 8 Apr 2015
 
@@ -19,12 +20,13 @@ class MostClicked(ContextualBanditPolicy):
         self.clicks = {}
         return
 
-    def getActionToPerform(self, visitor,possibleActions):
+    def getActionToPerform(self, visitor, possibleActions):
         for action in possibleActions:
             if action.getID() not in self.clicks:
                 self.clicks[action.getID()] = 0
 
-        action = possibleActions[rargmax(self.clicks)]
+        psvalues = [ self.clicks[a.getID()] for a in possibleActions]
+        action = possibleActions[rargmax(psvalues)]
         return action
 
     def updatePolicy(self, content, chosen_arm, reward):

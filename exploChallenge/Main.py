@@ -103,17 +103,17 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
-        policy = MostClicked()
-        policyName = "MostClicked"
-        outputFile.write("Policy: MostClicked\n")
+        #policy = MostClicked()
+        #policyName = "MostClicked"
+        #outputFile.write("Policy: MostClicked\n")
 
         #policy = MostRecent()
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        #policy = eGreedy(0.1)
-        #policyName = "eGreedy" + str(policy.getEpsilon())
-        #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+        policy = eGreedy(0.1)
+        policyName = "eGreedy" + str(policy.getEpsilon())
+        outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
         #policy = eAnnealing()
         #policyName = "eAnnealing"

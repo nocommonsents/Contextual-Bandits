@@ -8,43 +8,48 @@
 # Contributors:
 #     Jose Antonio Martin H. - Translation to Python from Java
 #     Jeremie Mary - very minor adaptation for the challenge
+#     Michael Bixler - Adapted to add additional non-contextual and contextual bandit algorithms
+#                      as well as pre and post-processing analysis/plots
 #-------------------------------------------------------------------------------
 #package exploChallenge;
 
 #import java.io.FileNotFoundException;
+import numpy as np
 import os
 import sys
 import time
-import numpy as np
 
 
 from myPolicy.MyPolicy import MyPolicy
 from exploChallenge.eval.EvaluationPolicy import EvaluationPolicy
 from exploChallenge.eval.Evaluator import Evaluator
+from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.eval.MyEvaluationPolicy import MyEvaluationPolicy
 from exploChallenge.logs.FromFileLogLineGenerator import FromFileLogLineGenerator
 from exploChallenge.logs.yahoo.YahooArticle import YahooArticle
 from exploChallenge.logs.yahoo.YahooLogLineReader import YahooLogLineReader
 from exploChallenge.logs.yahoo.YahooVisitor import YahooVisitor
-from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
+from exploChallenge.policies.RidgeRegressor import RidgeRegressor
+
 from exploChallenge.policies.RandomPolicy import RandomPolicy
+from exploChallenge.policies.MostClicked import MostClicked
+from exploChallenge.policies.MostRecent import MostRecent
+
 from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
-from exploChallenge.policies.NaiveIII import Naive3
-from exploChallenge.policies.Contextualclick import Contextualclick
-from exploChallenge.policies.ThompsonSampling import ThompsonSampling
+
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
-from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.LinUCB import LinUCB
-from exploChallenge.policies.MostClicked import MostClicked
-from exploChallenge.policies.MostRecent import MostRecent
-from exploChallenge.policies.RidgeRegressor import RidgeRegressor
-from exploChallenge.policies.LinearBayes import LinearBayes
+from exploChallenge.policies.NaiveBayes3Contextual import NaiveBayes3Contextual
+from exploChallenge.policies.Contextualclick import Contextualclick
+from exploChallenge.policies.GMPolicy import GMPolicy
+from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
+
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
 from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
@@ -130,17 +135,13 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        #policy = Naive3()
-        #policyName = "Naive3"
-        #outputFile.write("Policy: Naive3\n")
+        #policy = NaiveBayes3Contextual()
+        #policyName = "NaiveBayes3Contextual"
+        #outputFile.write("Policy: NaiveBayes3Contextual\n")
 
         #policy = ThompsonSampling(1.0, 1.0)
         #policyName = "ThompsonSampling" + str(policy.getPriors())
         #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
-
-        #policy = Contextualclick()
-        #policyName = "ContextualClick"
-        #outputFile.write("Policy: Contextual Click\n")
 
         #policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
@@ -154,9 +155,13 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        policy = LinUCB()
-        policyName = "LinUCB" + str(policy.getAlpha())
-        outputFile.write("Policy: LinUCB\n")
+        #policy = LinUCB()
+        #policyName = "LinUCB" + str(policy.getAlpha())
+        #outputFile.write("Policy: LinUCB\n")
+
+        policy = SoftmaxContextual(1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "SoftmaxContextual" + str(policy.getTemp())
+        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"

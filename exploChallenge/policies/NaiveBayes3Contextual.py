@@ -14,7 +14,7 @@ def rargmax(vector):
     return rn.choice(indices)
 
 
-class Naive3(ContextualBanditPolicy):
+class NaiveBayes3Contextual(ContextualBanditPolicy):
     def __init__(self):
         self.d = 136
         self.clicks = {}

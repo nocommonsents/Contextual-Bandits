@@ -119,9 +119,9 @@ class Main:
         #policyName = "eAnnealing"
         #outputFile.write("Policy: eAnnealing\n")
 
-        policy = Softmax(1)
-        policyName = "Softmax" + str(policy.getTemp())
-        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        #policy = Softmax(1)
+        #policyName = "Softmax" + str(policy.getTemp())
+        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"
@@ -131,9 +131,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        #policy = Naive3()
-        #policyName = "Naive3"
-        #outputFile.write("Policy: Naive3\n")
+        policy = Naive3()
+        policyName = "Naive3"
+        outputFile.write("Policy: Naive3\n")
 
         #policy = ThompsonSampling(1.0, 1.0)
         #policyName = "ThompsonSampling" + str(policy.getPriors())

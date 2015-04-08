@@ -9,7 +9,7 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.EXP3 import EXP3
-from exploChallenge.policies.NaiveBayes3Contextual import NaiveBayes3Contextual
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 
 class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 
@@ -19,7 +19,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_one = eAnnealing()
         #self.policy_two = Softmax(0.1)
         #self.policy_three = UCB1()
-        self.policy_four = NaiveBayes3Contextual()
+        self.policy_four = NaiveBayesContextual()
         self.policies = [self.policy_one, self.policy_four]
         self.policy_one_score = 0
         self.policy_two_score = 0

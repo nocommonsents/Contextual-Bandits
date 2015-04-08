@@ -12,7 +12,7 @@ from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
-from exploChallenge.policies.NaiveBayes3Contextual import Naive3
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.LinearBayes import LinearBayes
 
@@ -24,7 +24,7 @@ class EnsembleTestModel(ContextualBanditPolicy):
         self.prior_alpha = prior_alpha
         self.prior_beta = prior_beta
         self.policy_one = eAnnealing()
-        self.policy_two = Naive3()
+        self.policy_two = NaiveBayesContextual()
         self.policies = [self.policy_one, self.policy_two]
         self.policy_one_count = 0
         self.policy_two_count = 0

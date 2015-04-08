@@ -45,7 +45,7 @@ from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.LinUCB import LinUCB
-from exploChallenge.policies.NaiveBayes3Contextual import NaiveBayes3Contextual
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
@@ -135,10 +135,6 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        #policy = NaiveBayes3Contextual()
-        #policyName = "NaiveBayes3Contextual"
-        #outputFile.write("Policy: NaiveBayes3Contextual\n")
-
         #policy = ThompsonSampling(1.0, 1.0)
         #policyName = "ThompsonSampling" + str(policy.getPriors())
         #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
@@ -159,9 +155,13 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        policy = SoftmaxContextual(1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "SoftmaxContextual" + str(policy.getTemp())
-        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        #policy = SoftmaxContextual(1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "SoftmaxContextual" + str(policy.getTemp())
+        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+
+        policy = NaiveBayesContextual()
+        policyName = "NaiveBayesContextual"
+        outputFile.write("Policy: NaiveBayesContextual\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"

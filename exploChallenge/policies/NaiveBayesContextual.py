@@ -1,9 +1,11 @@
 __author__ = 'ftruzzi'
+__revised__ = 'bixlermike'
 
-# My naive bayes approach
+# Final verification 8 Apr 2015
+
+# Naive Bayesian approach based on https://explochallenge.inria.fr/wp-content/uploads/2012/05/paper3.pdf (section 2.3)
 import numpy as np
 import random as rn
-from collections import defaultdict
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 
 
@@ -14,13 +16,13 @@ def rargmax(vector):
     return rn.choice(indices)
 
 
-class NaiveBayes3Contextual(ContextualBanditPolicy):
+class NaiveBayesContextual(ContextualBanditPolicy):
     def __init__(self):
         self.d = 136
         self.clicks = {}
         self.selections = {}
-        self.clicksPerFeature = {}
-        self.selectionsPerFeature = {}
+        self.clicks_per_feature = {}
+        self.selections_per_feature = {}
         self.choice = {}
         self.used = {}
         self.t = 0
@@ -28,20 +30,17 @@ class NaiveBayes3Contextual(ContextualBanditPolicy):
 
         for article in possibleActions:
             if article.getID() not in self.clicks:
-                self.clicks[article.getID()] = 1.0 #Optimistic
+                self.clicks[article.getID()] = 1.0
                 self.selections[article.getID()] = 1.0
-                self.clicksPerFeature[article.getID()] = np.ones(self.d)
-                self.selectionsPerFeature[article.getID()] = np.ones(self.d)
+                self.clicks_per_feature[article.getID()] = np.ones(self.d)
+                self.selections_per_feature[article.getID()] = np.ones(self.d)
                 self.used[article.getID()] = 0
 
-            #print sum(visitor.getFeatures()*self.clicksPerFeature[article.getID()])
-
-        #if np.random.random() > 0.1:
+        # Proportion calculation for each feature
         indices = [self.clicks[a.getID()] / self.selections[a.getID()] * np.prod(
-                self.clicksPerFeature[a.getID()] / self.clicksPerFeature[a.getID()]) for a in possibleActions]
+                self.clicks_per_feature[a.getID()] / self.clicks_per_feature[a.getID()]) for a in possibleActions]
+        print indices
         choice = possibleActions[rargmax(indices)]
-        # else:
-        #     choice = rn.choice(possibleActions)
 
         self.t += 1
         self.used[choice.getID()] += 1
@@ -53,11 +52,9 @@ class NaiveBayes3Contextual(ContextualBanditPolicy):
             self.selections[action.getID()] += 1.0
             for f, p in enumerate(context.getFeatures()):
                 # Feature is "on" and there is a reward given the article
-                self.clicksPerFeature[action.getID()][f] += p * float(reward)
-                # Feature is present is given the article
-                self.selectionsPerFeature[action.getID()][f] += p
-
-                #self.pai[a.getID()] += features * (float(reward) - self.pai[a.getID()]) / (1.0 + self.selections[a.getID()])
+                self.clicks_per_feature[action.getID()][f] += p * float(reward)
+                # Feature is present in the article
+                self.selections_per_feature[action.getID()][f] += p
             return
         except:
             return

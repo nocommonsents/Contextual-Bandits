@@ -14,18 +14,24 @@ import random as rn
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
-def rargmax(x):
-    m = np.amax(x)
-    indices = np.nonzero(x == m)[0]
-    return rn.choice(indices)
+def categorical_draw(probs):
+    z = rn.random()
+    cum_prob = 0.0
+    for p in probs:
+        prob = probs[p]
+        cum_prob += prob
+        if cum_prob > z:
+            return p
+    return probs.iterkeys().next()
+
 
 class SoftmaxContextual(ContextualBanditPolicy):
 
     def __init__(self, temp, regressor):
         self.temperature = temp
         self.regressor = regressor
+        self.predicted_arm_values = {}
         self.d = 136
-        self.regressor_predictions = {}
         # A dxd identity matrix
         self.A = {}
         # Inverse of A
@@ -48,26 +54,34 @@ class SoftmaxContextual(ContextualBanditPolicy):
     def getActionToPerform(self, visitor, possibleActions):
         xT = np.array([visitor.getFeatures()])
         x = np.transpose(xT)
+        regressor_values = {}
+        arm_probs = {}
         self.x = x
         self.xT = xT
-        # Set up dictionaries for any articles not seen previously
+
+    # Set up dictionaries for any articles not seen previously
         for article in possibleActions:
             if article.getID() not in self.A:
                 self.A[article.getID()] = np.identity(self.d)
                 self.b[article.getID()] = np.zeros((self.d, 1))
                 self.AI[article.getID()] = np.identity(self.d)
-                self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
-                self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+            self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
+            self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
 
-        for a in possibleActions:
-            # Completes calculation of theta
-            self.theta[a.getID()] = np.dot(self.AI[a.getID()], self.b[a.getID()])
-            self.thetaT[a.getID()] = np.transpose(self.theta[a.getID()])
             # Now use estimated feature coefficients to predict which article is best given the contextual information
-            self.regressor_predictions[a.getID()] = float(np.dot(self.thetaT[a.getID()], x))
+            self.predicted_arm_values[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
+            regressor_values[article.getID()] = self.predicted_arm_values[article.getID()]
 
-            regressor_values = [self.regressor_predictions[a.getID()] for a in possibleActions]
-            return possibleActions[rargmax(regressor_values)]
+        # Normalization factor z
+        z = sum([math.exp(self.predicted_arm_values[r] / self.temperature) for r in self.predicted_arm_values])
+        # Calculate the probability that each arm will be selected
+        for v in regressor_values:
+            arm_probs[v]= math.exp(self.predicted_arm_values[v] / self.temperature) / z
+        # Generate random number and see which bin it falls into to select arm
+        id = categorical_draw(arm_probs)
+        for action in possibleActions:
+            if action.getID() == id:
+                return action
 
 
     def updatePolicy(self, content, chosen_arm, reward):
@@ -82,5 +96,4 @@ class SoftmaxContextual(ContextualBanditPolicy):
         self.b[chosen_arm.getID()] += self.rewards * self.x
         # Need to do inverse of A for final calculation of theta
         self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
-        #print str(chosen_arm.getID()) + " " + str(self.thetaT[chosen_arm.getID()])
 

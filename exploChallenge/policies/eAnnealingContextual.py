@@ -1,9 +1,15 @@
 __author__ = 'bixlermike'
 
-import random as rn
+# Final verification 8 Apr 2015
+
+# Ridge regression estimates the weight coefficient vector as:
+# Theta = (xT * x + I)^-1 * xT * y
+# x: Feature vector, xT = transpose of feature vector, I = identity matrix, y = reward vector (all 0s or 1s)
+# Here we use A = (xT * x + I)^-1 and B = (xT * y), so theta is then theta = A^-1 * b
+# Get predictions for each article by multiplying weight vector (theta) * feature vector (x)
 import math
 import numpy as np
-import operator
+import random as rn
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -35,16 +41,17 @@ class eAnnealingContextual(ContextualBanditPolicy):
         # Transpose of theta
         self.thetaT = {}
 
+    def getEpsilon(self):
+        return self.epsilon
+
 
     def getActionToPerform(self, visitor, possibleActions):
-
         xT = np.array([visitor.getFeatures()])
         x = np.transpose(xT)
-        self.epsilon = 1 / math.log(self.trials + 0.0000001)
-        self.trials += 1
-        self.ID_to_article = {}
         self.x = x
         self.xT = xT
+        self.epsilon = 1 / math.log(self.trials + 0.0000001)
+        self.trials += 1
         # Set up dictionaries for any articles not seen previously
         for article in possibleActions:
             if article.getID() not in self.A:
@@ -56,17 +63,14 @@ class eAnnealingContextual(ContextualBanditPolicy):
         ## Exploit
         if rn.random() > self.epsilon:
             for article in possibleActions:
-                self.ID_to_article[article.getID()] = article
                 # Completes calculation of theta
                 self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
                 self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
                 # Now use estimated feature coefficients to predict which article is best given the contextual information
                 self.regressor_predictions[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
-            max_key = max(self.regressor_predictions.iteritems(), key=operator.itemgetter(1))[0]
-            self.a_max = self.ID_to_article[max_key]
-            self.ID_to_article = {}
-            self.regressor_predictions = {}
-            return self.a_max
+
+            regressor_values = [self.regressor_predictions[a.getID()] for a in possibleActions]
+            return possibleActions[rargmax(regressor_values)]
 
         ## Explore
         else:
@@ -80,10 +84,11 @@ class eAnnealingContextual(ContextualBanditPolicy):
             self.rewards = 1
         else:
             self.rewards = 0
-        # Part of theta calculation equivalent to X * X tranpose + identity matrix
+        # Part of theta calculation equivalent to x * x tranpose + identity matrix
         self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
-        # Equivalent to X tranpose * y (reward)
+        # Equivalent to x transpose * y (reward)
         self.b[chosen_arm.getID()] += self.rewards * self.x
         # Need to do inverse of A for final calculation of theta
         self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
+        print str(chosen_arm.getID()) + " " + str(self.thetaT[chosen_arm.getID()])
 

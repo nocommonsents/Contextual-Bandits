@@ -131,9 +131,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        policy = Naive3()
-        policyName = "Naive3"
-        outputFile.write("Policy: Naive3\n")
+        #policy = Naive3()
+        #policyName = "Naive3"
+        #outputFile.write("Policy: Naive3\n")
 
         #policy = ThompsonSampling(1.0, 1.0)
         #policyName = "ThompsonSampling" + str(policy.getPriors())
@@ -147,9 +147,9 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "eAnnealingContextual"
-        #outputFile.write("Policy: eGreedyContextual" + "\n")
+        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "eAnnealingContextual"
+        outputFile.write("Policy: eGreedyContextual" + "\n")
 
         #policy = GMPolicy()
         #policyName = "GMPolicy"

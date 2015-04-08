@@ -1,11 +1,13 @@
 __author__ = 'bixlermike'
 
+# Final verification 8 Apr 2015
+
 import numpy as np
 import random as rn
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 
-
+# In case of tie, picks one from the set of best articles at random
 def rargmax(x):
     m = np.amax(x)
     indices = np.nonzero(x == m)[0]
@@ -18,19 +20,16 @@ class MostClicked(ContextualBanditPolicy):
         return
 
     def getActionToPerform(self, visitor,possibleActions):
-
         for action in possibleActions:
             if action.getID() not in self.clicks:
                 self.clicks[action.getID()] = 0
 
-        psvalues = [ self.clicks[a.getID()] for a in possibleActions]
-
-        action = possibleActions[rargmax(psvalues)]
-
+        action = possibleActions[rargmax(self.clicks)]
         return action
 
     def updatePolicy(self, content, chosen_arm, reward):
-        self.clicks[chosen_arm.getID()] += reward
+        if reward is True:
+            self.clicks[chosen_arm.getID()] += 1
         return
 
 

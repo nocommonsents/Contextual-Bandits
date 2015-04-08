@@ -36,16 +36,6 @@ class eAnnealingContextual(ContextualBanditPolicy):
         self.thetaT = {}
 
 
-    def decide(self, possibleActions):
-        explore = rn.random() <= self.epsilon
-        if rn.random() > self.epsilon:
-            return max(possibleActions, key=self.regressor.predict)
-
-        else:
-            randomIndex = rn.randint(0, len(possibleActions) - 1)
-        return possibleActions[randomIndex]
-
-
     def getActionToPerform(self, visitor, possibleActions):
 
         xT = np.array([visitor.getFeatures()])
@@ -55,24 +45,27 @@ class eAnnealingContextual(ContextualBanditPolicy):
         self.ID_to_article = {}
         self.x = x
         self.xT = xT
+        # Set up dictionaries for any articles not seen previously
+        for article in possibleActions:
+            if article.getID() not in self.A:
+                self.A[article.getID()] = np.identity(self.d)
+                self.b[article.getID()] = np.zeros((self.d, 1))
+                self.AI[article.getID()] = np.identity(self.d)
+                self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
+                self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
         ## Exploit
         if rn.random() > self.epsilon:
             for article in possibleActions:
-                if article.getID() not in self.A:
-                    self.A[article.getID()] = np.identity(self.d)
-                    self.b[article.getID()] = np.zeros((self.d, 1))
-                    self.AI[article.getID()] = np.identity(self.d)
-                    self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
-                    self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
                 self.ID_to_article[article.getID()] = article
                 # Completes calculation of theta
                 self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
                 self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
-
                 # Now use estimated feature coefficients to predict which article is best given the contextual information
                 self.regressor_predictions[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
             max_key = max(self.regressor_predictions.iteritems(), key=operator.itemgetter(1))[0]
             self.a_max = self.ID_to_article[max_key]
+            self.ID_to_article = {}
+            self.regressor_predictions = {}
             return self.a_max
 
         ## Explore

@@ -103,21 +103,13 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
-        #policy = RandomPolicy()
-        #policyName = "Random"
-        #outputFile.write("Policy: Random\n")
-
-        #policy = MostClicked()
-        #policyName = "MostClicked"
-        #outputFile.write("Policy: MostClicked\n")
+        policy = MostClicked()
+        policyName = "MostClicked"
+        outputFile.write("Policy: MostClicked\n")
 
         #policy = MostRecent()
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
-
-        #policy = Contextualclick()
-        #policyName = "ContextualClick"
-        #outputFile.write("Policy: ContextualClick\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -155,9 +147,9 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "eAnnealingContextual"
-        outputFile.write("Policy: eGreedyContextual" + "\n")
+        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "eAnnealingContextual"
+        #outputFile.write("Policy: eGreedyContextual" + "\n")
 
         #policy = GMPolicy()
         #policyName = "GMPolicy"

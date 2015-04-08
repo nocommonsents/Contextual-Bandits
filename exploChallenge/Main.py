@@ -40,7 +40,6 @@ from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.GMPolicy import GMPolicy
-from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinUCBUpdate import LinUCBUpdate
 from exploChallenge.policies.MostClicked import MostClicked
 from exploChallenge.policies.MostRecent import MostRecent
@@ -147,17 +146,17 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "eAnnealingContextual"
-        outputFile.write("Policy: eGreedyContextual" + "\n")
+        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "eAnnealingContextual"
+        #outputFile.write("Policy: eGreedyContextual" + "\n")
 
         #policy = GMPolicy()
         #policyName = "GMPolicy"
-        #outputFile.write("Policy: GM\n")
+        #outputFile.write("Policy: GaussianMixture\n")
 
-        #policy = LinUCBUpdate()
-        #policyName = "LinUCBUpdate" + str(policy.getAlpha())
-        #outputFile.write("Policy: LinUCBUpdate\n")
+        policy = LinUCBUpdate()
+        policyName = "LinUCBUpdate" + str(policy.getAlpha())
+        outputFile.write("Policy: LinUCBUpdate\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"

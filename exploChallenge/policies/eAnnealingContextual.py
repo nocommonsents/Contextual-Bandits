@@ -90,5 +90,4 @@ class eAnnealingContextual(ContextualBanditPolicy):
         self.b[chosen_arm.getID()] += self.rewards * self.x
         # Need to do inverse of A for final calculation of theta
         self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
-        print str(chosen_arm.getID()) + " " + str(self.thetaT[chosen_arm.getID()])
 

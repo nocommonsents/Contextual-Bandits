@@ -1,6 +1,12 @@
 __author__ = 'bixlermike'
 #!/usr/bin/env python2.7
 
+# LinUCB with disjoint linear models
+# Algorithm details and psuedocode at http://www.research.rutgers.edu/~lihong/pub/Li10Contextual.pdf
+# Using Ridge-regression as opposed to least-squares solution that could also be explored
+
+# Final verification 8 Apr 2015
+
 import operator
 import numpy as np
 import random as rn
@@ -23,8 +29,6 @@ class LinUCBUpdate:
         self.AI = {}
         # A dxd zeroes matrix
         self.b = {}
-        # Chooses best article
-        self.a_max = 0
         # Holds feature vector
         self.x = {}
         # Transpose of feature vector
@@ -33,9 +37,7 @@ class LinUCBUpdate:
         self.theta = {}
         self.thetaT = {}
 
-        self.ID_to_article = {}
         self.pa = {}
-
         self.rewards = 0
 
     def getAlpha(self):
@@ -55,28 +57,17 @@ class LinUCBUpdate:
                 self.AI[article.getID()] = np.identity(self.d)
                 self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
                 self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
-            self.ID_to_article[article.getID()] = article
-            #pa = np.array([float(np.dot(self.thetaT[article.getID()], x)) + self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x))))])
-            #self.pa[article.getID()] = np.array([float(np.dot(self.thetaT[article.getID()], x)) + self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x))))])
+
+            self.theta[article.getID()] = np.dot(self.AI[article.getID()],(self.b[article.getID()]))
+            self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
             self.pa[article.getID()] = [float(np.dot(self.thetaT[article.getID()], x)) + float(self.alpha * np.sqrt(np.dot(xT, (np.dot(self.AI[article.getID()], x)))))]
             self.pa[article.getID()] = float(self.pa[article.getID()][0])
-            #print self.pa[article.getID()]
-        #print "Value is " + str(self.pa[article.getID()])
-        #print "\n"
-        #print self.pa
-        max_key = max(self.pa.iteritems(), key=operator.itemgetter(1))[0]
-        #print max_key
-        #print self.ID_to_article[max_key]
-        self.a_max = self.ID_to_article[max_key]
-        #randomIndex = rn.randint(0, len(possibleActions) - 1)
-        #self.a_max = possibleActions[randomIndex]
+
+        pa_values = [self.pa[a.getID()] for a in possibleActions]
         self.x = x
         self.xT = xT
         self.pa = {}
-        self.ID_to_article = {}
-        #print "Action is " + str(self.a_max) + " " + str(self.a_max.getID())
-        return self.a_max
-
+        return possibleActions[rargmax(pa_values)]
 
     def updatePolicy(self, c, chosen_arm, reward):
         # updatePolicy
@@ -85,10 +76,12 @@ class LinUCBUpdate:
         else:
             self.rewards = 0
         #print "Update to " + str(chosen_arm) + " " + str(chosen_arm.getID())
-        self.AI[chosen_arm.getID()] = linalg.inv(self.A[chosen_arm.getID()])
+        # Part of theta calculation equivalent to x * x tranpose + identity matrix (identity not used variant here)
         self.A[chosen_arm.getID()] += np.dot(self.x,self.xT)
+        # Equivalent to x transpose * y (reward)
         self.b[chosen_arm.getID()] += self.rewards * self.x
-        self.theta[chosen_arm.getID()] = np.dot(self.AI[chosen_arm.getID()],(self.b[chosen_arm.getID()]))
-        self.thetaT[chosen_arm.getID()] = np.transpose(self.theta[chosen_arm.getID()])
+        # Need to do inverse of A for final calculation of theta
+        self.AI[chosen_arm.getID()] = linalg.inv(self.A[chosen_arm.getID()])
+
 
 

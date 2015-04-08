@@ -1,5 +1,7 @@
 __author__ = 'bixlermike'
 
+# Final verification 8 Apr 2015
+
 import math
 import random as rn
 import numpy as np
@@ -27,18 +29,20 @@ class eAnnealing(ContextualBanditPolicy):
     def getActionToPerform(self, visitor, possibleActions):
         for action in possibleActions:
             if action.getID() not in self.counts:
-                self.counts[action.getID()] = 1.0
-                self.values[action.getID()] = 1.0
+                # Avoid divide by zero error
+                self.counts[action.getID()] = 0.001
+                self.values[action.getID()] = 0.001
 
-        psvalues = [self.values[a.getID()] for a in possibleActions]
-
+        arm_values = [self.values[a.getID()] for a in possibleActions]
+        # Adjust probability of exploration lower as algorithm progresses
+        print arm_values
         t = sum(self.counts) + 1
         self.epsilon = 1 / math.log(t + 0.0000001)
-
+        # Exploit
         if rn.random() > self.epsilon:
-            action = possibleActions[rargmax(psvalues)]
+            action = possibleActions[rargmax(arm_values)]
             return action
-
+        # Explore
         else:
             randomIndex = rn.randint(0, len(possibleActions) - 1)
             return possibleActions[randomIndex]
@@ -49,7 +53,8 @@ class eAnnealing(ContextualBanditPolicy):
             n = self.counts[chosen_arm.getID()]
             value = self.values[chosen_arm.getID()]
 
-            new_value = value + (reward - value) / (n + 1)
+            # Calculate revised AER of this arm
+            new_value = ((n-1) / float(n)) * value + (1/float(n)) * reward
             self.values[chosen_arm.getID()] = new_value
 
             return

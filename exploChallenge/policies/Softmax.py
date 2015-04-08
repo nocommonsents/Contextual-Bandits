@@ -1,19 +1,22 @@
-__author__ = 'dai.shi'
+__author__ = 'bixlermike'
+# Derived from ideas from Dai Shi and John White
+
+# Final verification 8 Apr 2015
 
 import random
 import math
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 
-def categorical_draw(x):
+def categorical_draw(probs):
     z = random.random()
     cum_prob = 0.0
-    for p in x:
-        prob = x[p]
+    for p in probs:
+        prob = probs[p]
         cum_prob += prob
         if cum_prob > z:
             return p
-    return x.iterkeys().next()
+    return probs.iterkeys().next()
 
 class Softmax(ContextualBanditPolicy):
 
@@ -27,23 +30,22 @@ class Softmax(ContextualBanditPolicy):
         return self.temperature
 
     def getActionToPerform(self, visitor, possibleActions):
-        psvalues = {}
-        probs = {}
+        arm_values = {}
+        arm_probs = {}
 
         for action in possibleActions:
             if action.getID() not in self.counts:
                 self.counts[action.getID()] = 0
                 self.values[action.getID()] = 0
-            psvalues[action.getID()] = self.values[action.getID()]
+            arm_values[action.getID()] = self.values[action.getID()]
 
-
-        z = sum([math.exp(psvalues[v] / self.temperature) for v in psvalues])
-
-        for v in psvalues:
-            probs[v]= math.exp(psvalues[v] / self.temperature) / z
-
-
-        id = categorical_draw(probs)
+        # Normalization factor z
+        z = sum([math.exp(self.values[v] / self.temperature) for v in self.values])
+        # Calculate the probability that each arm will be selected
+        for v in arm_values:
+            arm_probs[v]= math.exp(self.values[v] / self.temperature) / z
+        # Generate random number and see which bin it falls into to select arm
+        id = categorical_draw(arm_probs)
         for action in possibleActions:
             if action.getID() == id:
                 return action

@@ -111,17 +111,17 @@ class Main:
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        policy = eGreedy(0.1)
-        policyName = "eGreedy" + str(policy.getEpsilon())
-        outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
+        #policy = eGreedy(0.1)
+        #policyName = "eGreedy" + str(policy.getEpsilon())
+        #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
         #policy = eAnnealing()
         #policyName = "eAnnealing"
-        #utputFile.write("Policy: eAnnealing\n")
+        #outputFile.write("Policy: eAnnealing\n")
 
-        #policy = Softmax(0.1)
-        #policyName = "Softmax" + str(policy.getTemp())
-        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        policy = Softmax(1)
+        policyName = "Softmax" + str(policy.getTemp())
+        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"

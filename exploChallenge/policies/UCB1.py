@@ -21,7 +21,7 @@ class UCB1(ContextualBanditPolicy):
 
 
 
-    def getActionToPerform(self, visitor,possibleActions):
+    def getActionToPerform(self, visitor, possibleActions):
         psvalues = {}
         pscounts = {}
 

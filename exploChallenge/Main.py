@@ -40,7 +40,7 @@ from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.GMPolicy import GMPolicy
-from exploChallenge.policies.LinUCBUpdate import LinUCBUpdate
+from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.MostClicked import MostClicked
 from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -154,9 +154,9 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        policy = LinUCBUpdate()
-        policyName = "LinUCBUpdate" + str(policy.getAlpha())
-        outputFile.write("Policy: LinUCBUpdate\n")
+        policy = LinUCB()
+        policyName = "LinUCB" + str(policy.getAlpha())
+        outputFile.write("Policy: LinUCB\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"

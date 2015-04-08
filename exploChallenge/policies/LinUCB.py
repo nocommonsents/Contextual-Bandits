@@ -17,7 +17,7 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return rn.choice(indices)
 
-class LinUCBUpdate:
+class LinUCB:
     def __init__(self):
         # Alpha parameter
         self.alpha = 0.1

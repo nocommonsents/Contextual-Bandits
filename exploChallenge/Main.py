@@ -81,13 +81,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsMostRecentWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
@@ -159,17 +159,17 @@ class Main:
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
         #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
-        policy = NaiveBayesContextual()
-        policyName = "NaiveBayesContextual"
-        outputFile.write("Policy: NaiveBayesContextual\n")
+        #policy = NaiveBayesContextual()
+        #policyName = "NaiveBayesContextual"
+        #outputFile.write("Policy: NaiveBayesContextual\n")
 
         #policy = EnsembleRandomModel()
         #policyName = "EnsembleRandom"
-        #outputFile.write("Policy: EnsembleRandom\n")
+        #utputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleRandomModelUpdateAll()
-        #policyName = "EnsembleRandomUpdateAll"
-        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        policy = EnsembleRandomModelUpdateAll()
+        policyName = "EnsembleRandomUpdateAll"
+        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleSoftmaxModel(0.1)
         #policyName = "EnsembleSoftmax"

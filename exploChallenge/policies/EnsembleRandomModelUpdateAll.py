@@ -1,21 +1,15 @@
 __author__ = 'bixlermike'
 
-import numpy as np
+# Final verification 9 Apr 2015
+
 import random
 import re
 
-from exploChallenge.eval.MyEvaluationPolicy import MyEvaluationPolicy
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
-from exploChallenge.policies.RandomPolicy import RandomPolicy
-from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
-from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
-from exploChallenge.policies.EXP3 import EXP3
-from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
+from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
-from exploChallenge.policies.Contextualclick import Contextualclick
-from exploChallenge.policies.LinearBayes import LinearBayes
 
 class EnsembleRandomModelUpdateAll(ContextualBanditPolicy):
 
@@ -23,8 +17,8 @@ class EnsembleRandomModelUpdateAll(ContextualBanditPolicy):
     def __init__(self):
         # Create an object from each class to use for ensemble model
         self.policy_one = eAnnealing()
-        self.policy_two = Softmax(0.1)
-        self.policy_three = UCB1()
+        self.policy_two = UCB1()
+        self.policy_three = LinUCB()
         self.policy_four = NaiveBayesContextual()
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four]
         self.chosen_policy = None
@@ -35,10 +29,10 @@ class EnsembleRandomModelUpdateAll(ContextualBanditPolicy):
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             #print "Choice is Annealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.Softmax',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
             #print "Choice is Softmax"
             return self.policy_two.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
             #print "Choice is UCB1"
             return self.policy_three.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
@@ -50,9 +44,13 @@ class EnsembleRandomModelUpdateAll(ContextualBanditPolicy):
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward):
-        #print "Updating policy " + str(self.chosen_policy)
-        self.policy_one.updatePolicy(content, chosen_arm, reward)
-        self.policy_two.updatePolicy(content, chosen_arm, reward)
-        self.policy_three.updatePolicy(content, chosen_arm, reward)
-        self.policy_four.updatePolicy(content, chosen_arm, reward)
-        return
+        # Try-except to prevent IllegalChoiceOfArticleException that might occur when a new article (action) has been
+        # added and a policy hasn't been presented with that action yet
+        try:
+            self.policy_one.updatePolicy(content, chosen_arm, reward)
+            self.policy_two.updatePolicy(content, chosen_arm, reward)
+            self.policy_three.updatePolicy(content, chosen_arm, reward)
+            self.policy_four.updatePolicy(content, chosen_arm, reward)
+            return
+        except:
+            return

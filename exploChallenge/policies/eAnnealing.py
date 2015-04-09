@@ -35,7 +35,6 @@ class eAnnealing(ContextualBanditPolicy):
 
         arm_values = [self.values[a.getID()] for a in possibleActions]
         # Adjust probability of exploration lower as algorithm progresses
-        print arm_values
         t = sum(self.counts) + 1
         self.epsilon = 1 / math.log(t + 0.0000001)
         # Exploit

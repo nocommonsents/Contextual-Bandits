@@ -1,6 +1,6 @@
 __author__ = 'bixlermike'
 
-#
+# NOT FINISHED
 
 # Ridge regression estimates the weight coefficient vector as:
 # Theta = (xT * x + I)^-1 * xT * y

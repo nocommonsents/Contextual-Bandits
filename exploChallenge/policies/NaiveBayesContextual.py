@@ -39,7 +39,6 @@ class NaiveBayesContextual(ContextualBanditPolicy):
         # Proportion calculation for each feature
         indices = [self.clicks[a.getID()] / self.selections[a.getID()] * np.prod(
                 self.clicks_per_feature[a.getID()] / self.clicks_per_feature[a.getID()]) for a in possibleActions]
-        print indices
         choice = possibleActions[rargmax(indices)]
 
         self.t += 1

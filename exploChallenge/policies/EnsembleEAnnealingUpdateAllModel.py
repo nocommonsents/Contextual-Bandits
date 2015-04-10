@@ -34,14 +34,15 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_counts = [self.policy_one_count,
                           self.policy_four_count]
         self.chosen_policy = None
+        self.trials = 1
         self.counts = {}
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
         random_number = random.random()
 
-        t = sum(self.counts) + 1
-        self.epsilon = 1 / math.log(t + 0.0000001)
+        self.epsilon = 1 / math.log(self.trials + 0.0000001)
+        self.trials += 1
 
         if random_number > self.epsilon:
             if (self.policy_one_score == max(self.policy_scores)):
@@ -79,6 +80,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
     #@Override
     def updatePolicy(self, content, chosen_arm, reward):
         #print "Updating policy " + str(self.chosen_policy)
+        self.counts += 1
         self.policy_one.updatePolicy(content, chosen_arm, reward)
         #self.policy_two.updatePolicy(content, chosen_arm, reward)
         #self.policy_three.updatePolicy(content, chosen_arm, reward)

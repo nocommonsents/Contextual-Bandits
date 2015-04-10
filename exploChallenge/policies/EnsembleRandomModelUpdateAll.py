@@ -27,16 +27,16 @@ class EnsembleRandomModelUpdateAll(ContextualBanditPolicy):
     def getActionToPerform(self, visitor, possibleActions):
         self.chosen_policy =  str(random.choice(self.policies))
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
-            #print "Choice is Annealing"
+            #print "Choice is E-Annealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
-            #print "Choice is Softmax"
+            #print "Choice is UCB1"
             return self.policy_two.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
-            #print "Choice is UCB1"
+            #print "Choice is LinUCB"
             return self.policy_three.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
-            #print "Choice is Naive3"
+            #print "Choice is NaiveBayes"
             return self.policy_four.getActionToPerform(visitor, possibleActions)
         else:
             print "Error in getActionToPerform!"

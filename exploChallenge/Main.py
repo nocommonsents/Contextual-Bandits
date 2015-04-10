@@ -81,7 +81,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
+        outputFile = open("banditOutputsEAnnealingContextualWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -107,6 +107,10 @@ class Main:
 
         ## Pick a single contextual bandit algorithm and corresponding output file
 
+        #policy = RandomPolicy()
+        #policyName = "Random"
+        #outputFile.write("Policy: Random\n")
+
         #policy = MostClicked()
         #policyName = "MostClicked"
         #outputFile.write("Policy: MostClicked\n")
@@ -123,7 +127,7 @@ class Main:
         #policyName = "eAnnealing"
         #outputFile.write("Policy: eAnnealing\n")
 
-        #policy = Softmax(1)
+        #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())
         #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
@@ -143,9 +147,9 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "eAnnealingContextual"
-        #outputFile.write("Policy: eGreedyContextual" + "\n")
+        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "eAnnealingContextual"
+        outputFile.write("Policy: eGreedyContextual" + "\n")
 
         #policy = GMPolicy()
         #policyName = "GMPolicy"
@@ -167,9 +171,9 @@ class Main:
         #policyName = "EnsembleRandom"
         #utputFile.write("Policy: EnsembleRandom\n")
 
-        policy = EnsembleRandomModelUpdateAll()
-        policyName = "EnsembleRandomUpdateAll"
-        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        #policy = EnsembleRandomModelUpdateAll()
+        #policyName = "EnsembleRandomUpdateAll"
+        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleSoftmaxModel(0.1)
         #policyName = "EnsembleSoftmax"

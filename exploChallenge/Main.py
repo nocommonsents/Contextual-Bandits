@@ -81,13 +81,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEAnnealingContextualWithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsNaiveBayesContextualWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
@@ -147,9 +147,9 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "eAnnealingContextual"
-        outputFile.write("Policy: eGreedyContextual" + "\n")
+        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "eAnnealingContextual"
+        #outputFile.write("Policy: eGreedyContextual" + "\n")
 
         #policy = GMPolicy()
         #policyName = "GMPolicy"
@@ -187,9 +187,9 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleTestModel(1.0, 1.0)
-        #policyName = "EnsembleTest"
-        #outputFile.write("Policy: EnsembleTest\n")
+        policy = EnsembleTestModel(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleTest"
+        outputFile.write("Policy: EnsembleTest\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

@@ -45,11 +45,11 @@ class EnsembleTestModel(ContextualBanditPolicy):
         if random_number > self.epsilon:
             total_scores = {}
             policy_one_scaled_values = self.policy_one.getScaledRegressorValues(visitor, possibleActions)
-            #print policy_one_scaled_values
+            print policy_one_scaled_values
             policy_two_scaled_values =  self.policy_two.getScaledIndices(visitor, possibleActions)
-            #print policy_two_scaled_values
-            policy_three_scaled_values =  self.policy_three.getScaledPaValues(visitor, possibleActions)
-            #print policy_three_scaled_values
+            print policy_two_scaled_values
+            policy_three_scaled_values = self.policy_three.getScaledPaValues(visitor, possibleActions)
+            print policy_three_scaled_values
 
             #total_scores = ((policy_one_scaled_values[v.getID()][0] + policy_two_scaled_values[v.getID()][0] + policy_three_scaled_values[v.getID()][0]) for v in possibleActions)
             #for v in possibleActions:
@@ -57,9 +57,8 @@ class EnsembleTestModel(ContextualBanditPolicy):
                 #total_scores[v.getID()] = float(temp_score)
             total_scores = [float(policy_one_scaled_values[v.getID()][0]) + float(policy_two_scaled_values[v.getID()][0]) + float(policy_three_scaled_values[v.getID()][0]) for v in possibleActions]
 
-            #print total_scores
-            #print max(total_scores.iterkeys(), key=(lambda key: total_scores[key]))
-            #print str(max(total_scores)) + " " + str(rargmax(total_scores))
+            print str(total_scores) + "\n"
+            print str(max(total_scores)) + " " + str(rargmax(total_scores))
             return possibleActions[rargmax(total_scores)]
 
         else:

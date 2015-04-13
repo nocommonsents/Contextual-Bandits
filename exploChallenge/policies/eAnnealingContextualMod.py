@@ -19,17 +19,12 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return random.choice(indices)
 
-def rargmin(x):
-    m = np.amin(x)
-    indices = np.nonzero(x == m)[0]
-    return random.choice(indices)
+class eAnnealingContextualMod(ContextualBanditPolicy):
 
-class eGreedyContextualMod(ContextualBanditPolicy):
-
-    def __init__(self, epsilon, regressor):
-        self.epsilon = epsilon
+    def __init__(self, regressor):
         self.regressor = regressor
         self.d = 136
+        self.trials = 1
         self.regressor_predictions = {}
         # A dxd identity matrix
         self.A = {}
@@ -48,14 +43,18 @@ class eGreedyContextualMod(ContextualBanditPolicy):
 
         self.scaled_regressor_values = {}
 
+
     def getEpsilon(self):
         return self.epsilon
+
 
     def getScaledRegressorValues(self, visitor, possibleActions):
         xT = np.array([visitor.getFeatures()])
         x = np.transpose(xT)
         self.x = x
         self.xT = xT
+        self.epsilon = 1 / math.log(self.trials + 0.0000001)
+        self.trials += 1
         # Set up dictionaries for any articles not seen previously
         for article in possibleActions:
             if article.getID() not in self.A:
@@ -72,7 +71,6 @@ class eGreedyContextualMod(ContextualBanditPolicy):
                 self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
                 # Now use estimated feature coefficients to predict which article is best given the contextual information
                 self.regressor_predictions[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
-
             z = sum(math.exp(self.regressor_predictions[v]) for v in self.regressor_predictions)
             #print z
             for ac in possibleActions:
@@ -90,21 +88,17 @@ class eGreedyContextualMod(ContextualBanditPolicy):
             return self.scaled_regressor_values
 
 
+
     def updatePolicy(self, content, chosen_arm, reward):
         # updatePolicy
-        try:
-            if reward == 1:
-                self.rewards = 1
-            else:
-                self.rewards = 0
-            # Part of theta calculation equivalent to x * x tranpose + identity matrix
-            self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
-            # Equivalent to x transpose * y (reward)
-            self.b[chosen_arm.getID()] += self.rewards * self.x
-            # Need to do inverse of A for final calculation of theta
-            self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
-            #print str(chosen_arm.getID()) + " " + str(self.thetaT[chosen_arm.getID()])
-            return
-        except:
-            return
+        if reward == 1:
+            self.rewards = 1
+        else:
+            self.rewards = 0
+        # Part of theta calculation equivalent to x * x tranpose + identity matrix
+        self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
+        # Equivalent to x transpose * y (reward)
+        self.b[chosen_arm.getID()] += self.rewards * self.x
+        # Need to do inverse of A for final calculation of theta
+        self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
 

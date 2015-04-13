@@ -37,7 +37,8 @@ class eAnnealing(ContextualBanditPolicy):
         arm_values = [self.values[a.getID()] for a in possibleActions]
         # Adjust probability of exploration lower as algorithm progresses
         self.epsilon = 1 / math.log(self.trials + 0.0000001)
-        # Exploit
+        self.trials += 1
+    # Exploit
         if rn.random() > self.epsilon:
             action = possibleActions[rargmax(arm_values)]
             return action

@@ -36,8 +36,10 @@ class eGreedy(ContextualBanditPolicy):
                 self.values[action.getID()] = 0.001
 
         arm_values = [self.values[a.getID()] for a in possibleActions]
+
         # Exploit with probability 1-epsilon
         if rn.random() > self.epsilon:
+            print str(rargmax(arm_values)) + " " + str(possibleActions[rargmax(arm_values)]) + "\n"
             return possibleActions[rargmax(arm_values)]
         # Explore with probability epsilon
         else:

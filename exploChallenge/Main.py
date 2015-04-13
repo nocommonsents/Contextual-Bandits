@@ -34,6 +34,7 @@ from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.MostClicked import MostClicked
 from exploChallenge.policies.MostRecent import MostRecent
+from exploChallenge.policies.MostCTR import MostCTR
 
 from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
@@ -56,15 +57,11 @@ from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
 from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingModel
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
+from exploChallenge.policies.EnsembleTestModel2 import EnsembleTestModel2
+from exploChallenge.policies.EnsembleTestModel3 import EnsembleTestModel3
 
 
 from time import strftime
-
-
-
-
-
-
 
 class Main:
 
@@ -81,13 +78,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsNaiveBayesContextualWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsMostCTRWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
@@ -118,6 +115,10 @@ class Main:
         #policy = MostRecent()
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
+
+        policy = MostCTR()
+        policyName = "MostCTR"
+        outputFile.write("Policy: MostCTR\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -155,7 +156,7 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        #policy = LinUCB()
+        #policy = LinUCB(0.1)
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
@@ -187,9 +188,9 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        policy = EnsembleTestModel(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleTest"
-        outputFile.write("Policy: EnsembleTest\n")
+        #policy = EnsembleTestModel3(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTest3"
+        #outputFile.write("Policy: EnsembleTest3\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

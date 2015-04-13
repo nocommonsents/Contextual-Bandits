@@ -18,9 +18,9 @@ def rargmax(x):
     return rn.choice(indices)
 
 class LinUCB:
-    def __init__(self):
+    def __init__(self, alpha):
         # Alpha parameter
-        self.alpha = 0.1
+        self.alpha = alpha
         # Dimension of user feature vector
         self.d = 136
         # A dxd identity matrix
@@ -67,6 +67,8 @@ class LinUCB:
         self.x = x
         self.xT = xT
         self.pa = {}
+        #print pa_values
+        #print rargmax(pa_values)
         return possibleActions[rargmax(pa_values)]
 
     def updatePolicy(self, c, chosen_arm, reward):

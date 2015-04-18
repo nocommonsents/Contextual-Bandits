@@ -59,6 +59,7 @@ from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAn
 from exploChallenge.policies.EnsembleTestModel import EnsembleTestModel
 from exploChallenge.policies.EnsembleTestModel2 import EnsembleTestModel2
 from exploChallenge.policies.EnsembleTestModel3 import EnsembleTestModel3
+from exploChallenge.policies.EnsembleTestModel4 import EnsembleTestModel4
 
 
 from time import strftime
@@ -78,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsMostCTRWithTime.txt", "a+")
+        outputFile = open("banditOutputsEAnnealingWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -116,17 +117,17 @@ class Main:
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        policy = MostCTR()
-        policyName = "MostCTR"
-        outputFile.write("Policy: MostCTR\n")
+        #policy = MostCTR()
+        #policyName = "MostCTR"
+        #outputFile.write("Policy: MostCTR\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealing()
-        #policyName = "eAnnealing"
-        #outputFile.write("Policy: eAnnealing\n")
+        policy = eAnnealing()
+        policyName = "eAnnealing"
+        outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())
@@ -191,6 +192,10 @@ class Main:
         #policy = EnsembleTestModel3(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTest3"
         #outputFile.write("Policy: EnsembleTest3\n")
+
+        #policy = EnsembleTestModel4(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTest4"
+        #outputFile.write("Policy: EnsembleTest4\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

@@ -14,20 +14,29 @@ data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = Tr
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Algorithm Comparison - Average Expected Reward vs. Runtime")
+ax.set_title("Non-Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
+#ax.set_title("Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
 ax.set_xlabel('Runtime (s)')
 ax.set_ylabel('AER')
 
 ax.plot(data['TimeBin'],data['Random'], label='Random')
+ax.plot(data['TimeBin'],data['MostClicked'], label='MostClicked')
+ax.plot(data['TimeBin'],data['MostRecent'], label='MostRecent')
+ax.plot(data['TimeBin'],data['MostCTR'], label='HighestCTR')
 ax.plot(data['TimeBin'],data['eGreedy01'], label='e-Greedy(0.1)')
 ax.plot(data['TimeBin'],data['eAnnealing'], label='e-Annealing')
 ax.plot(data['TimeBin'],data['Softmax01'], label='Softmax(0.1)')
 ax.plot(data['TimeBin'],data['EXP305'], label='EXP3(0.5)')
-ax.plot(data['TimeBin'],data['UCB1'], label='UCB1')
-ax.plot(data['TimeBin'],data['Naive3'], label='Naive Bayes')
-#ax.plot(data['TimeBin'],data['EnsembleRandom'], label='EnsRandom', color='lawngreen')
-#ax.plot(data['TimeBin'],data['EnsembleSoftmax'], label='EnsSoftmax', color='fuchsia')
-#ax.plot(data['TimeBin'],data['EnsembleEAnnealing'], label='EnsEAnnealing', color = 'gold')
+ax.plot(data['TimeBin'],data['UCB1'], label='UCB1', color='lawngreen')
+
+#ax.plot(data['TimeBin'],data['Naive3'], label='NaiveBayes')
+#ax.plot(data['TimeBin'],data['eGreedyContextual'], label='eGreedy')
+#ax.plot(data['TimeBin'],data['eAnnealingContextual'], label='eAnnealingContextual')
+#ax.plot(data['TimeBin'],data['SoftmaxContextual'], label='SoftmaxContextual')
+#ax.plot(data['TimeBin'],data['LinUCB'], label='LinUCB')
+
+#ax.plot(data['TimeBin'],data['EnsembleRandom'], label='EnsRandom')
+#ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
 
 
 box = ax.get_position()

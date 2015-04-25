@@ -14,10 +14,10 @@ data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = Tr
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
+ax.set_title("Non-Contextual Algorithm Comparison - Mean AER vs. Runtime")
 #ax.set_title("Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
 ax.set_xlabel('Runtime (s)')
-ax.set_ylabel('AER')
+ax.set_ylabel('Mean AER')
 
 ax.plot(data['TimeBin'],data['Random'], label='Random')
 ax.plot(data['TimeBin'],data['MostClicked'], label='MostClicked')

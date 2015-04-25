@@ -14,9 +14,9 @@ data = np.genfromtxt('banditVarAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Variance of Expected Reward")
+ax.set_title("Non-Contextual Algorithm Comparison - Variance of AER")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Variance of Expected Reward')
+ax.set_ylabel('Variance of AER')
 
 ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['t'],data['MostClicked'], label='MostClicked')

@@ -17,9 +17,9 @@ data3 = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Average Expected Reward Range vs. Evaluations - Random Algorithm")
+ax.set_title("Mean AER Range vs. Evaluation Number - Random Algorithm")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('AER')
+ax.set_ylabel('Mean AER')
 
 minimum = data2['Random']
 mean = data['Random']

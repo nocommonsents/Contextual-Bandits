@@ -14,9 +14,9 @@ data = np.genfromtxt('banditStDevAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Standard Deviation of Expected Reward")
+ax.set_title("Non-Contextual Algorithm Comparison - Standard Deviation of AER")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Standard Deviation of Expected Reward')
+ax.set_ylabel('Standard Deviation of AER')
 
 ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['t'],data['MostClicked'], label='MostClicked')

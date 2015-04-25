@@ -14,9 +14,9 @@ data = np.genfromtxt('banditMinAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Minimum Expected Reward")
+ax.set_title("Non-Contextual Algorithm Comparison - Minimum AER")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Minimum Expected Reward')
+ax.set_ylabel('Minimum AER')
 
 ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['t'],data['MostClicked'], label='MostClicked')

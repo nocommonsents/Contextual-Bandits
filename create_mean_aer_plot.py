@@ -14,10 +14,10 @@ data = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Average Expected Reward")
+ax.set_title("Non-Contextual Algorithm Comparison - Mean AER")
 
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('AER')
+ax.set_ylabel('Mean AER')
 
 ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['t'],data['MostClicked'], label='MostClicked')

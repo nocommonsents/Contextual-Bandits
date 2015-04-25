@@ -30,11 +30,12 @@ ax.plot(data['t'],data['Softmax01'], label='Softmax(0.1)')
 ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)', color='fuchsia')
 ax.plot(data['t'],data['UCB1'], label='UCB1', color='lawngreen')
 
-#ax.plot(data['t'],data['Naive3'], label='NaiveBayes')
-#ax.plot(data['t'],data['eGreedyContextual'], label='eGreedy')
+#ax.plot(data['t'],data['Random'], label='Random')
+#ax.plot(data['t'],data['eGreedyContextual01'], label='eGreedy')
 #ax.plot(data['t'],data['eAnnealingContextual'], label='eAnnealingContextual')
 #ax.plot(data['t'],data['SoftmaxContextual'], label='SoftmaxContextual')
-#ax.plot(data['t'],data['LinUCB'], label='LinUCB')
+#ax.plot(data['t'],data['LinUCB01'], label='LinUCB')
+#ax.plot(data['t'],data['NaiveBayesContextual'], label='NaiveBayes')
 
 #ax.plot(data['t'],data['EnsembleRandom'], label='EnsRandom')
 #ax.plot(data['t'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
@@ -55,6 +56,8 @@ ax.yaxis.grid(color='gray', linestyle='dashed')
 ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
+
 plt.savefig("plots/maxAER.png", bbox_inches='tight')
+#plt.savefig("plots/maxAERContextual.png", bbox_inches='tight')
 
 

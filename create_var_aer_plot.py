@@ -15,7 +15,6 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.set_title("Non-Contextual Algorithm Comparison - Variance of Expected Reward")
-#ax.set_title("Contextual Algorithm Comparison - Variance of Expected Reward")
 ax.set_xlabel('Number of Evaluations')
 ax.set_ylabel('Variance of Expected Reward')
 
@@ -28,17 +27,6 @@ ax.plot(data['t'],data['eAnnealing'], label='e-Annealing')
 ax.plot(data['t'],data['Softmax01'], label='Softmax(0.1)')
 ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)', color='fuchsia')
 ax.plot(data['t'],data['UCB1'], label='UCB1', color='lawngreen')
-
-#ax.plot(data['t'],data['Random'], label='Random')
-#ax.plot(data['t'],data['eGreedyContextual01'], label='eGreedy')
-#ax.plot(data['t'],data['eAnnealingContextual'], label='eAnnealingContextual')
-#ax.plot(data['t'],data['SoftmaxContextual'], label='SoftmaxContextual')
-#ax.plot(data['t'],data['LinUCB01'], label='LinUCB')
-#ax.plot(data['t'],data['NaiveBayesContextual'], label='NaiveBayes')
-
-#ax.plot(data['t'],data['EnsembleRandom'], label='EnsRandom')
-#ax.plot(data['t'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
-
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -57,6 +45,4 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #    ax1.axhline(y=ymaj,ls='-')
 
 plt.savefig("plots/varAER.png", bbox_inches='tight')
-#plt.savefig("plots/varAERContextual.png", bbox_inches='tight')
-
 

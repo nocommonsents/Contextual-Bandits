@@ -10,6 +10,8 @@ import numpy as np
 majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
+#data = np.genfromtxt('banditMaxContextualAERSummary.csv', delimiter=',', names = True)
+
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
@@ -26,7 +28,7 @@ ax.plot(data['t'],data['MostCTR'], label='HighestCTR')
 ax.plot(data['t'],data['eGreedy01'], label='e-Greedy(0.1)')
 ax.plot(data['t'],data['eAnnealing'], label='e-Annealing')
 ax.plot(data['t'],data['Softmax01'], label='Softmax(0.1)')
-ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)')
+ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)', color='fuchsia')
 ax.plot(data['t'],data['UCB1'], label='UCB1', color='lawngreen')
 
 #ax.plot(data['t'],data['Naive3'], label='NaiveBayes')

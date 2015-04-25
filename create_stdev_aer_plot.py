@@ -10,7 +10,7 @@ import numpy as np
 majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditStDevAERSummary.csv', delimiter=',', names = True)
-data = np.genfromtxt('banditStDevContextualAERSummary.csv', delimiter=',', names = True)
+
 fig = plt.figure()
 ax = fig.add_subplot(111)
 

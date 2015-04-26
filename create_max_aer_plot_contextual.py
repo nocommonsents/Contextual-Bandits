@@ -22,7 +22,7 @@ ax.set_ylabel('Maximum AER')
 ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['t'],data['eGreedyContextual01'], label='eGreedy')
 ax.plot(data['t'],data['eAnnealingContextual'], label='eAnnealing')
-#ax.plot(data['t'],data['SoftmaxContextual'], label='Softmax')
+ax.plot(data['t'],data['SoftmaxContextual01'], label='Softmax')
 ax.plot(data['t'],data['LinUCB01'], label='LinUCB')
 ax.plot(data['t'],data['NaiveBayesContextual'], label='NaiveBayes')
 

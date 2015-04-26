@@ -17,16 +17,16 @@ data3 = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Mean AER Range vs. Evaluation Number - Random Algorithm")
+ax.set_title("Mean AER Range vs. Evaluation Number - Highest CTR Bandit Algorithm")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Mean AER')
+ax.set_ylabel('AER')
 
-minimum = data2['Random']
-mean = data['Random']
-maximum = data3['Random']
-ax.plot(data['t'], minimum, label='Min')
-ax.plot(data['t'], mean, label='Mean')
+minimum = data2['MostCTR']
+mean = data['MostCTR']
+maximum = data3['MostCTR']
 ax.plot(data['t'], maximum, label='Max')
+ax.plot(data['t'], mean, label='Mean')
+ax.plot(data['t'], minimum, label='Min')
 ax.fill_between(data['t'], minimum, maximum, facecolor='blue', alpha=0.5)
 
 
@@ -35,7 +35,7 @@ ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 #fontP = FontProperties()
 #fontP.set_size('small')
 #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
-ax.legend(loc='upper center')
+ax.legend(loc='lower right')
 #ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
@@ -48,7 +48,7 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 plt.tight_layout()
-plt.show()
-plt.savefig("plots/averageAERwithRangesRandomAlgorithm.png", bbox_inches='tight')
+#plt.show()
+plt.savefig("plots/averageAERwithRangesHighestCTRAlgorithm.png", bbox_inches='tight')
 
 

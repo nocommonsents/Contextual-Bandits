@@ -133,10 +133,10 @@ while (<INPUT2>){
 	$mean_aer = $line[4];
 	$max_aer = $line[6];
 	$all_time_vs_ctr_policies_hash{$policy}++;
-	if ($data_points >= 50) {
+	#if ($data_points >= 50) {
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
 		$max_time_vs_ctr_hash{$time_bin}{$policy} = $max_aer;
-	}
+	#}
 	
 }
 

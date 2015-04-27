@@ -11,3 +11,6 @@ python create_var_aer_plot_contextual.py
 python create_stdev_aer_plot.py
 python create_stdev_aer_plot_contextual.py
 python create_runtime_plot.py
+python create_runtime_plot_contextual.py
+python create_mean_aer_vs_time_plot.py
+python create_mean_aer_vs_time_plot_contextual.py

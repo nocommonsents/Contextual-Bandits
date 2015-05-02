@@ -58,6 +58,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 #plt.tight_layout()
-plt.savefig("plots/mean_AER_vs_time.png", bbox_inches='tight')
+plt.savefig("plots/meanAERVsTime.png", bbox_inches='tight')
 
 

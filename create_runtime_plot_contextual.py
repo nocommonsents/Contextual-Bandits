@@ -29,7 +29,7 @@ vars = []
 stdevs = []
 dict = {}
 
-colors = iter(cm.rainbow(np.linspace(0, 1, len(ys))))
+colors = iter(cm.rainbow(np.linspace(0.25, 2, len(ys))))
 
 for line in data:
     policy, num_sims, mean, min, max, var, stdev = line
@@ -44,12 +44,11 @@ for line in data:
     count+=1
 
 # Contextual
-rects1 = ax.bar(ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
-rects2 = ax.bar((N+2) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
-rects3 = ax.bar((2*(N+2)) +ind, (mins[13], means[13], maxs[13]), width, color=next(colors))
-rects4 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
-rects5 = ax.bar((4*(N+2)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
-rects6 = ax.bar((5*(N+2)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
+rects1 = ax.bar((N+2) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[13], means[13], maxs[13]), width, color=next(colors))
+rects3 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
+rects5 = ax.bar((5*(N+2)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -63,8 +62,9 @@ ax.set_title("Contextual Algorithm Comparison - Runtime (Min, Mean, Max)")
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 #ax.set_xticks(ind+ind*N)
 
-# Non-contextual
-relevant_policies = [policies[8],policies[15],policies[13],policies[3],policies[10],policies[7]]
+# Contextual
+relevant_policies = ['eGreedy(0.1)', 'eAnnealing', 'LinUCB', 'Softmax(0.1)', 'NaiveBayes']
+#relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
 ax.set_xticklabels(relevant_policies)
 
 

@@ -53,10 +53,9 @@ from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
 # Ensemble bandit policies
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
-from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
-from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
-from exploChallenge.policies.EnsembleEAnnealingModel import EnsembleEAnnealingModel
+from exploChallenge.policies.EnsembleRandomUpdateAllModel import EnsembleRandomUpdateAllModel
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
+from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleTestingModel1 import EnsembleTestingModel1
 
 
@@ -82,9 +81,11 @@ class Main:
 
 
         try:
+            # First file is for testing only
             inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
+            # Filter subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
 
@@ -101,7 +102,7 @@ class Main:
         outputFile.write("Simulation started at: " + strftime("%Y-%m-%d %H:%M:%S") + "\n")
         outputFile.write("Input file: " + os.path.basename(inputFile) + "\n")
 
-        ## Pick a single contextual bandit algorithm and corresponding output file
+        ## Pick a single contextual bandit algorithm and corresponding policy name / output file
 
         #policy = RandomPolicy()
         #policyName = "Random"
@@ -175,21 +176,17 @@ class Main:
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        #policy = EnsembleSoftmaxModel(0.1)
-        #policyName = "EnsembleSoftmax"
+        policy = EnsembleEAnnealingUpdateAllModel()
+        policyName = "EnsembleEAnnealingUpdateAll"
+        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+
+        #policy = EnsembleSoftmaxUpdateAllModel(0.1)
+        #policyName = "EnsembleSoftmaxUpdateAll"
         #outputFile.write("Policy: EnsembleSoftmax\n")
 
-        #policy = EnsembleEAnnealingModel()
-        #policyName = "EnsembleEAnnealing"
-        #outputFile.write("Policy: EnsembleEAnnealing\n")
-
-        #policy = EnsembleEAnnealingUpdateAllModel()
-        #policyName = "EnsembleEAnnealingUpdateAll"
-        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
-
-        policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleTestingModel1"
-        outputFile.write("Policy: EnsembleTestingModel1\n")
+        #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTestingModel1"
+        #outputFile.write("Policy: EnsembleTestingModel1\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

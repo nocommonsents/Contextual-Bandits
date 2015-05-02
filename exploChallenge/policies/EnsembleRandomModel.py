@@ -1,6 +1,6 @@
 __author__ = 'bixlermike'
 
-# Final verification 9 Apr 2015
+# Final verification 2 May 2015
 
 import random
 import re
@@ -15,8 +15,8 @@ class EnsembleRandomModel(ContextualBanditPolicy):
 
     def __init__(self):
         # Create an object from each class to use for ensemble model
-        self.policy_one = MostCTR()
-        self.policy_two = eAnnealing()
+        self.policy_one = eAnnealing()
+        self.policy_two = MostCTR()
         self.policy_three = NaiveBayesContextual()
         self.policies = [self.policy_one, self.policy_two, self.policy_three]
         self.chosen_policy = None
@@ -24,10 +24,10 @@ class EnsembleRandomModel(ContextualBanditPolicy):
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
         self.chosen_policy =  str(random.choice(self.policies))
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             #print "Choice is E-Annealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
             #print "Choice is LinUCB1"
             return self.policy_two.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
@@ -40,9 +40,9 @@ class EnsembleRandomModel(ContextualBanditPolicy):
     #@Override
     def updatePolicy(self, content, chosen_arm, reward):
         #print "Updating policy " + str(self.chosen_policy)
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             self.policy_one.updatePolicy(content, chosen_arm, reward)
-        elif (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
             self.policy_two.updatePolicy(content, chosen_arm, reward)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
             self.policy_three.updatePolicy(content, chosen_arm, reward)

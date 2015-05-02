@@ -41,10 +41,6 @@ class eAnnealingContextual(ContextualBanditPolicy):
         # Transpose of theta
         self.thetaT = {}
 
-    def getEpsilon(self):
-        return self.epsilon
-
-
     def getActionToPerform(self, visitor, possibleActions):
         xT = np.array([visitor.getFeatures()])
         x = np.transpose(xT)

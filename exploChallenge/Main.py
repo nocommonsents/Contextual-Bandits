@@ -31,18 +31,18 @@ from exploChallenge.logs.yahoo.YahooLogLineReader import YahooLogLineReader
 from exploChallenge.logs.yahoo.YahooVisitor import YahooVisitor
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
+# Non-contextual bandit policies
 from exploChallenge.policies.RandomPolicy import RandomPolicy
 from exploChallenge.policies.MostClicked import MostClicked
 from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.MostCTR import MostCTR
-
 from exploChallenge.policies.eGreedy import eGreedy
 from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
-from exploChallenge.eval.EvaluatorEXP3 import EvaluatorEXP3
 
+# Contextual bandit policies
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.LinUCB import LinUCB
@@ -51,6 +51,7 @@ from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
+# Ensemble bandit policies
 from exploChallenge.policies.EnsembleRandomModel import EnsembleRandomModel
 from exploChallenge.policies.EnsembleRandomModelUpdateAll import EnsembleRandomModelUpdateAll
 from exploChallenge.policies.EnsembleSoftmaxModel import EnsembleSoftmaxModel
@@ -76,13 +77,13 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEGreedyContextualWithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsEGreedyContextualWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
@@ -142,9 +143,9 @@ class Main:
         #policyName = "ThompsonSampling" + str(policy.getPriors())
         #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
 
-        policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "eGreedyContextual" + str(policy.getEpsilon())
-        outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
+        #policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "eGreedyContextual" + str(policy.getEpsilon())
+        #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
         #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "eAnnealingContextual"
@@ -186,9 +187,9 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleTestingModel1"
-        #outputFile.write("Policy: EnsembleTestingModel1\n")
+        policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleTestingModel1"
+        outputFile.write("Policy: EnsembleTestingModel1\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

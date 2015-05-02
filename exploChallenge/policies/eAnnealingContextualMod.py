@@ -43,11 +43,6 @@ class eAnnealingContextualMod(ContextualBanditPolicy):
 
         self.scaled_regressor_values = {}
 
-
-    def getEpsilon(self):
-        return self.epsilon
-
-
     def getScaledRegressorValues(self, visitor, possibleActions):
         xT = np.array([visitor.getFeatures()])
         x = np.transpose(xT)

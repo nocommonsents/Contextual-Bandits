@@ -41,6 +41,7 @@ from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
+from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 
 # Contextual bandit policies
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
@@ -57,6 +58,7 @@ from exploChallenge.policies.EnsembleRandomUpdateAllModel import EnsembleRandomU
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleTestingModel1 import EnsembleTestingModel1
+from exploChallenge.policies.EnsembleTestingModel2 import EnsembleTestingModel2
 
 
 from time import strftime
@@ -76,7 +78,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEGreedyContextualWithTime.txt", "a+")
+        #outputFile = open("banditOutputsLinUCBAllWithTime.txt", "a+")
         outputFile = open("testing.txt", "a+")
 
 
@@ -140,9 +142,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        #policy = ThompsonSampling(1.0, 1.0)
-        #policyName = "ThompsonSampling" + str(policy.getPriors())
-        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
+        policy = ThompsonSampling(1.0, 1.0)
+        policyName = "ThompsonSampling" + str(policy.getPriors())
+        outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
 
         #policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
@@ -176,17 +178,21 @@ class Main:
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        policy = EnsembleEAnnealingUpdateAllModel()
-        policyName = "EnsembleEAnnealingUpdateAll"
-        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        #policy = EnsembleEAnnealingUpdateAllModel()
+        #policyName = "EnsembleEAnnealingUpdateAll"
+        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.1)
-        #policyName = "EnsembleSoftmaxUpdateAll"
+        #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel1"
         #outputFile.write("Policy: EnsembleTestingModel1\n")
+
+        #policy = EnsembleTestingModel2(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTestingModel2"
+        #outputFile.write("Policy: EnsembleTestingModel2\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

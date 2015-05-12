@@ -21,6 +21,8 @@ ax.set_ylabel('Mean AER')
 
 ax.plot(data['TimeBin'],data['EnsembleRandom'], label='EnsRandom')
 ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
+ax.plot(data['TimeBin'],data['EnsembleEAnnealingUpdateAll'], label='EnsEAnnUpdateAll')
+ax.plot(data['TimeBin'],data['EnsembleSoftmaxUpdateAll01'], label='EnsSoftmaxUpdateAll')
 
 
 box = ax.get_position()

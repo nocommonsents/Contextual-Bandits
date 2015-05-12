@@ -3,7 +3,7 @@ __author__ = 'bixlermike'
 # Final verification 8 Apr 2015
 
 # Ridge regression estimates the weight coefficient vector as:
-# Theta = (xT * x + I)^-1 * xT * y
+# Theta = (xT * x + I)^-1 * xT * y (I can be a multiple of the identity vector...here we will use 1)
 # x: Feature vector, xT = transpose of feature vector, I = identity matrix, y = reward vector (all 0s or 1s)
 # Here we use A = (xT * x + I)^-1 and B = (xT * y), so theta is then theta = A^-1 * b
 # Get predictions for each article by multiplying weight vector (theta) * feature vector (x)
@@ -81,7 +81,7 @@ class eGreedyContextual(ContextualBanditPolicy):
             self.rewards = 1
         else:
             self.rewards = 0
-        # Part of theta calculation equivalent to x * x tranpose + identity matrix
+        # Part of theta calculation equivalent to x * x transpose + identity matrix
         self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
         # Equivalent to x transpose * y (reward)
         self.b[chosen_arm.getID()] += self.rewards * self.x

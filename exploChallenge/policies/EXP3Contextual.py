@@ -34,7 +34,7 @@ class EXP3Contextual(ContextualBanditPolicy):
     def getGamma(self):
         return self.gamma
 
-    def getActionToPerform(self, visitor,possibleActions):
+    def getActionToPerform(self, visitor, possibleActions):
         arm_weights ={}
         arm_probs = {}
         for action in possibleActions:

@@ -34,8 +34,10 @@ class ThompsonSampling(ContextualBanditPolicy):
                 self.successes[action.getID()] = 0.0
                 self.trials[action.getID()] = 0.0
             #Construct beta distribution for posterior
-            dist = beta(self.prior[0]+self.successes[action.getID()],
-                        self.prior[1]+self.trials[action.getID()]-self.successes[action.getID()])
+            #dist = beta(self.prior[0]+self.successes[action.getID()],
+            #            self.prior[1]+self.trials[action.getID()]-self.successes[action.getID()])
+            dist = beta(self.prior_alpha+self.successes[action.getID()],
+                        self.prior_beta+self.trials[action.getID()]-self.successes[action.getID()])
             #dist = beta(self.prior_alpha,self.prior_beta)
             #Draw sample from beta distribution
             sampled_theta += [dist.rvs()]

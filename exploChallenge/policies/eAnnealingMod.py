@@ -22,9 +22,12 @@ class eAnnealingMod(ContextualBanditPolicy):
         self.trials = 1
         self.counts = {}
         self.values = {}
+        self.random_values = {}
         self.scaled_values = {}
 
     def getScaledValues(self, visitor, possibleActions):
+        self.epsilon = 1 / math.log(self.trials + 0.0000001)
+        self.trials += 1
         for action in possibleActions:
             if action.getID() not in self.counts:
                 # Avoid divide by zero error
@@ -33,27 +36,24 @@ class eAnnealingMod(ContextualBanditPolicy):
 
         # Exploiting
         if rn.random() > self.epsilon:
-            for a in possibleActions:
-                z = sum(math.exp(self.values[v]) for v in self.values)
-                print "Exploiting - z is equal to: " + str(z)
+            z = sum(math.exp(self.values[v]) for v in self.values)
+            #print "Exploiting - z is equal to: " + str(z)
 
             for ac in possibleActions:
                 self.scaled_values[ac.getID()] = [math.exp(self.values[ac.getID()])/z]
-            print "Exploiting scaled values are: " + str(self.scaled_values)
-            self.epsilon = 1 / math.log(self.trials + 0.0000001)
-            self.trials += 1
+            #print "Exploiting scaled values are: " + str(self.scaled_values)
             return self.scaled_values
 
-        # Explore
+        # Exploring
         else:
             for article in possibleActions:
-                self.scaled_values[article.getID()] = rn.random()
-            z = sum(math.exp(self.scaled_values[v]) for v in self.values)
-            print "Exploring - z is equal to: " + str(z)
+                self.random_values[article.getID()] = rn.random()
+            z = sum(math.exp(self.random_values[v]) for v in self.values)
+            #print "Exploring - z is equal to: " + str(z)
 
             for ac in possibleActions:
-                 self.scaled_values[ac.getID()] = [math.exp(self.rvalues[ac.getID()])/z]
-            print "Exploiting scaled values are: " + str(self.scaled_values)
+                 self.scaled_values[ac.getID()] = [math.exp(self.random_values[ac.getID()])/z]
+            #print "Exploiting scaled values are: " + str(self.scaled_values)
             return self.scaled_values
 
     def updatePolicy(self, content, chosen_arm, reward):

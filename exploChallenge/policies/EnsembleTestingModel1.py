@@ -20,9 +20,9 @@ class EnsembleTestingModel1(ContextualBanditPolicy):
     def __init__(self, regressor):
         # Create an object from each class to use for ensemble model
         self.regressor = regressor
-        self.policy_one = NaiveBayesContextualMod()
+        self.policy_one = eAnnealingMod()
         self.policy_two = MostCTRMod()
-        self.policy_three = eAnnealingMod()
+        self.policy_three = NaiveBayesContextualMod()
         self.policies = [self.policy_one, self.policy_two, self.policy_three]
         self.policy_one_count = 0
         self.policy_two_count = 0

@@ -52,7 +52,8 @@ class ThompsonSampling(ContextualBanditPolicy):
     def updatePolicy(self, content, chosen_arm, reward):
         self.trials[chosen_arm.getID()] += 1
         n = self.trials[chosen_arm.getID()]
-        self.successes[chosen_arm.getID()] += 1
+        if reward is True:
+            self.successes[chosen_arm.getID()] += 1
         value = self.successes[chosen_arm.getID()]
         new_value = reward + (reward - value) / (n + 1)
         self.successes[chosen_arm.getID()] = new_value

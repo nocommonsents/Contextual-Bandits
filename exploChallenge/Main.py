@@ -59,6 +59,8 @@ from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAn
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleTestingModel1 import EnsembleTestingModel1
 from exploChallenge.policies.EnsembleTestingModel2 import EnsembleTestingModel2
+from exploChallenge.policies.EnsembleTestingModel3 import EnsembleTestingModel3
+from exploChallenge.policies.EnsembleTestingModel4 import EnsembleTestingModel4
 
 
 from time import strftime
@@ -78,7 +80,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsLinUCBAllWithTime.txt", "a+")
+        #outputFile = open("banditOutputsEAnnealingContextualWithTime.txt", "a+")
         outputFile = open("testing.txt", "a+")
 
 
@@ -142,9 +144,9 @@ class Main:
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
 
-        policy = ThompsonSampling(1.0, 1.0)
-        policyName = "ThompsonSampling" + str(policy.getPriors())
-        outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
+        #policy = ThompsonSampling(1.0, 1.0)
+        #policyName = "ThompsonSampling" + str(policy.getPriors())
+        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
 
         #policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
@@ -193,6 +195,14 @@ class Main:
         #policy = EnsembleTestingModel2(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel2"
         #outputFile.write("Policy: EnsembleTestingModel2\n")
+
+        #policy = EnsembleTestingModel3(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTestingModel3"
+        #outputFile.write("Policy: EnsembleTestingModel3\n")
+
+        policy = EnsembleTestingModel4(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleTestingModel4"
+        outputFile.write("Policy: EnsembleTestingModel4\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

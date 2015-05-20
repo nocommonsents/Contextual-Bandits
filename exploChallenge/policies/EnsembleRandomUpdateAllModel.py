@@ -42,8 +42,13 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
         #print "Updating policy " + str(self.chosen_policy)
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
-            self.policy_two.updatePolicy(content, chosen_arm, reward)
-            self.policy_three.updatePolicy(content, chosen_arm, reward)
-            return
         except:
-            return
+            pass
+        try:
+            self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
+            self.policy_three.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass

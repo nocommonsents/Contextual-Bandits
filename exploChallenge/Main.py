@@ -80,14 +80,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEAnnealingContextualWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsMostRecentWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filter subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -116,9 +116,9 @@ class Main:
         #policyName = "MostClicked"
         #outputFile.write("Policy: MostClicked\n")
 
-        #policy = MostRecent()
-        #policyName = "MostRecent"
-        #outputFile.write("Policy: MostRecent\n")
+        policy = MostRecent()
+        policyName = "MostRecent"
+        outputFile.write("Policy: MostRecent\n")
 
         #policy = MostCTR()
         #policyName = "MostCTR"
@@ -184,7 +184,7 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleSoftmaxUpdateAllModel(0.1)
+        #policy = EnsembleSoftmaxUpdateAllModel(0.5)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax\n")
 
@@ -200,9 +200,9 @@ class Main:
         #policyName = "EnsembleTestingModel3"
         #outputFile.write("Policy: EnsembleTestingModel3\n")
 
-        policy = EnsembleTestingModel4(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleTestingModel4"
-        outputFile.write("Policy: EnsembleTestingModel4\n")
+        #policy = EnsembleTestingModel4(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTestingModel4"
+        #outputFile.write("Policy: EnsembleTestingModel4\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

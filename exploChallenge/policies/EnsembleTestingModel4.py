@@ -46,10 +46,14 @@ class EnsembleTestingModel4(ContextualBanditPolicy):
         #Construct beta distribution for posterior
 
         for i in self.policies:
-            if i not in self.policy_counts:
+            if str(i) not in self.policy_counts:
                 self.policy_counts[str(i)] = 0
                 self.policy_successes[str(i)] = 0
-            #print i
+
+            # print str(i)
+            # print self.policy_successes[str(i)]
+            # print self.policy_counts[str(i)]
+            # print "\n"
             dist = beta(self.prior_alpha+self.policy_successes[str(i)],
                         self.prior_beta+self.policy_counts[str(i)]-self.policy_successes[str(i)])
 
@@ -93,8 +97,10 @@ class EnsembleTestingModel4(ContextualBanditPolicy):
         except:
             pass
 
-        self.policy_counts[self.chosen_policy] += 1
+        self.policy_counts[str(self.chosen_policy)] += 1
+        #print self.policy_counts
         if reward is True:
-           self.policy_successes[str(self.chosen_policy)] += 1
+            self.policy_successes[str(self.chosen_policy)] += 1
+
 
         return

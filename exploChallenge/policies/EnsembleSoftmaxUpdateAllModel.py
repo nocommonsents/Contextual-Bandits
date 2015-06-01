@@ -68,7 +68,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
             return
 
     #@Override
-    def updatePolicy(self, content, chosen_arm, reward):
+    def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         #print "Updating policy " + str(self.chosen_policy)
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)

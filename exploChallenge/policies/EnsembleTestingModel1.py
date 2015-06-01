@@ -94,11 +94,17 @@ class EnsembleTestingModel1(ContextualBanditPolicy):
         return possibleActions[rargmax(policy_two_scores_list)]
 
 #@Override
-    def updatePolicy(self, content, chosen_arm, reward):
+    def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
             self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
             self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass

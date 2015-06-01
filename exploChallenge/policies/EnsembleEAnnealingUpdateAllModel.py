@@ -78,7 +78,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 
 
     #@Override
-    def updatePolicy(self, content, chosen_arm, reward):
+    def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
         print self.policy_scores
 

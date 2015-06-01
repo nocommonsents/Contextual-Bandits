@@ -66,7 +66,7 @@ class EnsembleTestingModel3(ContextualBanditPolicy):
             return
 
 #@Override
-    def updatePolicy(self, content, chosen_arm, reward):
+    def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
         if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
             self.policy_one_count += 1
@@ -105,10 +105,15 @@ class EnsembleTestingModel3(ContextualBanditPolicy):
             print "Error with updatePolicy in EnsembleEAnnealingUpdateAll!"
 
 
-
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
             self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
             self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass

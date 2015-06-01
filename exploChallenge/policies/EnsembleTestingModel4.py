@@ -82,7 +82,7 @@ class EnsembleTestingModel4(ContextualBanditPolicy):
             return
 
 #@Override
-    def updatePolicy(self, content, chosen_arm, reward):
+    def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)

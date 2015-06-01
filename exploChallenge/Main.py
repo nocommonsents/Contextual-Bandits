@@ -80,14 +80,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsMostRecentWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsMostClickedWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filter subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -112,17 +112,17 @@ class Main:
         #policyName = "Random"
         #outputFile.write("Policy: Random\n")
 
-        #policy = MostClicked()
-        #policyName = "MostClicked"
-        #outputFile.write("Policy: MostClicked\n")
+        policy = MostClicked()
+        policyName = "MostClicked"
+        outputFile.write("Policy: MostClicked\n")
 
         #policy = MostRecent()
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        policy = MostCTR()
-        policyName = "MostCTR"
-        outputFile.write("Policy: MostCTR\n")
+        #policy = MostCTR()
+        #policyName = "MostCTR"
+        #outputFile.write("Policy: MostCTR\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -176,7 +176,7 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleRandomModelUpdateAll()
+        #policy = EnsembleRandomUpdateAllModel()
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 

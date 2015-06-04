@@ -1,7 +1,3 @@
-__author__ = 'bixlermike'
-
-# Final verification 1 Jun 2015
-
 import math
 import numpy as np
 import random

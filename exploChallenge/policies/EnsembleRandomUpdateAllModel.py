@@ -9,7 +9,7 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 
-class EnsembleRandomModel(ContextualBanditPolicy):
+class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
 
 
     def __init__(self):
@@ -36,16 +36,12 @@ class EnsembleRandomModel(ContextualBanditPolicy):
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         #print "Updating policy " + str(self.chosen_policy)
 
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
-            try:
-                self.policy_one.updatePolicy(content, chosen_arm, reward)
-            except:
-                pass
-        elif (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
-            try:
-                self.policy_two.updatePolicy(content, chosen_arm, reward)
-            except:
-                pass
-        else:
-            print "Error in updatePolicy!"
+        try:
+            self.policy_one.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
+            self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
         return

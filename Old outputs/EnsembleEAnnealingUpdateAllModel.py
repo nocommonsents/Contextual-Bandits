@@ -1,13 +1,12 @@
 __author__ = 'bixlermike'
 
-# Final verification 1 Jun 2015
-
 import math
 import numpy as np
 import random as rn
 import re
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
+from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 
@@ -16,21 +15,33 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return rn.choice(indices)
 
+#idx_max = max(enumerate(x), key=lambda x:x[1])[0]
+
 class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 
 
     def __init__(self):
         # Create an object from each class to use for ensemble model
-        self.policy_one = MostCTR()
-        self.policy_two = NaiveBayesContextual()
-        self.policies = [self.policy_one, self.policy_two]
+        self.policy_one = eAnnealing()
+        self.policy_two = MostCTR()
+        self.policy_three = NaiveBayesContextual()
+        self.policies = [self.policy_one, self.policy_two, self.policy_three]
+        # self.policy_one_score = 0.01
+        # self.policy_two_score = 0.01
+        # self.policy_three_score = 0.01
+        # self.policy_scores = []
         self.policy_scores = {}
+        # self.policy_one_count = 0.001
+        # self.policy_two_count = 0.001
+        # self.policy_three_count = 0.001
+        # self.policy_counts = []
         self.policy_counts = {}
         self.chosen_policy = None
         self.trials = 1
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
+        arm_values = {}
         random_number = rn.random()
         self.epsilon = 1 / math.log(self.trials + 0.0000001)
         self.trials += 1
@@ -52,12 +63,15 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             #print self.policy_scores
 
         print "Chosen policy: " + str(self.chosen_policy)
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
-            #print "Choice is MostCTR"
+        if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
+            #print "Choice is EAnnealing"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
+        elif (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
+            #print "Choice is MostCTR"
+            return self.policy_two.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
             #print "Choice is NaiveBayes"
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
+            return self.policy_three.getActionToPerform(visitor, possibleActions)
         else:
             print "Error with getActionToPerform in EnsembleEAnnealingUpdateAll!"
         return
@@ -76,6 +90,10 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             self.policy_two.updatePolicy(content, chosen_arm, reward)
         except:
             pass
+        try:
+            self.policy_three.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
 
         self.policy_counts[str(self.chosen_policy)] += 1
 
@@ -84,5 +102,19 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
                                                           self.policy_scores[str(self.chosen_policy)] + (1 / float(self.policy_counts[str(self.chosen_policy)]))
             print "Scores are: " + str(self.policy_scores)
             print "Counts are: " + str(self.policy_counts)
+        # if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
+        #     self.policy_one_count +=1
+        #     if reward is True:
+        #         self.policy_one_score = ((self.policy_one_count - 1) / float(self.policy_one_count)) * self.policy_one_score + (1 / float(self.policy_one_count))
+        # elif (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
+        #     self.policy_two_count +=1
+        #     if reward is True:
+        #         self.policy_two_score = ((self.policy_two_count - 1) / float(self.policy_two_count)) * self.policy_two_score + (1 / float(self.policy_two_count))
+        # elif (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
+        #     self.policy_three_count +=1
+        #     if reward is True:
+        #         self.policy_three_score = ((self.policy_three_count - 1) / float(self.policy_three_count)) * self.policy_three_score + (1 / float(self.policy_three_count))
+        # else:
+        #     print "Error with updatePolicy in EnsembleEAnnealingUpdateAll!"
 
         return

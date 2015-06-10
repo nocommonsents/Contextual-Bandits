@@ -15,6 +15,7 @@ class MostCTR(ContextualBanditPolicy):
     def __init__(self):
         self.counts = {}
         self.rates = {}
+        self.total_count = 0
         return
 
     def getActionToPerform(self, visitor,possibleActions):
@@ -26,16 +27,23 @@ class MostCTR(ContextualBanditPolicy):
 
         click_rates = [self.rates[a.getID()] for a in possibleActions]
 
-
         action = possibleActions[rargmax(click_rates)]
         return action
 
     def updatePolicy(self, content, chosen_arm, reward):
-        self.counts[chosen_arm.getID()] += 1
-        n = self.counts[chosen_arm.getID()]
+        try:
+            self.counts[chosen_arm.getID()] += 1
+            n = self.counts[chosen_arm.getID()]
 
-        rate = self.rates[chosen_arm.getID()]
-        new_rate = ((n-1) / float(n)) * rate + (1/float(n)) * reward
-        #print "New rate: " + str(new_rate)
-        self.rates[chosen_arm.getID()] = new_rate
+            rate = self.rates[chosen_arm.getID()]
+            new_rate = ((n-1) / float(n)) * rate + (1/float(n)) * reward
+            #new_rate_2 = rate + (reward - rate) / (n + 1)
+            #print "New rate: " + str(new_rate)
+            #print "Old rate: " + str(new_rate_2)
+            self.total_count += 1
+            # if self.total_count % 100 == 0:
+            #     print "Delta: " + str(new_rate_2-new_rate)
+            self.rates[chosen_arm.getID()] = new_rate
+        except:
+            pass
         return

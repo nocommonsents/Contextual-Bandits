@@ -56,7 +56,6 @@ class eAnnealing(ContextualBanditPolicy):
             # Calculate revised AER of this arm
             new_value = ((n-1) / float(n)) * value + (1/float(n)) * reward
             self.values[chosen_arm.getID()] = new_value
-
             return
         except:
             return

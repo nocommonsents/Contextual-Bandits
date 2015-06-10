@@ -27,10 +27,9 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
 
     def __init__(self, temp):
         # Create an object from each class to use for ensemble model
-        self.policy_one = eAnnealing()
-        self.policy_two = MostCTR()
-        self.policy_three = NaiveBayesContextual()
-        self.policies = [self.policy_one, self.policy_two, self.policy_three]
+        self.policy_one = MostCTR()
+        self.policy_two = NaiveBayesContextual()
+        self.policies = [self.policy_one, self.policy_two]
         self.policy_counts = {}
         self.policy_scores = {}
         self.chosen_policy = None
@@ -61,12 +60,10 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         #print self.chosen_policy
         #print "ID equals: " + str(self.chosen_policy)
 
-        if (re.match('<exploChallenge\.policies\.eAnnealing',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
             return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
-            return self.policy_three.getActionToPerform(visitor, possibleActions)
+            return self.policy_two.getActionToPerform(visitor, possibleActions)
         else:
             print "Error in getActionToPerform!"
             return
@@ -80,10 +77,6 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
             pass
         try:
             self.policy_two.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
-        try:
-            self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass
 

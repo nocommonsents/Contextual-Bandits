@@ -81,7 +81,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEAnnealingWithTime.txt", "a+")
+        outputFile = open("banditOutputsSoftmaxContextualWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -129,9 +129,9 @@ class Main:
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        policy = eAnnealing()
-        policyName = "eAnnealing"
-        outputFile.write("Policy: eAnnealing\n")
+        #policy = eAnnealing()
+        #policyName = "eAnnealing"
+        #outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())
@@ -165,9 +165,9 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "SoftmaxContextual" + str(policy.getTemp())
-        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "SoftmaxContextual" + str(policy.getTemp())
+        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = NaiveBayesContextual()
         #policyName = "NaiveBayesContextual"

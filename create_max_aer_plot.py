@@ -41,6 +41,7 @@ ax.set_xlim([0, max(data['t'])])
 ax.set_axisbelow(True)
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
+ax.set_ylim([0.03,0.10])
 #ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():

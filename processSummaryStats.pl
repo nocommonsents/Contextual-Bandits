@@ -54,13 +54,13 @@ while (<INPUT1>){
 	$var_aer = $line[7];
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
-	#if ($data_points >= 23 || $policy=~/^UCB1/) {
-    $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
-    $min_aer_hash{$num_evals}{$policy} = $min_aer;
-    $max_aer_hash{$num_evals}{$policy} = $max_aer;
-    $var_aer_hash{$num_evals}{$policy} = $var_aer;
-    $stdev_aer_hash{$num_evals}{$policy} = $stdev_aer;
-	#}
+	if ($data_points >= 23) {
+        $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
+        $min_aer_hash{$num_evals}{$policy} = $min_aer;
+        $max_aer_hash{$num_evals}{$policy} = $max_aer;
+        $var_aer_hash{$num_evals}{$policy} = $var_aer;
+        $stdev_aer_hash{$num_evals}{$policy} = $stdev_aer;
+	}
 }
 
 # Print out header row
@@ -133,10 +133,10 @@ while (<INPUT2>){
 	$mean_aer = $line[4];
 	$max_aer = $line[6];
 	$all_time_vs_ctr_policies_hash{$policy}++;
-	#if ($data_points >= 50) {
+	if ($data_points >= 50) {
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
 		$max_time_vs_ctr_hash{$time_bin}{$policy} = $max_aer;
-	#}
+	}
 	
 }
 

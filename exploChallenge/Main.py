@@ -191,11 +191,11 @@ class Main:
         #outputFile.write("Policy: EnsembleSoftmax\n")
 
         #policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBayesianUpdateAllModel"
+        #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
         policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIUpdateAllModel"
+        policyName = "EnsembleBinomialUCIUpdateAll"
         outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))

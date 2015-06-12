@@ -69,7 +69,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
             term_one = (self.policy_one_successes/self.policy_one_count)
             term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
             term_three = (self.z_value / math.sqrt(self.policy_one_count))
-            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.num_trials)
+            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_one_count)
             numerator = term_one + term_two + term_three * math.sqrt(radicand)
             denominator = (1 + ((self.z_value * self.z_value)/self.policy_one_count))
             self.policy_one_uci = numerator / denominator
@@ -80,7 +80,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
             term_one = (self.policy_two_successes/self.policy_two_count)
             term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
             term_three = (self.z_value / math.sqrt(self.policy_two_count))
-            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.num_trials)
+            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_two_count)
             numerator = term_one + term_two + term_three * math.sqrt(radicand)
             denominator = (1 + ((self.z_value * self.z_value)/self.policy_two_count))
             self.policy_two_uci = numerator / denominator

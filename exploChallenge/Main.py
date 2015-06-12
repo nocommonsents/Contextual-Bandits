@@ -82,7 +82,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleEAnnealingWithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleBinomialUCIUpdateAllWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -182,9 +182,9 @@ class Main:
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        policy = EnsembleEAnnealingUpdateAllModel()
-        policyName = "EnsembleEAnnealingUpdateAll"
-        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        #policy = EnsembleEAnnealingUpdateAllModel()
+        #policyName = "EnsembleEAnnealingUpdateAll"
+        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.5)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
@@ -194,9 +194,9 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAllModel"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIUpdateAllModel"
-        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIUpdateAllModel"
+        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel1"

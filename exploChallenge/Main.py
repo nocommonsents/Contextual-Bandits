@@ -58,6 +58,7 @@ from exploChallenge.policies.EnsembleRandomUpdateAllModel import EnsembleRandomU
 from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAnnealingUpdateAllModel
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
+from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleTestingModel1 import EnsembleTestingModel1
 from exploChallenge.policies.EnsembleTestingModel2 import EnsembleTestingModel2
 from exploChallenge.policies.EnsembleTestingModel3 import EnsembleTestingModel3
@@ -81,7 +82,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmaxContextualWithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleEAnnealingWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -165,9 +166,9 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "SoftmaxContextual" + str(policy.getTemp())
-        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "SoftmaxContextual" + str(policy.getTemp())
+        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = NaiveBayesContextual()
         #policyName = "NaiveBayesContextual"
@@ -181,9 +182,9 @@ class Main:
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        #policy = EnsembleEAnnealingUpdateAllModel()
-        #policyName = "EnsembleEAnnealingUpdateAll"
-        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        policy = EnsembleEAnnealingUpdateAllModel()
+        policyName = "EnsembleEAnnealingUpdateAll"
+        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.5)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
@@ -192,6 +193,10 @@ class Main:
         #policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBayesianUpdateAllModel"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
+
+        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIUpdateAllModel"
+        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel1"

@@ -17,7 +17,7 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return random.choice(indices)
 
-class EnsembleTestingModel3(ContextualBanditPolicy):
+class EnsembleBinomialUCI(ContextualBanditPolicy):
 
 
     def __init__(self, regressor):

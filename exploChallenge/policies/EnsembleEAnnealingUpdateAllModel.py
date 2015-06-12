@@ -51,7 +51,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             self.chosen_policy =  str(rn.choice(self.policies))
             #print self.policy_scores
 
-        print "Chosen policy: " + str(self.chosen_policy)
+        #print "Chosen policy: " + str(self.chosen_policy)
         if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
             #print "Choice is MostCTR"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
@@ -66,7 +66,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
-        print self.policy_scores
+        #print self.policy_scores
 
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
@@ -82,7 +82,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         if reward is True:
             self.policy_scores[str(self.chosen_policy)] = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
                                                           self.policy_scores[str(self.chosen_policy)] + (1 / float(self.policy_counts[str(self.chosen_policy)]))
-            print "Scores are: " + str(self.policy_scores)
-            print "Counts are: " + str(self.policy_counts)
+            #print "Scores are: " + str(self.policy_scores)
+            #print "Counts are: " + str(self.policy_counts)
 
         return

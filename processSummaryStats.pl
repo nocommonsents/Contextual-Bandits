@@ -54,7 +54,7 @@ while (<INPUT1>){
 	$var_aer = $line[7];
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
-	if ($data_points >= 23 || $policy =~ /^Ensemble/) {
+	if ($data_points >= 10 || $policy =~ /^Ensemble/) {
 	#if ($data_points >= 23) {}
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;

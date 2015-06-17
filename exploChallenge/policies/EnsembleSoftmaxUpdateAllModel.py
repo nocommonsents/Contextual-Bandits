@@ -48,16 +48,16 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
                 self.policy_scores[str(i)] = 0
 
         z = sum([math.exp(self.policy_scores[v] / self.temperature) for v in self.policy_scores])
-        #print z
+        print z
 
         # Calculate the probability that each arm will be selected
         for v in self.policy_scores:
             probs[v]= math.exp(self.policy_scores[v] / self.temperature) / z
 
         # Generate random number and see which bin it falls into to select arm
-        #print probs
+        print probs
         self.chosen_policy = str(categorical_draw(probs))
-        #print self.chosen_policy
+        print self.chosen_policy
         #print "ID equals: " + str(self.chosen_policy)
 
         if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):

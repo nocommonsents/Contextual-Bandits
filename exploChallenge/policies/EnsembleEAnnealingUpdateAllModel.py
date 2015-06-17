@@ -10,6 +10,7 @@ import re
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
+from exploChallenge.policies.LinUCB import LinUCB
 
 def rargmax(x):
     m = np.amax(x)
@@ -23,7 +24,9 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         # Create an object from each class to use for ensemble model
         self.policy_one = MostCTR()
         self.policy_two = NaiveBayesContextual()
-        self.policies = [self.policy_one, self.policy_two]
+        self.policy_three = LinUCB(0.1)
+        #self.policies = [self.policy_one, self.policy_two]
+        self.policies = [self.policy_one, self.policy_two, self.policy_three]
         self.policy_scores = {}
         self.policy_counts = {}
         self.chosen_policy = None
@@ -58,6 +61,10 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         elif (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
             #print "Choice is NaiveBayes"
             return self.policy_two.getActionToPerform(visitor, possibleActions)
+        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
+            #print "Choice is LinUCB"
+            return self.policy_three.getActionToPerform(visitor, possibleActions)
+
         else:
             print "Error with getActionToPerform in EnsembleEAnnealingUpdateAll!"
         return
@@ -74,6 +81,10 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             pass
         try:
             self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
+            self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass
 

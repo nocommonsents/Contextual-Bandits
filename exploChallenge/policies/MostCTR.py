@@ -34,7 +34,6 @@ class MostCTR(ContextualBanditPolicy):
         try:
             self.counts[chosen_arm.getID()] += 1
             n = self.counts[chosen_arm.getID()]
-
             rate = self.rates[chosen_arm.getID()]
             new_rate = ((n-1) / float(n)) * rate + (1/float(n)) * reward
             #new_rate_2 = rate + (reward - rate) / (n + 1)

@@ -10,6 +10,7 @@ import numpy as np
 majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditMinAERSummary.csv', delimiter=',', names = True)
+data2 = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -19,11 +20,11 @@ ax.set_xlabel('Number of Evaluations')
 ax.set_ylabel('Relative Minimum AER')
 
 #ax.plot(data['t'],data['Random'], label='Random')
-ax.plot(data['t'],data['eGreedyContextual01']/data['Random'], label='eGreedy')
-ax.plot(data['t'],data['eAnnealingContextual']/data['Random'], label='eAnnealing')
-ax.plot(data['t'],data['SoftmaxContextual01']/data['Random'], label='Softmax(0.1)')
-ax.plot(data['t'],data['LinUCB01']/data['Random'], label='LinUCB')
-ax.plot(data['t'],data['NaiveBayesContextual']/data['Random'], label='NaiveBayes')
+ax.plot(data['t'],data['eGreedyContextual01']/data2['Random'], label='eGreedy')
+ax.plot(data['t'],data['eAnnealingContextual']/data2['Random'], label='eAnnealing')
+ax.plot(data['t'],data['SoftmaxContextual01']/data2['Random'], label='Softmax(0.1)')
+ax.plot(data['t'],data['LinUCB01']/data2['Random'], label='LinUCB')
+ax.plot(data['t'],data['NaiveBayesContextual']/data2['Random'], label='NaiveBayes')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

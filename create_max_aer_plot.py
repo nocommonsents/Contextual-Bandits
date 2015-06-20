@@ -10,6 +10,7 @@ import numpy as np
 majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
+data2 = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
@@ -20,14 +21,14 @@ ax.set_xlabel('Number of Evaluations')
 ax.set_ylabel('Relative Maximum AER')
 
 #ax.plot(data['t'],data['Random'], label='Random')
-ax.plot(data['t'],data['MostClicked']/data['Random'], label='MostClicked')
-ax.plot(data['t'],data['MostRecent']/data['Random'], label='MostRecent')
-ax.plot(data['t'],data['MostCTR']/data['Random'], label='HighestCTR')
-ax.plot(data['t'],data['eGreedy01']/data['Random'], label='e-Greedy(0.1)')
-ax.plot(data['t'],data['eAnnealing']/data['Random'], label='e-Annealing')
-ax.plot(data['t'],data['Softmax01']/data['Random'], label='Softmax(0.1)')
-ax.plot(data['t'],data['EXP305']/data['Random'], label='EXP3(0.5)', color='fuchsia')
-ax.plot(data['t'],data['UCB1']/data['Random'], label='UCB1', color='lawngreen')
+ax.plot(data['t'],data['MostClicked']/data2['Random'], label='MostClicked')
+ax.plot(data['t'],data['MostRecent']/data2['Random'], label='MostRecent')
+ax.plot(data['t'],data['MostCTR']/data2['Random'], label='HighestCTR')
+ax.plot(data['t'],data['eGreedy01']/data2['Random'], label='e-Greedy(0.1)')
+ax.plot(data['t'],data['eAnnealing']/data2['Random'], label='e-Annealing')
+ax.plot(data['t'],data['Softmax01']/data2['Random'], label='Softmax(0.1)')
+ax.plot(data['t'],data['EXP305']/data2['Random'], label='EXP3(0.5)', color='fuchsia')
+ax.plot(data['t'],data['UCB1']/data2['Random'], label='UCB1', color='lawngreen')
 
 
 box = ax.get_position()

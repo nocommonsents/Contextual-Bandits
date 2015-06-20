@@ -83,14 +83,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleRandomWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsEnsembleBinomialUCIWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -167,9 +167,9 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        policy = LinearBayes()
-        policyName = "LinearBayes"
-        outputFile.write("Policy: LinearBayes\n")
+        #policy = LinearBayes()
+        #policyName = "LinearBayes"
+        #outputFile.write("Policy: LinearBayes\n")
 
         #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
@@ -199,9 +199,9 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIUpdateAll"
-        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIUpdateAll"
+        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel1"

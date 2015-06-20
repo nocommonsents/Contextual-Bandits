@@ -14,16 +14,16 @@ data = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Ensemble Bandit Algorithm Comparison - Maximum AER")
+ax.set_title("Ensemble Bandit Algorithm Comparison - Relative Maximum AER")
 
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Maximum AER')
+ax.set_ylabel('Relative Maximum AER')
 
-ax.plot(data['t'],data['EnsembleRandom'], label='EnsRandom')
-ax.plot(data['t'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
-ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll'], label='EnsEAnnUpdateAll')
-ax.plot(data['t'],data['EnsembleBayesianUpdateAll'], label='EnsBayesianUpdateAll')
-ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll'], label='EnsBinomialUCIUpdateAll')
+ax.plot(data['t'],data['EnsembleRandom']/data['Random'], label='EnsRandom')
+ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data['Random'], label='EnsRandomUpdateAll')
+ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data['Random'], label='EnsEAnnUpdateAll')
+ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data['Random'], label='EnsBayesianUpdateAll')
+ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data['Random'], label='EnsBinomialUCIUpdateAll')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

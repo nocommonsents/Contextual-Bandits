@@ -17,13 +17,13 @@ data3 = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Mean AER Range vs. Evaluation Number - Highest CTR Bandit Algorithm")
+ax.set_title("Relative Mean AER Range vs. Evaluation Number - HighestCTR Algorithm")
 ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('AER')
+ax.set_ylabel('Relative AER')
 
-minimum = data2['MostCTR']
-mean = data['MostCTR']
-maximum = data3['MostCTR']
+minimum = data2['MostCTR']/data['Random']
+mean = data['MostCTR']/data['Random']
+maximum = data3['MostCTR']/data['Random']
 ax.plot(data['t'], maximum, label='Max')
 ax.plot(data['t'], mean, label='Mean')
 ax.plot(data['t'], minimum, label='Min')

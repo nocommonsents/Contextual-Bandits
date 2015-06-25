@@ -1,5 +1,4 @@
 __author__ = 'bixlermike'
-# Adapted from methods devised by Dai Shi
 
 # Final verification 8 Apr 2015
 

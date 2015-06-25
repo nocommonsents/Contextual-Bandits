@@ -1,5 +1,4 @@
 __author__ = 'bixlermike'
-# Influenced by Dai Shi's MostClicked model
 
 import math
 import random as rn

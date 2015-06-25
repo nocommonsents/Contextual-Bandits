@@ -8,9 +8,11 @@ import random as rn
 import re
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
-from exploChallenge.policies.MostCTR import MostCTR
+from exploChallenge.policies.RidgeRegressor import RidgeRegressor
+
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.LinUCB import LinUCB
+from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 
 def rargmax(x):
     m = np.amax(x)
@@ -22,9 +24,9 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 
     def __init__(self):
         # Create an object from each class to use for ensemble model
-        self.policy_one = MostCTR()
-        self.policy_two = NaiveBayesContextual()
-        self.policy_three = LinUCB(0.1)
+        self.policy_one = NaiveBayesContextual()
+        self.policy_two = LinUCB(0.1)
+        self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #self.policies = [self.policy_one, self.policy_two]
         self.policies = [self.policy_one, self.policy_two, self.policy_three]
         self.policy_scores = {}
@@ -55,14 +57,14 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             #print self.policy_scores
 
         #print "Chosen policy: " + str(self.chosen_policy)
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
-            #print "Choice is MostCTR"
-            return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
             #print "Choice is NaiveBayes"
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
+            return self.policy_one.getActionToPerform(visitor, possibleActions)
         elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
             #print "Choice is LinUCB"
+            return self.policy_two.getActionToPerform(visitor, possibleActions)
+        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
+            #print "Choice is eGreedyContextual"
             return self.policy_three.getActionToPerform(visitor, possibleActions)
 
         else:
@@ -74,7 +76,6 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
         #print self.policy_scores
-
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
         except:

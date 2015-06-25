@@ -60,10 +60,6 @@ from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAn
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
-from exploChallenge.policies.EnsembleTestingModel1 import EnsembleTestingModel1
-from exploChallenge.policies.EnsembleTestingModel2 import EnsembleTestingModel2
-from exploChallenge.policies.EnsembleTestingModel3 import EnsembleTestingModel3
-from exploChallenge.policies.EnsembleTestingModel4 import EnsembleTestingModel4
 
 
 from time import strftime
@@ -83,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleBinomialUCIWithTime.txt", "a+")
+        outputFile = open("banditOutputsLinUCB0.01WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -163,9 +159,9 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        #policy = LinUCB(0.1)
-        #policyName = "LinUCB" + str(policy.getAlpha())
-        #outputFile.write("Policy: LinUCB\n")
+        policy = LinUCB(0.1)
+        policyName = "LinUCB" + str(policy.getAlpha())
+        outputFile.write("Policy: LinUCB\n")
 
         #policy = LinearBayes()
         #policyName = "LinearBayes"
@@ -199,9 +195,9 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIUpdateAll"
-        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIUpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleTestingModel1"

@@ -6,10 +6,11 @@ import re
 from scipy.stats import beta
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
-from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
-from exploChallenge.policies.MostCTR import MostCTR
-from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
+
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
+from exploChallenge.policies.LinUCB import LinUCB
+from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 
 def rargmax(x):
     m = np.amax(x)
@@ -24,9 +25,10 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         self.regressor = regressor
         self.prior_alpha = 1.0
         self.prior_beta = 1.0
-        self.policy_one = MostCTR()
-        self.policy_two = NaiveBayesContextual()
-        self.policies = [self.policy_one, self.policy_two]
+        self.policy_one = NaiveBayesContextual()
+        self.policy_two = LinUCB(0.1)
+        self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policies = [self.policy_one, self.policy_two, self.policy_three]
 
         self.policy_counts = {}
         self.policy_successes = {}
@@ -60,12 +62,20 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
             self.chosen_policy =  str(self.policies[0])
         elif (sampled_theta.index(max(sampled_theta)) == 1):
             self.chosen_policy = str(self.policies[1])
+        elif (sampled_theta.index(max(sampled_theta)) == 2):
+            self.chosen_policy = str(self.policies[2])
+        else:
+            print "Error in getActionToPerform!"
+            return
+
         #print "Policy chosen was " + str(self.chosen_policy)
 
-        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
             return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
             return self.policy_two.getActionToPerform(visitor, possibleActions)
+        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
+            return self.policy_three.getActionToPerform(visitor, possibleActions)
         else:
             print "Error in getActionToPerform!"
             return
@@ -79,6 +89,10 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
             pass
         try:
             self.policy_two.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass
+        try:
+            self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass
 

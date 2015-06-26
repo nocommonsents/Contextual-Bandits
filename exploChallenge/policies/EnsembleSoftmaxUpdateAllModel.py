@@ -91,10 +91,10 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
 
         self.policy_counts[str(self.chosen_policy)] += 1
 
-        if reward is True:
-            self.policy_scores[str(self.chosen_policy)] = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
-                                                          self.policy_scores[str(self.chosen_policy)] + (1 / float(self.policy_counts[str(self.chosen_policy)]))
-            print "Scores are: " + str(self.policy_scores)
-            print "Counts are: " + str(self.policy_counts)
+        new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
+                    self.policy_scores[str(self.chosen_policy)] + reward * (1 / float(self.policy_counts[str(self.chosen_policy)]))
+        self.policy_scores[str(self.chosen_policy)] = new_value
+        print "Scores are: " + str(self.policy_scores)
+        print "Counts are: " + str(self.policy_counts)
         return
 

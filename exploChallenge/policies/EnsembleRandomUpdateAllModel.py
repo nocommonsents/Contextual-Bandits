@@ -13,7 +13,7 @@ from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 
-class EnsembleRandomModel(ContextualBanditPolicy):
+class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
 
 
     def __init__(self):

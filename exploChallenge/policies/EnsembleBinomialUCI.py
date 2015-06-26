@@ -29,32 +29,30 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         self.policy_two = LinUCB(0.1)
         self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three]
-        self.policy_one_count = 1.0
-        self.policy_two_count = 1.0
-        self.policy_three_count = 1.0
-        self.policy_counts = [self.policy_one_count, self.policy_two_count, self.policy_three_count]
-        self.policy_one_successes = 1.0
-        self.policy_two_successes = 1.0
-        self.policy_three_successes = 1.0
-        self.policy_successes = [self.policy_one_successes, self.policy_two_successes, self.policy_three_successes]
-        self.policy_one_uci = 0
-        self.policy_two_uci = 0
-        self.policy_three_uci = 0
-        self.policy_ucis = [self.policy_one_uci, self.policy_two_uci, self.policy_three_uci]
+        self.policy_counts = {}
+        self.policy_successes = {}
+        self.policy_ucis = {}
         
         self.num_trials = 0
-
         self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
 
+        for i in self.policies:
+            if str(i) not in self.policy_counts:
+                self.policy_counts[str(i)] = 1.0
+                self.policy_successes[str(i)] = 1.0
+                self.policy_ucis[str(i)] = 1.0
+
         self.num_trials += 1
 
-        max_uci_index = rargmax(self.policy_ucis)
-        #print max_uci_index
-        self.chosen_policy = str(self.policies[max_uci_index])
-        #print "Policy chosen was " + str(self.chosen_policy)
+        #print self.policy_ucis
+        current_uci_values = [self.policy_ucis[str(a)] for a in self.policies]
+        #print current_uci_values
+        self.chosen_policy = str(self.policies[rargmax(current_uci_values)])
+
+        #print "Policy chosen was " + str(self.chosen_policy) + "\n"
 
         if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
             return self.policy_one.getActionToPerform(visitor, possibleActions)
@@ -69,43 +67,6 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
 #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
 
-        if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
-            self.policy_one_count += 1
-            if reward is True:
-                self.policy_one_successes += 1
-            term_one = (self.policy_one_successes/self.policy_one_count)
-            term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
-            term_three = (self.z_value / math.sqrt(self.policy_one_count))
-            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_one_count)
-            numerator = term_one + term_two + term_three * math.sqrt(radicand)
-            denominator = (1 + ((self.z_value * self.z_value)/self.policy_one_count))
-            self.policy_one_uci = numerator / denominator
-        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
-            self.policy_two_count += 1
-            if reward is True:
-                self.policy_two_successes += 1
-            term_one = (self.policy_two_successes/self.policy_two_count)
-            term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
-            term_three = (self.z_value / math.sqrt(self.policy_two_count))
-            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_two_count)
-            numerator = term_one + term_two + term_three * math.sqrt(radicand)
-            denominator = (1 + ((self.z_value * self.z_value)/self.policy_two_count))
-            self.policy_two_uci = numerator / denominator
-        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
-            self.policy_three_count += 1
-            if reward is True:
-                self.policy_three_successes += 1
-            term_one = (self.policy_three_successes/self.policy_three_count)
-            term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
-            term_three = (self.z_value / math.sqrt(self.policy_three_count))
-            radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_three_count)
-            numerator = term_one + term_two + term_three * math.sqrt(radicand)
-            denominator = (1 + ((self.z_value * self.z_value)/self.policy_three_count))
-            self.policy_three_uci = numerator / denominator
-        else:
-            print "Error with updatePolicy in EnsembleEAnnealingUpdateAll!"
-
-
         try:
             self.policy_one.updatePolicy(content, chosen_arm, reward)
         except:
@@ -118,4 +79,23 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
             self.policy_three.updatePolicy(content, chosen_arm, reward)
         except:
             pass
+
+        #print "Chosen policy is: " + str(self.chosen_policy)
+        self.policy_counts[str(self.chosen_policy)] += 1
+
+        if reward is True:
+            self.policy_successes[str(self.chosen_policy)] += 1
+        term_one = (self.policy_successes[str(self.chosen_policy)]/self.policy_counts[str(self.chosen_policy)])
+        term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
+        term_three = (self.z_value / math.sqrt(self.policy_counts[str(self.chosen_policy)]))
+        radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_counts[str(self.chosen_policy)])
+        numerator = term_one + term_two + term_three * math.sqrt(radicand)
+        denominator = (1 + ((self.z_value * self.z_value)/self.policy_counts[str(self.chosen_policy)]))
+
+        new_value = numerator / denominator
+        self.policy_ucis[str(self.chosen_policy)] = new_value
+        #print "After update UCIs are: " + str(self.policy_ucis) + "\n"
+
         return
+
+

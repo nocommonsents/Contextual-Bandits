@@ -79,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsLinUCB0.01WithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleBinomialUCIWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -159,9 +159,9 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        policy = LinUCB(0.1)
-        policyName = "LinUCB" + str(policy.getAlpha())
-        outputFile.write("Policy: LinUCB\n")
+        #policy = LinUCB(0.1)
+        #policyName = "LinUCB" + str(policy.getAlpha())
+        #outputFile.write("Policy: LinUCB\n")
 
         #policy = LinearBayes()
         #policyName = "LinearBayes"
@@ -195,25 +195,9 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIUpdateAll"
-        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
-
-        #policy = EnsembleTestingModel1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleTestingModel1"
-        #outputFile.write("Policy: EnsembleTestingModel1\n")
-
-        #policy = EnsembleTestingModel2(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleTestingModel2"
-        #outputFile.write("Policy: EnsembleTestingModel2\n")
-
-        #policy = EnsembleTestingModel3(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleTestingModel3"
-        #outputFile.write("Policy: EnsembleTestingModel3\n")
-
-        #policy = EnsembleTestingModel4(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleTestingModel4"
-        #outputFile.write("Policy: EnsembleTestingModel4\n")
+        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIUpdateAll"
+        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

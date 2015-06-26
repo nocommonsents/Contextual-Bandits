@@ -42,21 +42,21 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         #print "Epsilon is: " + str(self.epsilon)
         for i in self.policies:
             if str(i) not in self.policy_counts:
-                self.policy_counts[str(i)] = 0.01
-                self.policy_scores[str(i)] = 0.01
+                self.policy_counts[str(i)] = 1.0
+                self.policy_scores[str(i)] = 1.0
 
 
         if random_number > self.epsilon:
-           # print "Exploiting!"
-            policy_values = [self.policy_scores[a] for a in self.policy_scores]
+            print "Exploiting!"
+            policy_values = [self.policy_scores[str(a)] for a in self.policies]
             self.chosen_policy = str(self.policies[rargmax(policy_values)])
-            #print self.policy_scores
+            print self.policy_scores
         else:
             #print "Exploring"
             self.chosen_policy =  str(rn.choice(self.policies))
             #print self.policy_scores
 
-        #print "Chosen policy: " + str(self.chosen_policy)
+        print "Chosen policy: " + str(self.chosen_policy) + "\n"
         if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
             #print "Choice is NaiveBayes"
             return self.policy_one.getActionToPerform(visitor, possibleActions)
@@ -91,10 +91,10 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
 
         self.policy_counts[str(self.chosen_policy)] += 1
 
-        if reward is True:
-            self.policy_scores[str(self.chosen_policy)] = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
-                                                          self.policy_scores[str(self.chosen_policy)] + (1 / float(self.policy_counts[str(self.chosen_policy)]))
-            #print "Scores are: " + str(self.policy_scores)
-            #print "Counts are: " + str(self.policy_counts)
+        new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
+                    self.policy_scores[str(self.chosen_policy)] + reward * (1 / float(self.policy_counts[str(self.chosen_policy)]))
+        self.policy_scores[str(self.chosen_policy)] = new_value
+        #print "Scores are: " + str(self.policy_scores)
+        #print "Counts are: " + str(self.policy_counts)
 
         return

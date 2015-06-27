@@ -60,7 +60,8 @@ from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAn
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
-
+from exploChallenge.policies.EnsembleFeatureSize import EnsembleFeatureSize
+from exploChallenge.policies.EnsembleTimeFactor import EnsembleTimeFactor
 
 from time import strftime
 
@@ -79,14 +80,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleBinomialUCIWithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsEnsembleBayesianWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -195,9 +196,17 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIUpdateAll"
-        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIUpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+
+        policy = EnsembleFeatureSize()
+        policyName = "EnsembleFeatureSize"
+        outputFile.write("Policy: EnsembleFeatureSizeUpdateAll\n")
+
+        #policy = EnsembleTimeFactor()
+        #policyName = "EnsembleTimeFactor"
+        #outputFile.write("Policy: EnsembleTimeFactorUpdateAll\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

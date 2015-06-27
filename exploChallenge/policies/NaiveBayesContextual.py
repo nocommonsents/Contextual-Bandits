@@ -34,7 +34,6 @@ class NaiveBayesContextual(ContextualBanditPolicy):
                 self.selections[article.getID()] = 1.0
                 self.clicks_per_feature[article.getID()] = np.ones(self.d)
                 self.selections_per_feature[article.getID()] = np.ones(self.d)
-                self.used[article.getID()] = 0
 
         # Proportion calculation for each feature
         indices = [self.clicks[a.getID()] / self.selections[a.getID()] * np.prod(
@@ -42,7 +41,6 @@ class NaiveBayesContextual(ContextualBanditPolicy):
         choice = possibleActions[rargmax(indices)]
 
         self.t += 1
-        self.used[choice.getID()] += 1
         return choice
 
     def updatePolicy(self, context, action, reward):

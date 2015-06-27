@@ -41,7 +41,6 @@ class FromFileLogLineGenerator(LogLineGenerator):
             #catch (IOException e) {
             #e.printStackTrace();
             raise
-
         return False;
 
     #@Override

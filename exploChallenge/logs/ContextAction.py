@@ -45,7 +45,7 @@ class ContextAction:
 
     #@Override
     def __eq__(self, other):
-        if self.__classs__ != other.__class__:
+        if self.__class__ != other.__class__:
             return False
 
         return other.action == self.action and other.context == self.context

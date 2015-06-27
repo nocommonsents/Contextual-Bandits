@@ -8,6 +8,7 @@ from scipy.stats import beta
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
+from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
@@ -25,10 +26,10 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         self.regressor = regressor
         self.prior_alpha = 1.0
         self.prior_beta = 1.0
-        self.policy_one = NaiveBayesContextual()
-        self.policy_two = LinUCB(0.1)
-        self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        self.policies = [self.policy_one, self.policy_two, self.policy_three]
+        self.policy_one = MostCTR()
+        self.policy_two = NaiveBayesContextual()
+        #self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policies = [self.policy_one, self.policy_two]
 
         self.policy_counts = {}
         self.policy_successes = {}
@@ -51,31 +52,21 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
             # print "\n"
             dist = beta(self.prior_alpha+self.policy_successes[str(i)],
                         self.prior_beta+self.policy_counts[str(i)]-self.policy_successes[str(i)])
-
             #Draw sample from beta distribution
             sampled_theta += [dist.rvs()]
-            #print sampled_theta
 
+        #print str(self.policies) + " " + str(sampled_theta)
         #print "Best index: " + str(sampled_theta.index(max(sampled_theta)))
-        # Return the index of the sample with the largest value
-        if (sampled_theta.index(max(sampled_theta)) == 0):
-            self.chosen_policy =  str(self.policies[0])
-        elif (sampled_theta.index(max(sampled_theta)) == 1):
-            self.chosen_policy = str(self.policies[1])
-        elif (sampled_theta.index(max(sampled_theta)) == 2):
-            self.chosen_policy = str(self.policies[2])
-        else:
-            print "Error in getActionToPerform!"
-            return
+        # Return the policy corresponding to the index of the sample with the largest value
+        self.chosen_policy = str(self.policies[(sampled_theta.index(max(sampled_theta)))])
+        #print str(self.chosen_policy)  + "\n"
 
-        #print "Policy chosen was " + str(self.chosen_policy)
-
-        if (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
+        if (re.match('<exploChallenge\.policies\.MostCTR',self.chosen_policy)):
             return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
+        elif (re.match('<exploChallenge\.policies\.Naive',self.chosen_policy)):
             return self.policy_two.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
-            return self.policy_three.getActionToPerform(visitor, possibleActions)
+        #elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
+        #    return self.policy_three.getActionToPerform(visitor, possibleActions)
         else:
             print "Error in getActionToPerform!"
             return
@@ -91,10 +82,10 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
             self.policy_two.updatePolicy(content, chosen_arm, reward)
         except:
             pass
-        try:
-            self.policy_three.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
+        #try:
+        #    self.policy_three.updatePolicy(content, chosen_arm, reward)
+        #except:
+        #    pass
 
         self.policy_counts[str(self.chosen_policy)] += 1
         #print self.policy_counts

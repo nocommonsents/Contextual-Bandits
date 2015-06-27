@@ -1,6 +1,6 @@
 __author__ = 'bixlermike'
 
-from scipy.stats import beta
+from scipy.stats import beta, stats
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 
@@ -15,17 +15,6 @@ class ThompsonSampling(ContextualBanditPolicy):
 
     def getPriors(self):
         return (self.prior_alpha, self.prior_beta)
-
-    #def get_recommendation(self):
-    #    sampled_theta = []
-    #    for i in range(self.num_options):
-    #        #Construct beta distribution for posterior
-    #        dist = beta(self.prior[0]+self.successes[i],
-    #                    self.prior[1]+self.trials[i]-self.successes[i])
-    #        #Draw sample from beta distribution
-    #        sampled_theta += [ dist.rvs() ]
-    #    # Return the index of the sample with the largest value
-    #    return sampled_theta.index( max(sampled_theta) )
 
     def getActionToPerform(self, visitor, possibleActions):
         sampled_theta = []
@@ -43,11 +32,6 @@ class ThompsonSampling(ContextualBanditPolicy):
             sampled_theta += [dist.rvs()]
         # Return the index of the sample with the largest value
         return possibleActions[sampled_theta.index(max(sampled_theta))]
-
-    #def add_result(self, trial_id, success):
-    #    self.trials[trial_id] = self.trials[trial_id] + 1
-    #    if (success):
-    #        self.successes[trial_id] = self.successes[trial_id] + 1
 
     def updatePolicy(self, content, chosen_arm, reward):
         self.trials[chosen_arm.getID()] += 1

@@ -42,6 +42,7 @@ from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
 from exploChallenge.policies.ThompsonSampling import ThompsonSampling
+from exploChallenge.policies.BinomialUCI import BinomialUCI
 
 # Contextual bandit policies
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
@@ -61,7 +62,7 @@ from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftma
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleFeatureSize import EnsembleFeatureSize
-from exploChallenge.policies.EnsembleTimeFactor import EnsembleTimeFactor
+from exploChallenge.policies.EnsembleTimeFactorUpdateAll import EnsembleTimeFactorUpdateAll
 
 from time import strftime
 
@@ -80,7 +81,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleBayesianWithTime.txt", "a+")
+        #outputFile = open("banditOutputsEnsembleFeatureSizeWithTime.txt", "a+")
         outputFile = open("testing.txt", "a+")
 
 
@@ -168,6 +169,10 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: LinearBayes\n")
 
+        policy = BinomialUCI()
+        policyName = "BinomialUCI"
+        outputFile.write("Policy: BinomialUCI\n")
+
         #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
         #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
@@ -200,12 +205,12 @@ class Main:
         #policyName = "EnsembleBinomialUCIUpdateAll"
         #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
-        policy = EnsembleFeatureSize()
-        policyName = "EnsembleFeatureSize"
-        outputFile.write("Policy: EnsembleFeatureSizeUpdateAll\n")
+        #policy = EnsembleFeatureSize()
+        #policyName = "EnsembleFeatureSize"
+        #outputFile.write("Policy: EnsembleFeatureSizeUpdateAll\n")
 
-        #policy = EnsembleTimeFactor()
-        #policyName = "EnsembleTimeFactor"
+        #policy = EnsembleTimeFactorUpdateAll()
+        #policyName = "EnsembleTimeFactorUpdateAll"
         #outputFile.write("Policy: EnsembleTimeFactorUpdateAll\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)

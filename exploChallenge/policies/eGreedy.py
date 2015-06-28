@@ -47,7 +47,6 @@ class eGreedy(ContextualBanditPolicy):
             return possibleActions[randomIndex]
 
     def updatePolicy(self, content, chosen_arm, reward):
-        print "I'm here!"
         self.counts[chosen_arm.getID()] += 1
         n = self.counts[chosen_arm.getID()]
         value = self.values[chosen_arm.getID()]

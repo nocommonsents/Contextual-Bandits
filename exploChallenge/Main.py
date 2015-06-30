@@ -81,14 +81,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleFeatureSizeWithTime.txt", "a+")
+        #outputFile = open("banditOutputsBinomialUCIWithTime.txt", "a+")
         outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -133,9 +133,9 @@ class Main:
         #policyName = "eAnnealing"
         #outputFile.write("Policy: eAnnealing\n")
 
-        #policy = Softmax(0.1)
-        #policyName = "Softmax" + str(policy.getTemp())
-        #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
+        policy = Softmax(0.1)
+        policyName = "Softmax" + str(policy.getTemp())
+        outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
         #policy = UCB1()
         #policyName = "UCB1"
@@ -144,6 +144,10 @@ class Main:
         #policy = EXP3(0.5)
         #policyName = "EXP3" + str(policy.getGamma())
         #outputFile.write("Policy: EXP3" + str(policy.getGamma()) + "\n")
+
+        #policy = BinomialUCI()
+        #policyName = "BinomialUCI"
+        #outputFile.write("Policy: BinomialUCI\n")
 
         #policy = ThompsonSampling(1.0, 1.0)
         #policyName = "ThompsonSampling" + str(policy.getPriors())
@@ -169,10 +173,6 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: LinearBayes\n")
 
-        policy = BinomialUCI()
-        policyName = "BinomialUCI"
-        outputFile.write("Policy: BinomialUCI\n")
-
         #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
         #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
@@ -193,7 +193,7 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleSoftmaxUpdateAllModel(0.5)
+        #policy = EnsembleSoftmaxUpdateAllModel(0.01)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax\n")
 

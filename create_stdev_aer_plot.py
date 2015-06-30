@@ -14,7 +14,7 @@ data = np.genfromtxt('banditStDevAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Standard Deviation of AER")
+ax.set_title("Context-Free Algorithm Comparison - Standard Deviation of AER")
 ax.set_xlabel('Number of Evaluations')
 ax.set_ylabel('Standard Deviation of AER')
 
@@ -27,6 +27,7 @@ ax.plot(data['t'],data['eAnnealing'], label='e-Annealing')
 ax.plot(data['t'],data['Softmax01'], label='Softmax(0.1)')
 ax.plot(data['t'],data['EXP305'], label='EXP3(0.5)', color='fuchsia')
 ax.plot(data['t'],data['UCB1'], label='UCB1', color='lawngreen')
+ax.plot(data['t'],data['BinomialUCI'], label='BinomialUCI', color='darkorange')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

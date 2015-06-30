@@ -71,13 +71,15 @@ class SoftmaxContextual(ContextualBanditPolicy):
 
             # Now use estimated feature coefficients to predict which article is best given the contextual information
             self.predicted_arm_values[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
-            regressor_values[article.getID()] = self.predicted_arm_values[article.getID()]
 
+        arm_scores = [math.exp(self.predicted_arm_values[a.getID()]/self.temperature) for a in possibleActions]
+        #print "Arm scores: " + str(arm_scores)
         # Normalization factor z
-        z = sum([math.exp(self.predicted_arm_values[r] / self.temperature) for r in self.predicted_arm_values])
+        z = sum(arm_scores)
         # Calculate the probability that each arm will be selected
-        for v in regressor_values:
-            arm_probs[v]= math.exp(self.predicted_arm_values[v] / self.temperature) / z
+        for v in possibleActions:
+            arm_probs[v.getID()]= math.exp(self.predicted_arm_values[v.getID()] / self.temperature) / z
+        #print "Arm probs: " + str(arm_probs)
         # Generate random number and see which bin it falls into to select arm
         id = categorical_draw(arm_probs)
         for action in possibleActions:

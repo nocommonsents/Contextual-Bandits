@@ -54,8 +54,9 @@ class eAnnealingContextual(ContextualBanditPolicy):
                 self.A[article.getID()] = np.identity(self.d)
                 self.b[article.getID()] = np.zeros((self.d, 1))
                 self.AI[article.getID()] = np.identity(self.d)
-                self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
-                self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+            self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
+            self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+
         ## Exploit
         if rn.random() > self.epsilon:
             for article in possibleActions:

@@ -14,7 +14,7 @@ data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = Tr
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Relative Mean AER vs. Time Bin")
+ax.set_title("Context-Free Algorithm Comparison - Relative Mean AER vs. Time Bin")
 #ax.set_title("Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
 ax.set_xlabel('Time Bin')
 ax.set_ylabel('Relative Mean AER')
@@ -28,6 +28,7 @@ ax.plot(data['TimeBin'],data['eAnnealing']/data['Random'], label='e-Annealing')
 ax.plot(data['TimeBin'],data['Softmax01']/data['Random'], label='Softmax(0.1)')
 ax.plot(data['TimeBin'],data['EXP305']/data['Random'], label='EXP3(0.5)')
 ax.plot(data['TimeBin'],data['UCB1']/data['Random'], label='UCB1', color='lawngreen')
+ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label='BinomialUCI', color='darkorange')
 
 #ax.plot(data['TimeBin'],data['Naive3'], label='NaiveBayes')
 #ax.plot(data['TimeBin'],data['eGreedyContextual'], label='eGreedy')

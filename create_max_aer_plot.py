@@ -15,7 +15,7 @@ data2 = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Non-Contextual Algorithm Comparison - Relative Maximum AER")
+ax.set_title("Context-Free Algorithm Comparison - Relative Maximum AER")
 
 ax.set_xlabel('Number of Evaluations')
 ax.set_ylabel('Relative Maximum AER')
@@ -29,6 +29,7 @@ ax.plot(data['t'],data['eAnnealing']/data2['Random'], label='e-Annealing')
 ax.plot(data['t'],data['Softmax01']/data2['Random'], label='Softmax(0.1)')
 ax.plot(data['t'],data['EXP305']/data2['Random'], label='EXP3(0.5)', color='fuchsia')
 ax.plot(data['t'],data['UCB1']/data2['Random'], label='UCB1', color='lawngreen')
+ax.plot(data['t'],data['BinomialUCI']/data2['Random'], label='BinomialUCI', color='darkorange')
 
 
 box = ax.get_position()

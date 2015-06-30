@@ -37,29 +37,28 @@ class Softmax(ContextualBanditPolicy):
             if action.getID() not in self.counts:
                 self.counts[action.getID()] = 0
                 self.values[action.getID()] = 0
-            arm_values[action.getID()] = self.values[action.getID()]
 
+        arm_scores = [math.exp(self.values[a.getID()]/self.temperature) for a in possibleActions]
+        #print "Arm scores: " + str(arm_scores)
         # Normalization factor z
-        z = sum([math.exp(self.values[v] / self.temperature) for v in self.values])
+        z = sum(arm_scores)
         # Calculate the probability that each arm will be selected
-        for v in arm_values:
-            arm_probs[v]= math.exp(self.values[v] / self.temperature) / z
+        for v in possibleActions:
+            arm_probs[v.getID()]= math.exp(self.values[v.getID()] / self.temperature) / z
+        #print "Arm probs: " + str(arm_probs)
         # Generate random number and see which bin it falls into to select arm
         id = categorical_draw(arm_probs)
         for action in possibleActions:
             if action.getID() == id:
                 return action
 
-
     def updatePolicy(self, content, chosen_arm, reward):
         try:
             self.counts[chosen_arm.getID()] = self.counts[chosen_arm.getID()] + 1
             n = self.counts[chosen_arm.getID()]
-
             value = self.values[chosen_arm.getID()]
-            if reward is True:
-                new_value = ((n - 1) / float(n)) * value + (1 / float(n))
-                self.values[chosen_arm.getID()] = new_value
+            new_value = ((n - 1) / float(n)) * value + reward * (1 / float(n))
+            self.values[chosen_arm.getID()] = new_value
             return
         except:
             return

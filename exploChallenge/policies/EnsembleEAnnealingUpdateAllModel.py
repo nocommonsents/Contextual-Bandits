@@ -52,9 +52,9 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             self.chosen_policy = str(self.policies[rargmax(policy_values)])
             print self.policy_scores
         else:
-            #print "Exploring"
+            print "Exploring"
             self.chosen_policy =  str(rn.choice(self.policies))
-            #print self.policy_scores
+            print self.policy_scores
 
         print "Chosen policy: " + str(self.chosen_policy) + "\n"
         if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
@@ -94,7 +94,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
                     self.policy_scores[str(self.chosen_policy)] + reward * (1 / float(self.policy_counts[str(self.chosen_policy)]))
         self.policy_scores[str(self.chosen_policy)] = new_value
-        #print "Scores are: " + str(self.policy_scores)
-        #print "Counts are: " + str(self.policy_counts)
+        print "Scores are: " + str(self.policy_scores)
+        print "Counts are: " + str(self.policy_counts)
 
         return

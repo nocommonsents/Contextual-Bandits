@@ -61,7 +61,7 @@ fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.set_ylabel('Runtime (sec)')
 
-ax.set_title("Non-Contextual Algorithm Comparison - Runtime (Min, Mean, Max)")
+ax.set_title("Context-Free Algorithm Comparison - Runtime (Min, Mean, Max)")
 
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 

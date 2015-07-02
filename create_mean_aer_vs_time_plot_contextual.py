@@ -2,10 +2,14 @@ __author__ = 'bixlermike'
 
 #/usr/local/bin/python
 
+import matplotlib
+from matplotlib import rc
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+matplotlib.rcParams['mathtext.fontset'] = 'cm'
+matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
@@ -14,17 +18,16 @@ data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = Tr
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Contextual Algorithm Comparison - Relative Mean AER vs. Time Bin")
-#ax.set_title("Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
-ax.set_xlabel('Time Bin')
-ax.set_ylabel('Relative Mean AER')
+ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time\ Bin$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Time\ Bin$")
+ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
 #ax.plot(data['TimeBin'],data['Random'], label='Random')
-ax.plot(data['TimeBin'],data['eGreedyContextual01']/data['Random'], label='e-Greedy(0.1)')
-ax.plot(data['TimeBin'],data['eAnnealingContextual']/data['Random'], label='e-Annealing')
-ax.plot(data['TimeBin'],data['SoftmaxContextual01']/data['Random'], label='Softmax(0.1)')
-ax.plot(data['TimeBin'],data['LinUCB01']/data['Random'], label='LinUCB(0.1)')
-ax.plot(data['TimeBin'],data['NaiveBayesContextual']/data['Random'], label='NaiveBayes', color='lawngreen')
+ax.plot(data['TimeBin'],data['eGreedyContextual01']/data['Random'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['eAnnealingContextual']/data['Random'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['SoftmaxContextual01']/data['Random'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['LinUCB01']/data['Random'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['NaiveBayesContextual']/data['Random'], lw='1.25', label=r'$NaiveBayes$', marker='*', markevery=500, fillstyle='none')
 
 #ax.plot(data['TimeBin'],data['Naive3'], label='NaiveBayes')
 #ax.plot(data['TimeBin'],data['eGreedyContextual'], label='eGreedy')
@@ -54,6 +57,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 #plt.tight_layout()
-plt.savefig("plots/meanAERVsTimeContextual.png", bbox_inches='tight')
+plt.savefig("plots/meanAERVsTimeContextual.png", dpi=240, bbox_inches='tight')
 
 

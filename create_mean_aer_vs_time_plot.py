@@ -2,10 +2,15 @@ __author__ = 'bixlermike'
 
 #/usr/local/bin/python
 
+import matplotlib
+from matplotlib import rc
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+
+matplotlib.rcParams['mathtext.fontset'] = 'cm'
+matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
@@ -14,30 +19,21 @@ data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = Tr
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Context-Free Algorithm Comparison - Relative Mean AER vs. Time Bin")
-#ax.set_title("Contextual Algorithm Comparison - Average Expected Reward vs. Runtime")
-ax.set_xlabel('Time Bin')
-ax.set_ylabel('Relative Mean AER')
+
+ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time\ Bin$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Time\ Bin$")
+ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
 #ax.plot(data['TimeBin'],data['Random'], label='Random')
-ax.plot(data['TimeBin'],data['MostClicked']/data['Random'], label='MostClicked')
-ax.plot(data['TimeBin'],data['MostRecent']/data['Random'], label='MostRecent')
-ax.plot(data['TimeBin'],data['MostCTR']/data['Random'], label='HighestCTR')
-ax.plot(data['TimeBin'],data['eGreedy01']/data['Random'], label='e-Greedy(0.1)')
-ax.plot(data['TimeBin'],data['eAnnealing']/data['Random'], label='e-Annealing')
-ax.plot(data['TimeBin'],data['Softmax01']/data['Random'], label='Softmax(0.1)')
-ax.plot(data['TimeBin'],data['EXP305']/data['Random'], label='EXP3(0.5)')
-ax.plot(data['TimeBin'],data['UCB1']/data['Random'], label='UCB1', color='lawngreen')
-ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label='BinomialUCI', color='darkorange')
-
-#ax.plot(data['TimeBin'],data['Naive3'], label='NaiveBayes')
-#ax.plot(data['TimeBin'],data['eGreedyContextual'], label='eGreedy')
-#ax.plot(data['TimeBin'],data['eAnnealingContextual'], label='eAnnealingContextual')
-#ax.plot(data['TimeBin'],data['SoftmaxContextual'], label='SoftmaxContextual')
-#ax.plot(data['TimeBin'],data['LinUCB'], label='LinUCB')
-
-#ax.plot(data['TimeBin'],data['EnsembleRandom'], label='EnsRandom')
-#ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll'], label='EnsRandomUpdateAll')
+ax.plot(data['TimeBin'],data['MostClicked']/data['Random'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['MostRecent']/data['Random'], label=r'$MostRecent$', lw='1.25', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['MostCTR']/data['Random'], label=r'$HighestCTR$', lw='1.25', marker='^', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['eGreedy01']/data['Random'], label=r'$e-Greedy(0.1)$', lw='1.25', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['eAnnealing']/data['Random'], label=r'$e-Annealing$', lw='1.25', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['Softmax01']/data['Random'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['EXP305']/data['Random'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['UCB1']/data['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label=r'$BinomialUCI$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
 
 
 box = ax.get_position()
@@ -58,6 +54,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 #plt.tight_layout()
-plt.savefig("plots/meanAERVsTime.png", bbox_inches='tight')
+plt.savefig("plots/meanAERVsTime.png", dpi=240, bbox_inches='tight')
 
 

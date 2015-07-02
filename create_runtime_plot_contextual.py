@@ -2,12 +2,18 @@ __author__ = 'bixlermike'
 
 #/usr/local/bin/python
 from matplotlib.font_manager import FontProperties
-
 import numpy as np
+import matplotlib
+from matplotlib import rc
+from matplotlib import rcParams
+from matplotlib.font_manager import FontProperties
+from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import numpy as np
 
-from matplotlib import rcParams
+matplotlib.rcParams['mathtext.fontset'] = 'cm'
+matplotlib.rcParams['font.family'] = 'STIXGeneral'
 rcParams.update({'figure.autolayout': True})
 
 data = np.genfromtxt('banditRuntimeOutputSummary.csv', delimiter=',', names = True, dtype=("|S30", int, float, float, float, float, float), usecols=(0,1,2,3,4,5,6))
@@ -55,9 +61,9 @@ ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 fontP = FontProperties()
 fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
-ax.set_ylabel('Runtime (sec)')
+ax.set_ylabel(r'$Runtime\ (sec)$')
 
-ax.set_title("Contextual Algorithm Comparison - Runtime (Min, Mean, Max)")
+ax.set_title(r'$Contextual\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max)$')
 
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 #ax.set_xticks(ind+ind*N)
@@ -73,5 +79,5 @@ ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
 #ax.legend((rects1[0], rects2[0], rects3[0], rects4[0], rects5[0], rects6[0], rects7[0]), ('Min','Mean','Max'))
 #ax.legend((rects1[0], rects2[0], rects3[0], rects1[1], rects2[1], rects3[1], rects1[2], rects2[2]), (policies))
-plt.savefig("plots/runtimeComparisonContextual.png")
+plt.savefig("plots/runtimeComparisonContextual.png", dpi=240)
 #plt.show()

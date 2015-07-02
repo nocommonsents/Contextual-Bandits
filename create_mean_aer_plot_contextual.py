@@ -21,7 +21,7 @@ ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER$", fon
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
-ax.plot(data['t'],data['eGreedyContextual01']/data['Random'], lw='1.25', label=r'$eGreedy$', marker='o', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['eGreedyContextual01']/data['Random'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eAnnealingContextual']/data['Random'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['SoftmaxContextual01']/data['Random'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['LinUCB01']/data['Random'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')

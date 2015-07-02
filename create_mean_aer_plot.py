@@ -28,7 +28,7 @@ ax.plot(data['t'],data['eGreedy01']/data['Random'], label=r'$e-Greedy(0.1)$', lw
 ax.plot(data['t'],data['eAnnealing']/data['Random'], label=r'$e-Annealing$', lw='1.25', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['Softmax01']/data['Random'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EXP305']/data['Random'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
-ax.plot(data['t'],data['UCB1']/data['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='8', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['UCB1']/data['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['BinomialUCI']/data['Random'], label=r'$BinomialUCI$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
 
 box = ax.get_position()

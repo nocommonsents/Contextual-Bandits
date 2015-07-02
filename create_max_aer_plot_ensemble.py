@@ -2,10 +2,14 @@ __author__ = 'bixlermike'
 
 #/usr/local/bin/python
 
+import matplotlib
+from matplotlib import rc
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+matplotlib.rcParams['mathtext.fontset'] = 'cm'
+matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
@@ -15,16 +19,15 @@ data2 = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Ensemble Bandit Algorithm Comparison - Relative Maximum AER")
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Relative\ Maximum\ AER$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Number\ of\ Evaluations$")
+ax.set_ylabel(r"$Relative\ Maximum\ AER$")
 
-ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Relative Maximum AER')
-
-ax.plot(data['t'],data['EnsembleRandom']/data2['Random'], label='EnsRandom')
-ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data2['Random'], label='EnsRandomUpdateAll')
-ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data2['Random'], label='EnsEAnnUpdateAll')
-ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data2['Random'], label='EnsBayesianUpdateAll')
-ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data2['Random'], label='EnsBinomialUCIUpdateAll')
+ax.plot(data['t'],data['EnsembleRandom']/data2['Random'], lw='1.25', label=r'$EnsRandom$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsEAnnUpdateAll$', marker='^', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -35,6 +38,7 @@ ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 ax.set_xlim([0, max(data['t'])])
 ax.set_axisbelow(True)
+ax.set_ylim([0.8,2.5])
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
 #ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
@@ -42,6 +46,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 
-plt.savefig("plots/maxAEREnsemble.png", bbox_inches='tight')
+plt.savefig("plots/maxAEREnsemble.png", dpi=240, bbox_inches='tight')
 
 

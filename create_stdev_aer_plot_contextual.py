@@ -1,11 +1,14 @@
 __author__ = 'bixlermike'
 
 #/usr/local/bin/python
-
+import matplotlib
+from matplotlib import rc
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+matplotlib.rcParams['mathtext.fontset'] = 'cm'
+matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
@@ -14,25 +17,27 @@ data = np.genfromtxt('banditStDevAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title("Contextual Algorithm Comparison - Standard Deviation of AER")
-ax.set_xlabel('Number of Evaluations')
-ax.set_ylabel('Standard Deviation of AER')
+ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Standard\ Deviation\ of\ AER$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Number\ of\ Evaluations$")
+ax.set_ylabel(r"$Standard\ Deviation$")
 
-ax.plot(data['t'],data['Random'], label='Random')
-ax.plot(data['t'],data['eGreedyContextual01'], label='eGreedy')
-ax.plot(data['t'],data['eAnnealingContextual'], label='eAnnealing')
-ax.plot(data['t'],data['SoftmaxContextual01'], label='Softmax')
-ax.plot(data['t'],data['LinUCB01'], label='LinUCB')
-ax.plot(data['t'],data['NaiveBayesContextual'], label='NaiveBayes')
-
+ax.plot(data['t'],data['eGreedyContextual01'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['eAnnealingContextual'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['SoftmaxContextual01'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['LinUCB01'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['NaiveBayesContextual'], lw='1.25', label=r'$NaiveBayes$', marker='*', markevery=500, fillstyle='none')
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 fontP = FontProperties()
 fontP.set_size('small')
+
+#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+#rc('text', usetex=True)
+
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
-ax.set_xlim([0, max(data['t'])])
+ax.set_xlim([0, 360000])
 ax.set_axisbelow(True)
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
@@ -40,7 +45,8 @@ ax.yaxis.grid(color='gray', linestyle='dashed')
 ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
+#plt.tight_layout()
 
-plt.savefig("plots/stdevAERContextual.png", bbox_inches='tight')
+plt.savefig("plots/stdevAERContextual.png", dpi=240, bbox_inches='tight')
 
 

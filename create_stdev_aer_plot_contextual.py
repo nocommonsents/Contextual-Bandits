@@ -23,6 +23,7 @@ ax.set_ylabel(r"$Standard\ Deviation$")
 
 ax.plot(data['t'],data['eGreedyContextual01'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eAnnealingContextual'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['SoftmaxContextual001'], lw='1.25', label=r'$Softmax(0.01)$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['SoftmaxContextual01'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['LinUCB01'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['NaiveBayesContextual'], lw='1.25', label=r'$NaiveBayes$', marker='*', markevery=500, fillstyle='none')

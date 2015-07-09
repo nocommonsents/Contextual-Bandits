@@ -29,6 +29,7 @@ ax.plot(data['t'],data['MostRecent']/data2['Random'], label=r'$MostRecent$', lw=
 ax.plot(data['t'],data['MostCTR']/data2['Random'], label=r'$HighestCTR$', lw='1.25', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eGreedy01']/data2['Random'], label=r'$e-Greedy(0.1)$', lw='1.25', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eAnnealing']/data2['Random'], label=r'$e-Annealing$', lw='1.25', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['Softmax001']/data2['Random'], label=r'$Softmax(0.01)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['Softmax01']/data2['Random'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EXP305']/data2['Random'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['UCB1']/data2['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')

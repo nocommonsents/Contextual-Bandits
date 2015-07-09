@@ -69,7 +69,7 @@ ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 #ax.set_xticks(ind+ind*N)
 
 # Contextual
-relevant_policies = ['eGreedy(0.1)', 'eAnnealing', 'LinUCB', 'Softmax(0.1)', 'NaiveBayes']
+relevant_policies = [r'$eGreedy(0.1)$', r'$eAnnealing$', r'$LinUCB$', r'$Softmax(0.1)$', r'$NaiveBayes$']
 #relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
 ax.set_xticklabels(relevant_policies)
 

@@ -26,6 +26,7 @@ ax.plot(data['t'],data['MostRecent'], label=r'$MostRecent$', lw='1.25', marker='
 ax.plot(data['t'],data['MostCTR'], label=r'$HighestCTR$', lw='1.25', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eGreedy01'], label=r'$e-Greedy(0.1)$', lw='1.25', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['eAnnealing'], label=r'$e-Annealing$', lw='1.25', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['Softmax001'], label=r'$Softmax(0.01)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EXP305'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['UCB1'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')

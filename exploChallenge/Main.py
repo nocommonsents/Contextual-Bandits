@@ -50,7 +50,6 @@ from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
-from exploChallenge.policies.Contextualclick import Contextualclick
 from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
@@ -62,7 +61,6 @@ from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftma
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleFeatureSize import EnsembleFeatureSize
-from exploChallenge.policies.EnsembleTimeFactorUpdateAll import EnsembleTimeFactorUpdateAll
 
 from time import strftime
 

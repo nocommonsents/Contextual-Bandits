@@ -10,7 +10,7 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
 from exploChallenge.policies.BinomialUCI import BinomialUCI
-from exploChallenge.policies.EXP3 import EXP3
+from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.eAnnealing import eAnnealing
@@ -29,7 +29,7 @@ class EnsembleRandomModel(ContextualBanditPolicy):
     def __init__(self):
         # Create an object from each class to use for ensemble model
         self.policy_one = BinomialUCI()
-        self.policy_two = EXP3(0.5)
+        self.policy_two = MostRecent()
         self.policy_three = MostCTR()
         self.policy_four = Softmax(0.01)
         self.policy_five = eAnnealing()
@@ -45,14 +45,14 @@ class EnsembleRandomModel(ContextualBanditPolicy):
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
         self.chosen_policy =  random.choice(self.policies)
-        print self.chosen_policy
+        #print "Chosen policy: " + str(self.chosen_policy)
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
-        print "Updating policy " + str(self.chosen_policy)
-
         try:
+            #print "Updating: " + str(self.chosen_policy)
             self.chosen_policy.updatePolicy(content, chosen_arm, reward)
         except:
+            print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
             pass

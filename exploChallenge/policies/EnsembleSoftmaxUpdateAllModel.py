@@ -10,10 +10,16 @@ import re
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
-from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.BinomialUCI import BinomialUCI
+from exploChallenge.policies.MostRecent import MostRecent
+from exploChallenge.policies.MostCTR import MostCTR
+from exploChallenge.policies.Softmax import Softmax
+from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.UCB1 import UCB1
-from exploChallenge.policies.EXP3 import EXP3
+from exploChallenge.policies.LinUCB import LinUCB
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
+from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
+from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 
 
 def categorical_draw(probs):
@@ -30,15 +36,22 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
 
     def __init__(self, temp):
         # Create an object from each class to use for ensemble model
-        self.policy_one = NaiveBayesContextual()
-        self.policy_two = BinomialUCI()
-        self.policy_three = UCB1()
-        self.policy_four = EXP3(0.5)
-        self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four]
-        self.policy_counts = {}
-        self.policy_scores = {}
+        self.policy_one = BinomialUCI()
+        self.policy_two = MostRecent()
+        self.policy_three = MostCTR()
+        self.policy_four = Softmax(0.01)
+        self.policy_five = eAnnealing()
+        self.policy_six = UCB1()
+        self.policy_seven = LinUCB(0.1)
+        self.policy_eight = NaiveBayesContextual()
+        self.policy_nine = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policy_ten = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
+                         self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
         self.chosen_policy = None
         self.temperature = temp
+        self.policy_counts = {}
+        self.policy_scores = {}
         self.total_counts = 0
 
     def getTemp(self):
@@ -64,41 +77,21 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
             policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature) / z
 
         # Generate random number and see which bin it falls into to select arm
-        self.chosen_policy = str(categorical_draw(policy_probs))
+        self.chosen_policy = categorical_draw(policy_probs)
         #print self.chosen_policy
-        #print "ID equals: " + str(self.chosen_policy)
-
-        if (re.match('<exploChallenge\.policies\.NaiveBayes',self.chosen_policy)):
-            return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.BinomialUCI',self.chosen_policy)):
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.UCB1',self.chosen_policy)):
-            return self.policy_three.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.EXP3',self.chosen_policy)):
-            return self.policy_four.getActionToPerform(visitor, possibleActions)
-        else:
-            print "Error in getActionToPerform!"
-            return
+        #print "Chosen policy: " + str(self.chosen_policy)
+        return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         #print "Updating policy " + str(self.chosen_policy)
-        try:
-            self.policy_one.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
-        try:
-            self.policy_two.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
-        try:
-            self.policy_three.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
-        try:
-            self.policy_four.updatePolicy(content, chosen_arm, reward)
-        except:
-            pass
+        for p in self.policies:
+            try:
+                #print "Updating policy: " + str(p)
+                p.updatePolicy(content, chosen_arm, reward)
+            except:
+                print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
+                pass
 
         self.policy_counts[str(self.chosen_policy)] += 1
 
@@ -111,7 +104,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
 
 
         if (self.total_counts % 100 == 0):
-            print "Scores are: " + str(self.policy_scores)
+            #print "Scores are: " + str(self.policy_scores)
             print "Counts are: " + str(self.policy_counts)
         return
 

@@ -81,14 +81,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmaxContextual0.01WithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsEnsembleRandomWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -173,17 +173,17 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: LinearBayes\n")
 
-        policy = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "SoftmaxContextual" + str(policy.getTemp())
-        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        #policy = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "SoftmaxContextual" + str(policy.getTemp())
+        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = NaiveBayesContextual()
         #policyName = "NaiveBayesContextual"
         #outputFile.write("Policy: NaiveBayesContextual\n")
 
-        #policy = EnsembleRandomModel()
-        #policyName = "EnsembleRandom"
-        #outputFile.write("Policy: EnsembleRandom\n")
+        policy = EnsembleRandomModel()
+        policyName = "EnsembleRandom"
+        outputFile.write("Policy: EnsembleRandom\n")
 
         #policy = EnsembleRandomUpdateAllModel()
         #policyName = "EnsembleRandomUpdateAll"

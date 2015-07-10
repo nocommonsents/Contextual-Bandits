@@ -9,56 +9,50 @@ import re
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
-from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
+from exploChallenge.policies.BinomialUCI import BinomialUCI
+from exploChallenge.policies.EXP3 import EXP3
+from exploChallenge.policies.MostCTR import MostCTR
+from exploChallenge.policies.Softmax import Softmax
+from exploChallenge.policies.eAnnealing import eAnnealing
+from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.LinUCB import LinUCB
-from exploChallenge.policies.eGreedyContextual import eGreedyContextual
+from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
+from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
+from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 
 class EnsembleRandomModel(ContextualBanditPolicy):
 
+# Candidates:
+# Context-free: BinomialUCI, EXP3, MostCTR, Softmax0.01, EAnnealing, UCB1
+# Contextual: LinUCB, NaiveBayes, SoftmaxContextual0.01, EAnnealingContextual
 
     def __init__(self):
         # Create an object from each class to use for ensemble model
-        self.policy_one = NaiveBayesContextual()
-        self.policy_two = LinUCB(0.1)
-        self.policy_three = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        self.policies = [self.policy_one, self.policy_two, self.policy_three]
+        self.policy_one = BinomialUCI()
+        self.policy_two = EXP3(0.5)
+        self.policy_three = MostCTR()
+        self.policy_four = Softmax(0.01)
+        self.policy_five = eAnnealing()
+        self.policy_six = UCB1()
+        self.policy_seven = LinUCB(0.1)
+        self.policy_eight = NaiveBayesContextual()
+        self.policy_nine = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policy_ten = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
+                         self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
         self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
-        self.chosen_policy =  str(random.choice(self.policies))
-        if (re.match('<exploChallenge\.policies\.NaiveBayesContextual',self.chosen_policy)):
-            #print "Choice is NaiveBayes"
-            return self.policy_one.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
-            #print "Choice is LinUCB"
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
-        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
-            #print "Choice is eGreedyContextual"
-            return self.policy_two.getActionToPerform(visitor, possibleActions)
-        else:
-            print "Error in getActionToPerform!"
-            return
+        self.chosen_policy =  random.choice(self.policies)
+        print self.chosen_policy
+        return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
-        #print "Updating policy " + str(self.chosen_policy)
+        print "Updating policy " + str(self.chosen_policy)
 
-        if (re.match('<exploChallenge\.policies\.NaiveBayesContextual',self.chosen_policy)):
-            try:
-                self.policy_one.updatePolicy(content, chosen_arm, reward)
-            except:
-                pass
-        elif (re.match('<exploChallenge\.policies\.LinUCB',self.chosen_policy)):
-            try:
-                self.policy_two.updatePolicy(content, chosen_arm, reward)
-            except:
-                pass
-        elif (re.match('<exploChallenge\.policies\.eGreedyContextual',self.chosen_policy)):
-            try:
-                self.policy_three.updatePolicy(content, chosen_arm, reward)
-            except:
-                pass
-        else:
-            print "Error in updatePolicy!"
-        return
+        try:
+            self.chosen_policy.updatePolicy(content, chosen_arm, reward)
+        except:
+            pass

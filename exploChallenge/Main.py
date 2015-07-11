@@ -195,13 +195,13 @@ class Main:
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax\n")
 
-        policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBayesianUpdateAll"
-        outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
+        #policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBayesianUpdateAll"
+        #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIUpdateAll"
-        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIUpdateAll"
+        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleFeatureSize()
         #policyName = "EnsembleFeatureSize"

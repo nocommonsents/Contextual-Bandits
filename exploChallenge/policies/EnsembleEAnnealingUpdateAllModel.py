@@ -5,7 +5,6 @@ __author__ = 'bixlermike'
 import math
 import numpy as np
 import random as rn
-import re
 import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
@@ -98,7 +97,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
                 #print "Updating policy: " + str(p)
                 p.updatePolicy(content, chosen_arm, reward)
             except:
-                print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
+                #print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
 
         new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \

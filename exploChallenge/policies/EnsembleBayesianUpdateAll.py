@@ -2,7 +2,6 @@ __author__ = 'bixlermike'
 
 import numpy as np
 import random
-import re
 from scipy.stats import beta
 import time
 

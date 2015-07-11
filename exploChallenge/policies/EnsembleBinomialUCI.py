@@ -4,7 +4,6 @@ __author__ = 'bixlermike'
 import math
 import numpy as np
 import random
-import re
 import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
@@ -92,7 +91,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
                 #print "Updating policy: " + str(p)
                 p.updatePolicy(content, chosen_arm, reward)
             except:
-                print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
+                #print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
 
         #print "Chosen policy is: " + str(self.chosen_policy)
@@ -100,7 +99,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         if reward is True:
             self.policy_successes[str(self.chosen_policy)] += 1
         term_one = (self.policy_successes[str(self.chosen_policy)]/self.policy_counts[str(self.chosen_policy)])
-        term_two = ((self.z_value * self.z_value) / (2*self.num_trials))
+        term_two = ((self.z_value * self.z_value) / (2*self.trials))
         term_three = (self.z_value / math.sqrt(self.policy_counts[str(self.chosen_policy)]))
         radicand = term_one * (1-term_one) + (self.z_value * self.z_value)/(4*self.policy_counts[str(self.chosen_policy)])
         numerator = term_one + term_two + term_three * math.sqrt(radicand)

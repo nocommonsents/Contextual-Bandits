@@ -79,14 +79,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsEnsembleRandomWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsSoftmaxContextual0.01WithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -171,9 +171,9 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: LinearBayes\n")
 
-        #policy = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "SoftmaxContextual" + str(policy.getTemp())
-        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        policy = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "SoftmaxContextual" + str(policy.getTemp())
+        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = NaiveBayesContextual()
         #policyName = "NaiveBayesContextual"
@@ -191,9 +191,9 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        policy = EnsembleSoftmaxUpdateAllModel(0.01)
-        policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
-        outputFile.write("Policy: EnsembleSoftmax\n")
+        #policy = EnsembleSoftmaxUpdateAllModel(0.01)
+        #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
+        #outputFile.write("Policy: EnsembleSoftmax\n")
 
         #policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBayesianUpdateAll"
@@ -206,10 +206,6 @@ class Main:
         #policy = EnsembleFeatureSize()
         #policyName = "EnsembleFeatureSize"
         #outputFile.write("Policy: EnsembleFeatureSizeUpdateAll\n")
-
-        #policy = EnsembleTimeFactorUpdateAll()
-        #policyName = "EnsembleTimeFactorUpdateAll"
-        #outputFile.write("Policy: EnsembleTimeFactorUpdateAll\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

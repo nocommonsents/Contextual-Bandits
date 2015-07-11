@@ -47,15 +47,15 @@ class EnsembleRandomModel(ContextualBanditPolicy):
         self.end_time = 0
         self.total_updates = 0
         self.policy_AER_to_runtime_ratios = {}
+        for i in self.policies:
+            self.policy_runtimes[str(i)] = 0
+            self.policy_counts[str(i)] = 0
+            self.policy_AER_to_runtime_ratios[str(i)] = 0
         self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
         self.chosen_policy =  random.choice(self.policies)
-        if str(self.chosen_policy) not in self.policy_runtimes:
-            self.policy_runtimes[str(self.chosen_policy)] = 0
-            self.policy_counts[str(self.chosen_policy)] = 0
-            self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = 0
         #print "Chosen policy: " + str(self.chosen_policy)
         #print "Total elapsed time for: " + str(self.chosen_policy) + " is " + str(self.policy_runtimes[str(self.chosen_policy)])
         self.start_time = time.clock()
@@ -78,4 +78,5 @@ class EnsembleRandomModel(ContextualBanditPolicy):
             print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
             pass
         if (self.total_updates % 500 == 0):
-            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)
+            print "All runtimes: " + str(self.policy_runtimes)
+            #print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)

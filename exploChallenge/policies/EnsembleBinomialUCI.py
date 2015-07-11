@@ -54,16 +54,16 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         self.end_time = 0
         self.trials = 0
         self.total_updates = 0
+        for i in self.policies:
+            self.policy_runtimes[str(i)] = 0
+            self.policy_counts[str(i)] = 1.0
+            self.policy_successes[str(i)] = 1.0
+            self.policy_ucis[str(i)] = 1.0
+            self.policy_AER_to_runtime_ratios[str(i)] = 0
         self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
-
-        for i in self.policies:
-            if str(i) not in self.policy_counts:
-                self.policy_counts[str(i)] = 1.0
-                self.policy_successes[str(i)] = 1.0
-                self.policy_ucis[str(i)] = 1.0
 
         self.trials += 1
 

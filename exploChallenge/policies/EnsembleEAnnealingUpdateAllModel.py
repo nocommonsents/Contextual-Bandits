@@ -50,8 +50,13 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.start_time = 0
         self.end_time = 0
         self.total_updates = 0
-        self.chosen_policy = None
         self.trials = 1
+        for i in self.policies:
+            self.policy_counts[str(i)] = 1.0
+            self.policy_scores[str(i)] = 1.0
+            self.policy_runtimes[str(i)] = 0
+            self.policy_AER_to_runtime_ratios[str(i)] = 0
+        self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
@@ -59,11 +64,6 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.epsilon = 1 / math.log(self.trials + 0.0000001)
         self.trials += 1
         #print "Epsilon is: " + str(self.epsilon)
-        for i in self.policies:
-            if str(i) not in self.policy_counts:
-                self.policy_counts[str(i)] = 1.0
-                self.policy_scores[str(i)] = 1.0
-
 
         if random_number > self.epsilon:
             #print "Exploiting!"

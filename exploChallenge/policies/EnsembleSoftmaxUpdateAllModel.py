@@ -49,7 +49,6 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.policy_ten = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
-        self.chosen_policy = None
         self.policy_runtimes = {}
         self.policy_counts = {}
         self.policy_scores = {}
@@ -58,6 +57,12 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.end_time = 0
         self.total_updates = 0
         self.trials = 0
+        for i in self.policies:
+            self.policy_runtimes[str(i)] = 0
+            self.policy_counts[str(i)] = 0
+            self.policy_scores[str(i)] = 0
+            self.policy_AER_to_runtime_ratios[str(i)] = 0
+        self.chosen_policy = None
 
     def getTemp(self):
         return self.temperature
@@ -66,11 +71,6 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
     def getActionToPerform(self, visitor, possibleActions):
         self.trials += 1
         policy_probs = {}
-
-        for i in self.policies:
-            if str(i) not in self.policy_counts:
-                self.policy_counts[str(i)] = 0
-                self.policy_scores[str(i)] = 0
 
         policy_scores = [math.exp(self.policy_scores[str(a)]/self.temperature) for a in self.policy_scores]
         #print "Policy scores: " + str(policy_scores)

@@ -53,6 +53,11 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         self.end_time = 0
         self.total_updates = 0
         self.policy_AER_to_runtime_ratios = {}
+        for i in self.policies:
+            self.policy_runtimes[str(i)] = 0
+            self.policy_counts[str(i)] = 0
+            self.policy_successes[str(i)] = 0
+            self.policy_AER_to_runtime_ratios[str(i)] = 0
         self.chosen_policy = None
 
     #@Override
@@ -62,10 +67,6 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         #Construct beta distribution for posterior
 
         for i in self.policies:
-            if str(i) not in self.policy_counts:
-                self.policy_counts[str(i)] = 0
-                self.policy_successes[str(i)] = 0
-
             # print str(i)
             # print self.policy_successes[str(i)]
             # print self.policy_counts[str(i)]

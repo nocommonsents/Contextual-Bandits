@@ -32,17 +32,14 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
     def __init__(self):
         # Create an object from each class to use for ensemble model
         self.policy_one = BinomialUCI()
-        self.policy_two = MostRecent()
-        self.policy_three = MostCTR()
-        self.policy_four = Softmax(0.01)
-        self.policy_five = eAnnealing()
-        self.policy_six = UCB1()
-        self.policy_seven = LinUCB(0.1)
-        self.policy_eight = NaiveBayesContextual()
-        self.policy_nine = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
-        self.policy_ten = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policy_two = MostCTR()
+        self.policy_three = Softmax(0.01)
+        self.policy_four = UCB1()
+        self.policy_five = LinUCB(0.1)
+        self.policy_six = NaiveBayesContextual()
+        self.policy_seven = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
-                         self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
+                         self.policy_six, self.policy_seven]
         self.policy_scores = {}
         self.policy_counts = {}
         self.policy_runtimes = {}

@@ -4,6 +4,7 @@ import numpy as np
 import random
 import re
 from scipy.stats import beta
+import time
 
 rand = np.random.rand
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
@@ -81,10 +82,19 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         # Return the policy corresponding to the index of the sample with the largest value
         self.chosen_policy = self.policies[(sampled_theta.index(max(sampled_theta)))]
         #print str(self.chosen_policy)  + "\n"
+        self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
 #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
+        self.end_time = time.clock()
+        elapsed_time = self.end_time - self.start_time
+        #print "Elapsed time: " + str(elapsed_time)
+        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        self.policy_counts[str(self.chosen_policy)] += 1
+        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+                                                                     /self.policy_counts[str(self.chosen_policy)]
+        self.total_updates += 1
         for p in self.policies:
             try:
                 #print "Updating policy: " + str(p)
@@ -93,10 +103,9 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
                 #print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
 
-        self.policy_counts[str(self.chosen_policy)] += 1
         #print "Counts for: " + str(self.chosen_policy) + " is " + str(self.policy_counts[str(self.chosen_policy)])
         if reward is True:
             self.policy_successes[str(self.chosen_policy)] += 1
 
-
-        return
+        if (self.total_updates % 500 == 0):
+            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)

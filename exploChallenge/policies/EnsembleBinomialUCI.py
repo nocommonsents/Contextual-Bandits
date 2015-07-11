@@ -5,6 +5,7 @@ import math
 import numpy as np
 import random
 import re
+import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -72,11 +73,19 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         #print current_uci_values
         self.chosen_policy = self.policies[rargmax(current_uci_values)]
         #print "Chosen policy: " + str(self.chosen_policy) + "\n"
+        self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
-
+        self.end_time = time.clock()
+        elapsed_time = self.end_time - self.start_time
+        #print "Elapsed time: " + str(elapsed_time)
+        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        self.policy_counts[str(self.chosen_policy)] += 1
+        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+                                                                     /self.policy_counts[str(self.chosen_policy)]
+        self.total_updates += 1
         #print "Updating policy " + str(self.chosen_policy)
         for p in self.policies:
             try:
@@ -87,7 +96,6 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
                 pass
 
         #print "Chosen policy is: " + str(self.chosen_policy)
-        self.policy_counts[str(self.chosen_policy)] += 1
 
         if reward is True:
             self.policy_successes[str(self.chosen_policy)] += 1
@@ -102,6 +110,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         self.policy_ucis[str(self.chosen_policy)] = new_value
         #print "After update UCIs are: " + str(self.policy_ucis) + "\n"
 
-        return
+        if (self.total_updates % 500 == 0):
+            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)
 
 

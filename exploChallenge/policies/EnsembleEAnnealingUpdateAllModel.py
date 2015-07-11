@@ -6,6 +6,7 @@ import math
 import numpy as np
 import random as rn
 import re
+import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -70,17 +71,26 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             policy_values = [self.policy_scores[str(a)] for a in self.policies]
             self.chosen_policy = self.policies[rargmax(policy_values)]
             #print "Chosen policy: " + str(self.chosen_policy)
+            self.start_time = time.clock()
             return self.chosen_policy.getActionToPerform(visitor, possibleActions)
         else:
             #print "Exploring"
             self.chosen_policy =  rn.choice(self.policies)
             #print "Chosen policy: " + str(self.chosen_policy)
+            self.start_time = time.clock()
             return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
-
+        self.end_time = time.clock()
+        elapsed_time = self.end_time - self.start_time
+        #print "Elapsed time: " + str(elapsed_time)
+        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        self.policy_counts[str(self.chosen_policy)] += 1
+        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+                                                                     /self.policy_counts[str(self.chosen_policy)]
+        self.total_updates += 1
         #print self.policy_scores
         #print "Updating policy " + str(self.chosen_policy)
         for p in self.policies:
@@ -90,12 +100,11 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
             except:
                 print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
-        self.policy_counts[str(self.chosen_policy)] += 1
 
         new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
                     self.policy_scores[str(self.chosen_policy)] + reward * (1 / float(self.policy_counts[str(self.chosen_policy)]))
         self.policy_scores[str(self.chosen_policy)] = new_value
         #print "Scores are: " + str(self.policy_scores)
         #print "Counts are: " + str(self.policy_counts)
-
-        return
+        if (self.total_updates % 500 == 0):
+            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)

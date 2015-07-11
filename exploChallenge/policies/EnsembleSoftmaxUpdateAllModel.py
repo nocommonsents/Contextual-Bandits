@@ -35,6 +35,7 @@ def categorical_draw(probs):
 class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
 
     def __init__(self, temp):
+        self.temperature = temp
         # Create an object from each class to use for ensemble model
         self.policy_one = BinomialUCI()
         self.policy_two = MostRecent()
@@ -49,17 +50,21 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
         self.chosen_policy = None
-        self.temperature = temp
+        self.policy_runtimes = {}
         self.policy_counts = {}
         self.policy_scores = {}
-        self.total_counts = 0
+        self.policy_AER_to_runtime_ratios = {}
+        self.start_time = 0
+        self.end_time = 0
+        self.total_updates = 0
+        self.trials = 0
 
     def getTemp(self):
         return self.temperature
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
-        self.total_counts += 1
+        self.trials += 1
         policy_probs = {}
 
         for i in self.policies:
@@ -103,7 +108,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.policy_scores[str(self.chosen_policy)] = new_value
 
 
-        if (self.total_counts % 100 == 0):
+        if (self.trials % 100 == 0):
             #print "Scores are: " + str(self.policy_scores)
             print "Counts are: " + str(self.policy_counts)
         return

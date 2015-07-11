@@ -48,6 +48,11 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
 
         self.policy_counts = {}
         self.policy_successes = {}
+        self.policy_runtimes = {}
+        self.start_time = 0
+        self.end_time = 0
+        self.total_updates = 0
+        self.policy_AER_to_runtime_ratios = {}
         self.chosen_policy = None
 
     #@Override

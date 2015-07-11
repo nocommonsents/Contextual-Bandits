@@ -45,6 +45,11 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
                          self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
         self.policy_scores = {}
         self.policy_counts = {}
+        self.policy_runtimes = {}
+        self.policy_AER_to_runtime_ratios = {}
+        self.start_time = 0
+        self.end_time = 0
+        self.total_updates = 0
         self.chosen_policy = None
         self.trials = 1
 

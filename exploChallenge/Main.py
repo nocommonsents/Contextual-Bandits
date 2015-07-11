@@ -183,9 +183,9 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleRandomUpdateAllModel()
-        #policyName = "EnsembleRandomUpdateAll"
-        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        policy = EnsembleRandomUpdateAllModel()
+        policyName = "EnsembleRandomUpdateAll"
+        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleEAnnealingUpdateAllModel()
         #policyName = "EnsembleEAnnealingUpdateAll"
@@ -199,9 +199,9 @@ class Main:
         #policyName = "EnsembleBayesianUpdateAll"
         #outputFile.write("Policy: EnsembleBayesianUpdateAll\n")
 
-        policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIUpdateAll"
-        outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
+        #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIUpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
         #policy = EnsembleFeatureSize()
         #policyName = "EnsembleFeatureSize"

@@ -48,8 +48,12 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         self.policy_counts = {}
         self.policy_successes = {}
         self.policy_ucis = {}
-        
-        self.num_trials = 0
+        self.policy_runtimes = {}
+        self.policy_AER_to_runtime_ratios = {}
+        self.start_time = 0
+        self.end_time = 0
+        self.trials = 0
+        self.total_updates = 0
         self.chosen_policy = None
 
     #@Override
@@ -61,7 +65,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
                 self.policy_successes[str(i)] = 1.0
                 self.policy_ucis[str(i)] = 1.0
 
-        self.num_trials += 1
+        self.trials += 1
 
         #print self.policy_ucis
         current_uci_values = [self.policy_ucis[str(a)] for a in self.policies]

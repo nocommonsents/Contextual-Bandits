@@ -5,6 +5,7 @@ __author__ = 'bixlermike'
 import numpy as np
 import random
 import re
+import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -38,15 +39,34 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven, self.policy_eight, self.policy_nine, self.policy_ten]
         self.chosen_policy = None
+        self.policy_runtimes = {}
+        self.policy_counts = {}
+        self.policy_AER_to_runtime_ratios = {}
+        self.start_time = 0
+        self.end_time = 0
+        self.total_updates = 0
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
         self.chosen_policy =  random.choice(self.policies)
+        if str(self.chosen_policy) not in self.policy_runtimes:
+            self.policy_runtimes[str(self.chosen_policy)] = 0
+            self.policy_counts[str(self.chosen_policy)] = 0
+            self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = 0
         #print "Chosen policy: " + str(self.chosen_policy) + "\n"
+        self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
+        self.end_time = time.clock()
+        elapsed_time = self.end_time - self.start_time
+        #print "Elapsed time: " + str(elapsed_time)
+        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        self.policy_counts[str(self.chosen_policy)] += 1
+        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+                                                                /self.policy_counts[str(self.chosen_policy)]
+        self.total_updates += 1
         #print "Updating policy " + str(self.chosen_policy)
         for p in self.policies:
             try:
@@ -55,3 +75,5 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
             except:
                 print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
+        if (self.total_updates % 500 == 0):
+            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)

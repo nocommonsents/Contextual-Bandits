@@ -52,7 +52,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.policy_runtimes = {}
         self.policy_counts = {}
         self.policy_scores = {}
-        self.policy_AER_to_runtime_ratios = {}
+        self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
         self.total_updates = 0
@@ -61,7 +61,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
             self.policy_runtimes[str(i)] = 0
             self.policy_counts[str(i)] = 0
             self.policy_scores[str(i)] = 0
-            self.policy_AER_to_runtime_ratios[str(i)] = 0
+            self.policy_runtime_to_count_ratios[str(i)] = 0
         self.chosen_policy = None
 
     def getTemp(self):
@@ -96,7 +96,7 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         #print "Elapsed time: " + str(elapsed_time)
         self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
         self.policy_counts[str(self.chosen_policy)] += 1
-        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+        self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
                                                                      /self.policy_counts[str(self.chosen_policy)]
         self.total_updates += 1
         for p in self.policies:
@@ -119,5 +119,5 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         #     #print "Scores are: " + str(self.policy_scores)
         #     print "Counts are: " + str(self.policy_counts)
         if (self.total_updates % 500 == 0):
-            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)
+            print "All average runtime to count ratios: " + str(self.policy_runtime_to_count_ratios)
 

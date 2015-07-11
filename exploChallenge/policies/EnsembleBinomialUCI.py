@@ -49,7 +49,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         self.policy_successes = {}
         self.policy_ucis = {}
         self.policy_runtimes = {}
-        self.policy_AER_to_runtime_ratios = {}
+        self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
         self.trials = 0
@@ -59,7 +59,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
             self.policy_counts[str(i)] = 1.0
             self.policy_successes[str(i)] = 1.0
             self.policy_ucis[str(i)] = 1.0
-            self.policy_AER_to_runtime_ratios[str(i)] = 0
+            self.policy_runtime_to_count_ratios[str(i)] = 0
         self.chosen_policy = None
 
     #@Override
@@ -82,7 +82,7 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         #print "Elapsed time: " + str(elapsed_time)
         self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
         self.policy_counts[str(self.chosen_policy)] += 1
-        self.policy_AER_to_runtime_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+        self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
                                                                      /self.policy_counts[str(self.chosen_policy)]
         self.total_updates += 1
         #print "Updating policy " + str(self.chosen_policy)
@@ -110,6 +110,6 @@ class EnsembleBinomialUCI(ContextualBanditPolicy):
         #print "After update UCIs are: " + str(self.policy_ucis) + "\n"
 
         if (self.total_updates % 500 == 0):
-            print "All average AER to runtime ratios: " + str(self.policy_AER_to_runtime_ratios)
+            print "All average runtime to count ratios: " + str(self.policy_runtime_to_count_ratios)
 
 

@@ -47,13 +47,13 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
-        self.updates = 0
-        self.trials = 1
+        self.updates = 7.0
+        self.trials = 7.0
         for i in self.policies:
             self.policy_counts[str(i)] = 1.0
             self.policy_scores[str(i)] = 1.0
             self.policy_runtimes[str(i)] = 0
-            self.policy_runtime_to_count_ratios[str(i)] = 0
+            self.policy_runtime_to_count_ratios[str(i)] = 0.01
         self.chosen_policy = None
 
     #@Override
@@ -66,6 +66,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         if random_number > self.epsilon:
             #print "Exploiting!"
             policy_values = [self.policy_scores[str(a)] for a in self.policies]
+            #adjusted_policy_values = [(self.policy_scores[str(a)]/self.policy_runtime_to_count_ratios[str(a)]) for a in self.policies]
             self.chosen_policy = self.policies[rargmax(policy_values)]
             #print "Chosen policy: " + str(self.chosen_policy)
             self.start_time = time.clock()
@@ -105,7 +106,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         #print "Counts are: " + str(self.policy_counts)
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleEAnnealing") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                      str(self.policy_counts[str(i)])
-                output_file.write(str("EnsembleEAnnealing") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                                  str(self.policy_counts[str(i)]))
+                print str("EnsembleEAnnealingUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                      str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
+                output_file.write(str("EnsembleEAnnealingUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))

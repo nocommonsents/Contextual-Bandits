@@ -54,7 +54,7 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
             self.policy_runtimes[str(i)] = 0
             self.policy_counts[str(i)] = 0
             self.policy_successes[str(i)] = 0
-            self.policy_runtime_to_count_ratios[str(i)] = 0
+            self.policy_runtime_to_count_ratios[str(i)] = 0.01
         self.chosen_policy = None
 
     #@Override
@@ -105,7 +105,7 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
 
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                      str(self.policy_counts[str(i)])
-                output_file.write(str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                                  str(self.policy_counts[str(i)]))
+                print str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                      str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
+                output_file.write(str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))

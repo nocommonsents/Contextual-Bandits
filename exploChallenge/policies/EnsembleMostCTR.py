@@ -45,13 +45,13 @@ class EnsembleMostCTR(ContextualBanditPolicy):
         self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
-        self.trials = 0
-        self.updates = 0
+        self.trials = 7.0
+        self.updates = 7.0
         for i in self.policies:
             self.policy_runtimes[str(i)] = 0
             self.policy_counts[str(i)] = 1.0
             self.policy_successes[str(i)] = 1.0
-            self.policy_runtime_to_count_ratios[str(i)] = 0
+            self.policy_runtime_to_count_ratios[str(i)] = 0.01
         self.chosen_policy = None
 
     #@Override
@@ -59,6 +59,8 @@ class EnsembleMostCTR(ContextualBanditPolicy):
 
         self.trials += 1
         policy_click_rates = [(self.policy_successes[str(a)]/self.policy_counts[str(a)]) for a in self.policies]
+        #policy_adjusted_click_rates = [(self.policy_successes[str(a)]/self.policy_counts[str(a)]/
+        #                                self.policy_runtime_to_count_ratios[str(a)]) for a in self.policies]
         self.chosen_policy = self.policies[rargmax(policy_click_rates)]
         self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
@@ -90,8 +92,9 @@ class EnsembleMostCTR(ContextualBanditPolicy):
 
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleMostCTRUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                      str(self.policy_counts[str(i)])
-                output_file.write(str("EnsembleMostCTRUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                                  str(self.policy_counts[str(i)]))
+                #print str(self.policy_nicknames[self.policies.index(i)]) + " " + str(self.policy_runtime_to_count_ratios[str(i)])
+                print str("EnsembleMostCTRUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                      str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
+                output_file.write(str("EnsembleMostCTRUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))
 

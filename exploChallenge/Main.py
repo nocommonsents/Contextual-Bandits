@@ -79,8 +79,8 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
@@ -187,9 +187,9 @@ class Main:
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        #policy = EnsembleEAnnealingUpdateAllModel()
-        #policyName = "EnsembleEAnnealingUpdateAll"
-        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        policy = EnsembleEAnnealingUpdateAllModel()
+        policyName = "EnsembleEAnnealingUpdateAll"
+        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.01)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
@@ -203,9 +203,9 @@ class Main:
         #policyName = "EnsembleBinomialUCIUpdateAll"
         #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
-        policy = EnsembleMostCTR()
-        policyName = "EnsembleMostCTR"
-        outputFile.write("Policy: EnsembleMostCTR\n")
+        #policy = EnsembleMostCTR()
+        #policyName = "EnsembleMostCTR"
+        #outputFile.write("Policy: EnsembleMostCTR\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

@@ -62,7 +62,7 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
                 pass
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                      str(self.policy_counts[str(i)])
-                output_file.write(str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                                  str(self.policy_counts[str(i)]))
+                print str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                      str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
+                output_file.write(str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))

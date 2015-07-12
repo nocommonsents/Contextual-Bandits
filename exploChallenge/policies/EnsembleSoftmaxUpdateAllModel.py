@@ -52,13 +52,13 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
-        self.updates = 0
-        self.trials = 0
+        self.updates = 7.0
+        self.trials = 7.0
         for i in self.policies:
             self.policy_runtimes[str(i)] = 0
-            self.policy_counts[str(i)] = 0
-            self.policy_scores[str(i)] = 0
-            self.policy_runtime_to_count_ratios[str(i)] = 0
+            self.policy_counts[str(i)] = 1.0
+            self.policy_scores[str(i)] = 1.0
+            self.policy_runtime_to_count_ratios[str(i)] = 0.01
         self.chosen_policy = None
 
     def getTemp(self):
@@ -117,8 +117,8 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         #     print "Counts are: " + str(self.policy_counts)
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                      str(self.policy_counts[str(i)])
-                output_file.write(str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
-                                  str(self.policy_counts[str(i)]))
+                print str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                      str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
+                output_file.write(str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))
 

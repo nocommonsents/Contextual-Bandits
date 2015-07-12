@@ -8,7 +8,7 @@ my $output_file_3 = "banditMaxAERSummary.csv";
 my $output_file_4 = "banditVarAERSummary.csv";
 my $output_file_5 = "banditStDevAERSummary.csv";
 my $output_file_6 = "banditMeanAERVsTimeSummary.csv";
-my $output_file_7 = "banditMaxAERVsTimeSummary.csv";
+my $output_file_7 = "banditMeanAERVsTimeSummaryPostProcessed.csv";
 
 my $policy; my $dataset; my $num_evals; my $num_runs; my $data_points;
 my $mean_aer; my $min_aer; my $max_aer; my $var_aer; my $stdev_aer;
@@ -19,8 +19,8 @@ my @line;
 my %mean_aer_hash; my %min_aer_hash; my %max_aer_hash; my %var_aer_hash; my %stdev_aer_hash;
 my %all_policies_hash;
 
-my %mean_time_vs_ctr_hash; my %max_time_vs_ctr_hash;
-my %all_time_vs_ctr_policies_hash;
+my %mean_time_vs_ctr_hash; my %max_evals_by_policy_hash; my %column_to_bandit_mapping_hash;
+my %latest_values_by_bandit_hash; my %all_time_vs_ctr_policies_hash;
 
 open INPUT1, $input_file_1 or die "Could not open input file 1 for reading!";
 open INPUT2, $input_file_2 or die "Could not open input file 2 for reading!";
@@ -31,7 +31,6 @@ open OUTPUT3, '>', $output_file_3 or die "Could not open output file 3 for writi
 open OUTPUT4, '>', $output_file_4 or die "Could not open output file 4 for writing!";
 open OUTPUT5, '>', $output_file_5 or die "Could not open output file 5 for writing!";
 open OUTPUT6, '>', $output_file_6 or die "Could not open output file 6 for writing!";
-open OUTPUT7, '>', $output_file_7 or die "Could not open output file 7 for writing!";
 
 ##
 # NumEvals Policy_1 Policy_2 Policy_3... (Mean AER)
@@ -54,14 +53,14 @@ while (<INPUT1>){
 	$var_aer = $line[7];
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
-	if ($data_points >= 10 || $policy =~ /^Ensemble/) {
+	#if ($data_points >= 10) {
 	#if ($data_points >= 23) {}
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
         $var_aer_hash{$num_evals}{$policy} = $var_aer;
         $stdev_aer_hash{$num_evals}{$policy} = $stdev_aer;
-	}
+	#}
 }
 
 # Print out header row
@@ -134,35 +133,92 @@ while (<INPUT2>){
 	$mean_aer = $line[4];
 	$max_aer = $line[6];
 	$all_time_vs_ctr_policies_hash{$policy}++;
-	if ($data_points >= 50) {
+
+	if ($data_points >= 10) {
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
-		$max_time_vs_ctr_hash{$time_bin}{$policy} = $max_aer;
 	}
 	
 }
 
 # Print out header row
 print OUTPUT6 "TimeBin,";
-print OUTPUT7 "TimeBin,";
-foreach my $key (keys %all_time_vs_ctr_policies_hash) {
-	print OUTPUT6 "$key,";
-	print OUTPUT7 "$key,";
+#print OUTPUT7 "TimeBin,";
+foreach my $key11 (keys %all_time_vs_ctr_policies_hash) {
+	print OUTPUT6 "$key11,";
+	#print OUTPUT7 "$key,";
 }
 print OUTPUT6 "\n";
-print OUTPUT7 "\n";
+#print OUTPUT7 "\n";
 
 
-foreach my $key11 (sort {$a<=>$b} keys %mean_time_vs_ctr_hash){
-	print OUTPUT6 "$key11,";
-    foreach my $key12 (keys %all_time_vs_ctr_policies_hash){
-        print OUTPUT6 "$mean_time_vs_ctr_hash{$key11}{$key12}," ;
+foreach my $key12 (sort {$a<=>$b} keys %mean_time_vs_ctr_hash){
+	print OUTPUT6 "$key12,";
+    foreach my $key13 (keys %all_time_vs_ctr_policies_hash){
+        print OUTPUT6 "$mean_time_vs_ctr_hash{$key12}{$key13}," ;
+        if ($mean_time_vs_ctr_hash{$key12}{$key13} ne ''){
+            $max_evals_by_policy_hash{$key13} = $key12;
+            #print "$key13 up to $key12 with value of $mean_time_vs_ctr_hash{$key12}{$key13}\n";
+        }
     }
     print OUTPUT6 "\n";
 }
-foreach my $key13 (sort {$a<=>$b} keys %max_time_vs_ctr_hash){
-	print OUTPUT7 "$key13,";
-    foreach my $key14 (keys %all_time_vs_ctr_policies_hash){
-        print OUTPUT7 "$max_time_vs_ctr_hash{$key13}{$key14}," ;
-    }
-    print OUTPUT7 "\n";
+
+# Now go back through output file that was just created and fill in missing values.
+# For example, slow algorithms may have values for t = 200 and t = 220, but not t = 210
+# Here we will fill in t = 210 with the latest value (t = 200)
+my $input_file_3 = "banditMeanAERVsTimeSummary.csv";
+open INPUT3, $input_file_3 or die "Could not open input file 3 for reading!";
+open OUTPUT7, '>', $output_file_7 or die "Could not open output file 7 for writing!";
+
+#my ($max_evals) = sort { $b <=> $a } values %max_evals_by_policy_hash;
+
+#print "Largest eval value is $max_evals.";
+##
+# TimeBin	SoftmaxContextual0.01	Softmax0.01	BinomialUCI	MostCTR	MostRecent
+#  0	0.043286385	0.044001274	0.03994418	0.042826529	0.036833947
+#  10	0.039257305	0.044683858	0.041324382	0.045005699	0.033967277
+#  20	0.040185475	0.043817794	0.042203053	0.046320536	0.032565474
+my $n; my $time_bin;
+
+while (<INPUT3>){
+	@line = split /,/, $_;
+	chomp(@line);
+	if ($. == 1){
+	    $n = @line;
+	    my $count_bandits = 0;
+	    for my $element (@line){
+	        if ($element=~/^\w/){
+                $column_to_bandit_mapping_hash{$count_bandits} = $element;
+                $count_bandits++;
+            }
+	    }
+	    #print "Number of columns = $n\n";
+        #print %column_to_bandit_mapping_hash;
+		print OUTPUT7 "$_";
+	}
+	else {
+	    $time_bin = $line[0];
+	    print OUTPUT7 "$time_bin,";
+	    # Iterate through each column
+	    for (my $i =1; $i < $n; $i++){
+	        #print "Max evals for $column_to_bandit_mapping_hash{$i} is $max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}}.";
+	        # If there's a value, print it out
+	        if ($line[$i] ne ''){
+	            $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} = $line[$i];
+	            print OUTPUT7 "$line[$i],";
+	            #print "Latest value for $column_to_bandit_mapping_hash{$i} is $line[$i]\n";
+	        }
+	        # If there's a blank value and bandit algorithm has valid data beyond this point, fill in this data point with the latest valid one
+	        # If it's the random algorithm, fill in the value no matter what, since we need data points to compare the longer running algorithms against
+	        elsif ($max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}} > $time_bin || $column_to_bandit_mapping_hash{$i}=~/^Random/){
+                print OUTPUT7 "$latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}},";
+                #print "Inserting placeholder for $column_to_bandit_mapping_hash{$i} at time bin $line[0] as $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} for max evals of $max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}}!\n";
+	        }
+	        elsif ($i < ($n-1)) {
+	            print OUTPUT7 ",";
+	        }
+	    }
+	    print OUTPUT7 "\n";
+	}
+	#}
 }

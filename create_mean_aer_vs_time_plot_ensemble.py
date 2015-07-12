@@ -13,13 +13,13 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
-data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = True)
+data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',', names = True)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time\ Bin$", fontsize='16', y=1.02)
-ax.set_xlabel(r"$Time\ Bin$")
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Time\ (Seconds)$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
 ax.plot(data['TimeBin'],data['EnsembleRandom']/data['Random'], lw='1.25', label=r'$EnsRandom$', marker='o', markevery=500, fillstyle='none')
@@ -34,7 +34,7 @@ fontP = FontProperties()
 fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
-#ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
+ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 
 ax.set_xlim([0, max(data['TimeBin'])])
 

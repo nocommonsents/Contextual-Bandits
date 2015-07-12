@@ -14,17 +14,15 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
-data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = True)
+data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',', names = True)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-
-ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time\ Bin$", fontsize='16', y=1.02)
-ax.set_xlabel(r"$Time\ Bin$")
+ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Time\ (Seconds)$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
-#ax.plot(data['TimeBin'],data['Random'], label='Random')
 ax.plot(data['TimeBin'],data['MostClicked']/data['Random'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['MostRecent']/data['Random'], label=r'$MostRecent$', lw='1.25', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['MostCTR']/data['Random'], label=r'$HighestCTR$', lw='1.25', marker='^', markevery=500, fillstyle='none')
@@ -36,17 +34,14 @@ ax.plot(data['TimeBin'],data['EXP305']/data['Random'], label=r'$EXP\ 3(0.5)$', c
 ax.plot(data['TimeBin'],data['UCB1']/data['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label=r'$BinomialUCI$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
 
-
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 fontP = FontProperties()
 fontP.set_size('small')
+
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
-#ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
-
-#ax.set_xlim([0, max(data['TimeBin'])])
-
+ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 ax.set_axisbelow(True)
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')

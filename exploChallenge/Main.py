@@ -79,14 +79,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsEnsembleRandomWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"

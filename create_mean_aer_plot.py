@@ -1,12 +1,14 @@
 __author__ = 'bixlermike'
 
 #/usr/local/bin/python
+
 import matplotlib
 from matplotlib import rc
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import MaxNLocator, FormatStrFormatter
 import matplotlib.pyplot as plt
 import numpy as np
+
 matplotlib.rcParams['mathtext.fontset'] = 'cm'
 matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
@@ -36,9 +38,6 @@ box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 fontP = FontProperties()
 fontP.set_size('small')
-
-#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-#rc('text', usetex=True)
 
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))

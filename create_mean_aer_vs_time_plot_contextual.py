@@ -13,19 +13,19 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
-data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = True)
+data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',', names = True)
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time\ Bin$", fontsize='16', y=1.02)
-ax.set_xlabel(r"$Time\ Bin$")
+ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time$", fontsize='16', y=1.02)
+ax.set_xlabel(r"$Time\ (Seconds)$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
 #ax.plot(data['TimeBin'],data['Random'], label='Random')
 ax.plot(data['TimeBin'],data['eGreedyContextual01']/data['Random'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['eAnnealingContextual']/data['Random'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
-ax.plot(data['TimeBin'],data['SoftmaxContextual001']/data['Random'], lw='1.25', label=r'$Softmax(0.01)$', color='deepskyblue', lw='1.25', marker='>', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['SoftmaxContextual001']/data['Random'], lw='1.25', label=r'$Softmax(0.01)$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['SoftmaxContextual01']/data['Random'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['LinUCB01']/data['Random'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['NaiveBayesContextual']/data['Random'], lw='1.25', label=r'$NaiveBayes$', marker='*', markevery=500, fillstyle='none')
@@ -46,7 +46,7 @@ fontP = FontProperties()
 fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
-#ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
+ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 
 ax.set_xlim([0, max(data['TimeBin'])])
 

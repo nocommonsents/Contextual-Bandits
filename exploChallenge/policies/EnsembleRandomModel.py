@@ -16,7 +16,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-output_file = open("banditPolicyCountsVsEvalNumber.txt", "a+")
+#output_file = open("banditPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 class EnsembleRandomModel(ContextualBanditPolicy):
 
@@ -65,4 +66,4 @@ class EnsembleRandomModel(ContextualBanditPolicy):
                 print str("EnsembleRandom") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
                 output_file.write(str("EnsembleRandom") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
-                + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))
+                + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")

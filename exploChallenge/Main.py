@@ -179,17 +179,17 @@ class Main:
         #policyName = "NaiveBayesContextual"
         #outputFile.write("Policy: NaiveBayesContextual\n")
 
-        #policy = EnsembleRandomModel()
-        #policyName = "EnsembleRandom"
-        #outputFile.write("Policy: EnsembleRandom\n")
+        policy = EnsembleRandomModel()
+        policyName = "EnsembleRandom"
+        outputFile.write("Policy: EnsembleRandom\n")
 
         #policy = EnsembleRandomUpdateAllModel()
         #policyName = "EnsembleRandomUpdateAll"
         #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        policy = EnsembleEAnnealingUpdateAllModel()
-        policyName = "EnsembleEAnnealingUpdateAll"
-        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        #policy = EnsembleEAnnealingUpdateAllModel()
+        #policyName = "EnsembleEAnnealingUpdateAll"
+        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.1)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())

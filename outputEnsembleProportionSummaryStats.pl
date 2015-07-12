@@ -7,8 +7,8 @@ my $temp_hash_to_string; my $stat; my $count; my $mean; my $min; my $max; my $va
 my @line; my @summary_proportion_array;
 my %summary_proportion_hash;
 
-my $input_file = "banditPolicyCountsVsEvalNumber.txt";
-my $output_file = 'banditPolicyCountsVsEvalNumberSummary.csv';
+my $input_file = "banditPolicyProportionsVsEvalNumber.txt";
+my $output_file = 'banditPolicyProportionsVsEvalNumberSummary.csv';
 open INPUT, $input_file or die "Could not open '$input_file' for reading!";
 open(OUTPUT, '>', $output_file) or die "Could not open file '$output_file'";
 

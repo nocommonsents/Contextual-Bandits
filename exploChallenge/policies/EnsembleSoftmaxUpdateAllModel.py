@@ -68,8 +68,12 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
     def getActionToPerform(self, visitor, possibleActions):
         self.trials += 1
         policy_probs = {}
+        adjusted_policy_probs = {}
 
+        #print self.policy_runtime_to_count_ratios
         policy_scores = [math.exp(self.policy_scores[str(a)]/self.temperature) for a in self.policy_scores]
+        adjusted_policy_scores = [math.exp(self.policy_scores[str(a)]/self.temperature/
+                                           math.exp(self.policy_runtime_to_count_ratios[str(a)])) for a in self.policy_scores]
         #print "Policy scores: " + str(policy_scores)
         z = sum(policy_scores)
         #print z
@@ -77,9 +81,11 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         # Calculate the probability that each arm will be selected
         for v in self.policies:
             policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature) / z
+            adjusted_policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature/\
+                                       math.exp(self.policy_runtime_to_count_ratios[str(v)]) / z)
 
         # Generate random number and see which bin it falls into to select arm
-        self.chosen_policy = categorical_draw(policy_probs)
+        self.chosen_policy = categorical_draw(adjusted_policy_probs)
         #print self.chosen_policy
         #print "Chosen policy: " + str(self.chosen_policy)
         self.start_time = time.clock()

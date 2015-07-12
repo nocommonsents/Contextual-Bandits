@@ -191,7 +191,7 @@ class Main:
         policyName = "EnsembleEAnnealingUpdateAll"
         outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        #policy = EnsembleSoftmaxUpdateAllModel(0.01)
+        #policy = EnsembleSoftmaxUpdateAllModel(0.1)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax\n")
 

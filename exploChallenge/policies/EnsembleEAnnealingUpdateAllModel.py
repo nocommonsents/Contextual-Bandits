@@ -66,7 +66,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         if random_number > self.epsilon:
             #print "Exploiting!"
             policy_values = [self.policy_scores[str(a)] for a in self.policies]
-            #adjusted_policy_values = [(self.policy_scores[str(a)]/self.policy_runtime_to_count_ratios[str(a)]) for a in self.policies]
+            #adjusted_policy_values = [(self.policy_scores[str(a)]/math.pow(self.policy_runtime_to_count_ratios[str(a)],0.1)) for a in self.policies]
             self.chosen_policy = self.policies[rargmax(policy_values)]
             #print "Chosen policy: " + str(self.chosen_policy)
             self.start_time = time.clock()

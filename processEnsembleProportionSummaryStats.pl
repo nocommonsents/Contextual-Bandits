@@ -19,7 +19,6 @@ else {
 }
 my $input_file_1 = "banditPolicyProportionsVsEvalNumberSummary.csv";
 my $output_file_1 = "banditMeanPolicyProportionsVsEvalNumberSummary$ensemble.csv";
-print $output_file_1;
 open INPUT1, $input_file_1 or die "Could not open input file 1 for reading!";
 
 open OUTPUT1, '>', $output_file_1 or die "Could not open output file 1 for writing!";

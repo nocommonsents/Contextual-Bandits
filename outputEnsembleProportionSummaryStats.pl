@@ -23,7 +23,7 @@ while (<INPUT>){
 }
 
 
-print OUTPUT "Key,EvaluationNumber,PolicyName,NumberofProportionValues,MeanProportion,MinProportion,MaxProportion,VarProportion,StdevProportion\n";
+print OUTPUT "Key,PolicyName,EvaluationNumber,NumberofProportionValues,MeanProportion,MinProportion,MaxProportion,VarProportion,StdevProportion\n";
 foreach my $key1 (sort keys %summary_proportion_hash){
 	$temp_hash_to_string = "$summary_proportion_hash{$key1}";
 	@summary_proportion_array = split /,/,$temp_hash_to_string;

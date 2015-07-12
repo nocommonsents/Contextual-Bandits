@@ -33,11 +33,11 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         # Create an object from each class to use for ensemble model
         self.policy_one = BinomialUCI()
         self.policy_two = MostCTR()
-        self.policy_three = Softmax(0.01)
+        self.policy_three = Softmax(0.1)
         self.policy_four = UCB1()
         self.policy_five = LinUCB(0.1)
         self.policy_six = NaiveBayesContextual()
-        self.policy_seven = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
+        self.policy_seven = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven]
         self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.01", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",

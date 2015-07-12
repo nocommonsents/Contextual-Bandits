@@ -60,7 +60,6 @@ from exploChallenge.policies.EnsembleEAnnealingUpdateAllModel import EnsembleEAn
 from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftmaxUpdateAllModel
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
-from exploChallenge.policies.EnsembleFeatureSize import EnsembleFeatureSize
 from exploChallenge.policies.EnsembleMostCTR import EnsembleMostCTR
 
 from time import strftime
@@ -80,8 +79,8 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:
@@ -207,10 +206,6 @@ class Main:
         policy = EnsembleMostCTR()
         policyName = "EnsembleMostCTR"
         outputFile.write("Policy: EnsembleMostCTR\n")
-
-        #policy = EnsembleFeatureSize()
-        #policyName = "EnsembleFeatureSize"
-        #outputFile.write("Policy: EnsembleFeatureSizeUpdateAll\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

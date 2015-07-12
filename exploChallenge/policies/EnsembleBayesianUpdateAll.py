@@ -42,8 +42,8 @@ class EnsembleBayesianUpdateAllModel(ContextualBanditPolicy):
         self.policy_seven = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven]
-        self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.01", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",
-                                 "SoftmaxContextual0.01"]
+        self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.1", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",
+                                 "SoftmaxContextual0.1"]
         self.policy_counts = {}
         self.policy_successes = {}
         self.policy_runtimes = {}

@@ -9,15 +9,14 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
 from exploChallenge.policies.BinomialUCI import BinomialUCI
-from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.Softmax import Softmax
-from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
-from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
+
+output_file = open("banditPolicyCountsVsEvalNumber.txt", "a+")
 
 class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
 
@@ -33,7 +32,14 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
         self.policy_seven = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                      self.policy_six, self.policy_seven]
+        self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.01", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",
+                                 "SoftmaxContextual0.01"]
         self.chosen_policy = None
+        self.policy_counts = {}
+        self.trials = 0
+        self.updates = 0
+        for i in self.policies:
+            self.policy_counts[str(i)] = 0
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
@@ -44,6 +50,9 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         #print "Updating policy " + str(self.chosen_policy)
+        self.updates += 1
+        self.policy_counts[str(self.chosen_policy)] += 1
+
         for p in self.policies:
             try:
                 #print "Updating policy: " + str(p)
@@ -51,3 +60,9 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
             except:
                 #print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
+        if (self.updates % 100 == 0):
+            for i in self.policies:
+                print str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
+                      str(self.policy_counts[str(i)])
+                output_file.write(str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
+                                  str(self.policy_counts[str(i)]))

@@ -11,15 +11,14 @@ from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolic
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
 from exploChallenge.policies.BinomialUCI import BinomialUCI
-from exploChallenge.policies.MostRecent import MostRecent
 from exploChallenge.policies.MostCTR import MostCTR
 from exploChallenge.policies.Softmax import Softmax
-from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
-from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
+
+output_file = open("banditPolicyCountsVsEvalNumber.txt", "a+")
 
 def rargmax(x):
     m = np.amax(x)
@@ -40,13 +39,15 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_seven = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
         self.policies = [self.policy_one, self.policy_two, self.policy_three, self.policy_four, self.policy_five,
                          self.policy_six, self.policy_seven]
+        self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.01", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",
+                                 "SoftmaxContextual0.01"]
         self.policy_scores = {}
         self.policy_counts = {}
         self.policy_runtimes = {}
         self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
-        self.total_updates = 0
+        self.updates = 0
         self.trials = 1
         for i in self.policies:
             self.policy_counts[str(i)] = 1.0
@@ -86,7 +87,7 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_counts[str(self.chosen_policy)] += 1
         self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
                                                                      /self.policy_counts[str(self.chosen_policy)]
-        self.total_updates += 1
+        self.updates += 1
         #print self.policy_scores
         #print "Updating policy " + str(self.chosen_policy)
         for p in self.policies:
@@ -102,5 +103,9 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_scores[str(self.chosen_policy)] = new_value
         #print "Scores are: " + str(self.policy_scores)
         #print "Counts are: " + str(self.policy_counts)
-        if (self.total_updates % 500 == 0):
-            print "All average runtime to count ratios: " + str(self.policy_runtime_to_count_ratios)
+        if (self.updates % 100 == 0):
+            for i in self.policies:
+                print str("EnsembleEAnnealing") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
+                      str(self.policy_counts[str(i)])
+                output_file.write(str("EnsembleEAnnealing") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + str(self.updates) + "," + \
+                                  str(self.policy_counts[str(i)]))

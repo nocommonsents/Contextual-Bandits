@@ -1,5 +1,6 @@
 perl outputSummaryStats.pl
 perl processSummaryStats.pl
+perl outputEnsembleProportionSummaryStats.pl
 python create_mean_aer_plot.py
 python create_mean_aer_plot_contextual.py
 python create_mean_aer_plot_ensemble.py

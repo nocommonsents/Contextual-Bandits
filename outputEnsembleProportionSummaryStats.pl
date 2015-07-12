@@ -1,0 +1,41 @@
+use strict;
+use Statistics::Descriptive qw(:all);
+
+my $file; my $ensemble_name; my $policy_name; my $eval_number; my $proportion;
+my $temp_hash_to_string; my $stat; my $count; my $mean; my $min; my $max; my $var; my $stdev;
+
+my @line; my @summary_proportion_array;
+my %summary_proportion_hash;
+
+my $input_file = "banditPolicyCountsVsEvalNumber.txt";
+my $output_file = 'banditPolicyCountsVsEvalNumberSummary.csv';
+open INPUT, $input_file or die "Could not open '$input_file' for reading!";
+open(OUTPUT, '>', $output_file) or die "Could not open file '$output_file'";
+
+while (<INPUT>){
+    @line = split /,/,$_;
+    chomp(@line);
+    $ensemble_name = $line[0];
+    $policy_name = $line[1];
+    $eval_number = $line[2];
+    $proportion = $line[3];
+    $summary_proportion_hash{"$ensemble_name,$policy_name,$eval_number"} = $proportion;
+}
+
+
+print OUTPUT "Key,EvaluationNumber,PolicyName,NumberofProportionValues,MeanProportion,MinProportion,MaxProportion,VarProportion,StdevProportion\n";
+foreach my $key1 (sort keys %summary_proportion_hash){
+	$temp_hash_to_string = "$summary_proportion_hash{$key1}";
+	@summary_proportion_array = split /,/,$temp_hash_to_string;
+	$stat = Statistics::Descriptive::Full->new();
+	$stat->add_data(@summary_proportion_array);
+	$count = $stat->count();
+	$mean = $stat->mean();
+	$min = $stat->min();
+	$max = $stat->max();
+	$var  = $stat->variance();
+	$var = sprintf("%.10f", $var);
+	$stdev = $stat->standard_deviation();
+	$stdev = sprintf("%.10f", $stdev);
+	print OUTPUT "$key1,$count,$mean,$min,$max,$var,$stdev\n";
+}

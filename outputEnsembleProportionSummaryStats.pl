@@ -1,11 +1,11 @@
 use strict;
 use Statistics::Descriptive qw(:all);
 
-my $file; my $ensemble_name; my $policy_name; my $eval_number; my $proportion;
+my $file; my $ensemble_name; my $policy_name; my $eval_number; my $proportion; my $current_parameters;
 my $temp_hash_to_string; my $stat; my $count; my $mean; my $min; my $max; my $var; my $stdev;
 
-my @line; my @summary_proportion_array;
-my %summary_proportion_hash;
+my @line; my @all_proportion_array;
+my %count_proportion_hash; my %all_proportion_hash;
 
 my $input_file = "banditPolicyProportionsVsEvalNumber.txt";
 my $output_file = 'banditPolicyProportionsVsEvalNumberSummary.csv';
@@ -19,16 +19,23 @@ while (<INPUT>){
     $policy_name = $line[1];
     $eval_number = $line[2];
     $proportion = $line[3];
-    $summary_proportion_hash{"$ensemble_name,$policy_name,$eval_number"} = $proportion;
+    $current_parameters = "$ensemble_name,$policy_name,$eval_number";
+    $count_proportion_hash{$current_parameters}++;
+    if ($count_proportion_hash{$current_parameters} == 1){
+        $all_proportion_hash{$current_parameters} = $proportion;
+    }
+    else {
+        $all_proportion_hash{$current_parameters} = "$all_proportion_hash{$current_parameters},$proportion";
+    }
 }
 
 
 print OUTPUT "Key,PolicyName,EvaluationNumber,NumberofProportionValues,MeanProportion,MinProportion,MaxProportion,VarProportion,StdevProportion\n";
-foreach my $key1 (sort keys %summary_proportion_hash){
-	$temp_hash_to_string = "$summary_proportion_hash{$key1}";
-	@summary_proportion_array = split /,/,$temp_hash_to_string;
+foreach my $key1 (sort keys %all_proportion_hash){
+	$temp_hash_to_string = "$all_proportion_hash{$key1}";
+	@all_proportion_array = split /,/,$temp_hash_to_string;
 	$stat = Statistics::Descriptive::Full->new();
-	$stat->add_data(@summary_proportion_array);
+	$stat->add_data(@all_proportion_array);
 	$count = $stat->count();
 	$mean = $stat->mean();
 	$min = $stat->min();

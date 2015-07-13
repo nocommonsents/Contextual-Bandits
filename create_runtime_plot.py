@@ -7,7 +7,7 @@ import matplotlib
 from matplotlib import rc
 from matplotlib import rcParams
 from matplotlib.font_manager import FontProperties
-from matplotlib.ticker import MaxNLocator, FormatStrFormatter
+from matplotlib.ticker import MaxNLocator, FormatStrFormatter, MultipleLocator
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
@@ -16,16 +16,17 @@ matplotlib.rcParams['mathtext.fontset'] = 'cm'
 matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 rcParams.update({'figure.autolayout': True})
+majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditRuntimeOutputSummary.csv', delimiter=',', names = True, dtype=("|S30", int, float, float, float, float, float), usecols=(0,1,2,3,4,5,6))
 
 N = 3
 ind = np.arange(N)
-width = 0.5
+width = 0.65
 count = 0
 
-x = np.arange(10)
-ys = [i+x+(i*x)**2 for i in range(10)]
+x = np.arange(12)
+ys = [i+x+(i*x)**2 for i in range(12)]
 
 fig, ax = plt.subplots()
 policies = []
@@ -51,15 +52,17 @@ for line in data:
     count+=1
 
 # Non-contextual
-rects1 = ax.bar(ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
-rects2 = ax.bar((N+2) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
-rects3 = ax.bar((2*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
-rects4 = ax.bar((3*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
-rects5 = ax.bar((4*(N+2)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
-rects6 = ax.bar((5*(N+2)) +ind, (mins[12], means[12], maxs[12]), width, color=next(colors))
-rects7 = ax.bar((6*(N+2)) +ind, (mins[0], means[0], maxs[0]), width, color=next(colors))
-rects8 = ax.bar((7*(N+2)) +ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
-rects9 = ax.bar((8*(N+2)) +ind, (mins[11], means[11], maxs[11]), width, color=next(colors))
+rects1 = ax.bar(ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
+rects2 = ax.bar((N+2.5) +ind, (mins[17], means[17], maxs[17]), width, color=next(colors))
+rects3 = ax.bar((2*(N+2.5)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
+rects4 = ax.bar((3*(N+2.5)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
+rects5 = ax.bar((4*(N+2.5)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
+rects6 = ax.bar((5*(N+2.5)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
+rects7 = ax.bar((6*(N+2.5)) +ind, (mins[11], means[11], maxs[11]), width, color=next(colors))
+rects8 = ax.bar((7*(N+2.5)) +ind, (mins[0], means[0], maxs[0]), width, color=next(colors))
+rects9 = ax.bar((8*(N+2.5)) +ind, (mins[1], means[1], maxs[1]), width, color=next(colors))
+rects10 = ax.bar((9*(N+2.5)) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
+rects11 = ax.bar((10*(N+2.5)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -67,13 +70,15 @@ fontP = FontProperties()
 fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.set_ylabel(r'$Runtime\ (sec)$')
-
-ax.set_title(r'$Context-Free\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max)$')
-
+ax.set_title(r'$Context-Free\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max)$', fontsize='16', y=1.02)
+ax.xaxis.set_major_formatter(majorFormatter)
+ax.get_xaxis().set_major_locator(MaxNLocator(integer=False))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
+ax.xaxis.set_major_locator(MultipleLocator(5.5))
+plt.tight_layout()
 
 # Non-contextual
-relevant_policies = [policies[8],policies[5],policies[6],policies[4],policies[14],policies[12],policies[0],policies[9],policies[11]]
+relevant_policies = [r'$\ ', r'$Random$',r'$e-Greedy(0.1)$',r'$MostCTR$',r'$MostClicked$',r'$Softmax(0.01)$',r'$MostRecent$',r'$Softmax(0.1)$',r'$BinomialUCB$',r'$EXP3(0.5)$',r'$e-Annealing$',r'$UCB1$']
 ax.set_xticklabels(relevant_policies)
 
 

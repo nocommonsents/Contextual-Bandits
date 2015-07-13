@@ -7,7 +7,7 @@ import matplotlib
 from matplotlib import rc
 from matplotlib import rcParams
 from matplotlib.font_manager import FontProperties
-from matplotlib.ticker import MaxNLocator, FormatStrFormatter
+from matplotlib.ticker import MaxNLocator, FormatStrFormatter, MultipleLocator
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
@@ -15,6 +15,8 @@ import numpy as np
 matplotlib.rcParams['mathtext.fontset'] = 'cm'
 matplotlib.rcParams['font.family'] = 'STIXGeneral'
 rcParams.update({'figure.autolayout': True})
+
+majorFormatter = FormatStrFormatter('%d')
 
 data = np.genfromtxt('banditRuntimeOutputSummary.csv', delimiter=',', names = True, dtype=("|S30", int, float, float, float, float, float), usecols=(0,1,2,3,4,5,6))
 
@@ -63,10 +65,12 @@ fontP.set_size('small')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.set_ylabel(r'$Runtime\ (sec)$')
 
-ax.set_title(r'$Contextual\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max)$')
-
+ax.set_title(r'$Contextual\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max)$', fontsize='16', y=1.02)
+ax.xaxis.set_major_formatter(majorFormatter)
+ax.get_xaxis().set_major_locator(MaxNLocator(integer=False))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
-#ax.set_xticks(ind+ind*N)
+ax.xaxis.set_major_locator(MultipleLocator(5.5))
+plt.tight_layout()
 
 # Contextual
 relevant_policies = [r'$eGreedy(0.1)$', r'$eAnnealing$', r'$LinUCB$', r'$Softmax(0.1)$', r'$NaiveBayes$']

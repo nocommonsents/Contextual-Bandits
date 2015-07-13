@@ -4,6 +4,7 @@ __author__ = 'bixlermike'
 
 import numpy as np
 import random
+import time
 
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
@@ -16,8 +17,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
 
@@ -66,4 +67,4 @@ class EnsembleRandomUpdateAllModel(ContextualBanditPolicy):
                 print str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
                 output_file.write(str("EnsembleRandomUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
-                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")

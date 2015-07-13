@@ -127,5 +127,5 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
                 print str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
                 output_file.write(str("EnsembleSoftmax0.01UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
-                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates))
+                                  + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")
 

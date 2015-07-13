@@ -79,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandomWithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -179,13 +179,13 @@ class Main:
         #policyName = "NaiveBayesContextual"
         #outputFile.write("Policy: NaiveBayesContextual\n")
 
-        policy = EnsembleRandomModel()
-        policyName = "EnsembleRandom"
-        outputFile.write("Policy: EnsembleRandom\n")
+        #policy = EnsembleRandomModel()
+        #policyName = "EnsembleRandom"
+        #outputFile.write("Policy: EnsembleRandom\n")
 
-        #policy = EnsembleRandomUpdateAllModel()
-        #policyName = "EnsembleRandomUpdateAll"
-        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        policy = EnsembleRandomUpdateAllModel()
+        policyName = "EnsembleRandomUpdateAll"
+        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
         #policy = EnsembleEAnnealingUpdateAllModel()
         #policyName = "EnsembleEAnnealingUpdateAll"

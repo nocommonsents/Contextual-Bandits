@@ -12,22 +12,22 @@ perl processEnsembleProportionSummaryStats.pl EnsembleRandom
 
 python create_mean_aer_plot.py
 python create_mean_aer_plot_contextual.py
-python create_mean_aer_plot_ensemble.py
+#python create_mean_aer_plot_ensemble.py
 python create_min_aer_plot.py
 python create_min_aer_plot_contextual.py
-python create_min_aer_plot_ensemble.py
+#python create_min_aer_plot_ensemble.py
 python create_max_aer_plot.py
 python create_max_aer_plot_contextual.py
-python create_max_aer_plot_ensemble.py
+#python create_max_aer_plot_ensemble.py
 python create_stdev_aer_plot.py
 python create_stdev_aer_plot_contextual.py
-python create_stdev_aer_plot_ensemble.py
+#python create_stdev_aer_plot_ensemble.py
 python create_runtime_plot.py
 python create_runtime_plot_contextual.py
 #python create_runtime_plot_ensemble.py
 python create_mean_aer_vs_time_plot.py
 python create_mean_aer_vs_time_plot_contextual.py
-python create_mean_aer_vs_time_plot_ensemble.py
+#python create_mean_aer_vs_time_plot_ensemble.py
 python create_mean_aer_plot_with_ranges.py
 
 python create_mean_ensemble_bandit_proportions_plot.py EnsembleRandom

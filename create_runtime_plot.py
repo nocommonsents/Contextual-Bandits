@@ -78,7 +78,7 @@ ax.xaxis.set_major_locator(MultipleLocator(5.5))
 plt.tight_layout()
 
 # Non-contextual
-relevant_policies = [r'$\ ', r'$Random$',r'$e-Greedy(0.1)$',r'$MostCTR$',r'$MostClicked$',r'$Softmax(0.01)$',r'$MostRecent$',r'$Softmax(0.1)$',r'$BinomialUCB$',r'$EXP3(0.5)$',r'$e-Annealing$',r'$UCB1$']
+relevant_policies = [r'$\ ', r'$Random$',r'$e-Greedy(0.1)$',r'$MostCTR$',r'$MostClicked$',r'$Softmax(0.01)$',r'$MostRecent$',r'$Softmax(0.1)$',r'$BinomialUCI$',r'$EXP3(0.5)$',r'$e-Annealing$',r'$UCB1$']
 ax.set_xticklabels(relevant_policies)
 
 

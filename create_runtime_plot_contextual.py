@@ -57,6 +57,7 @@ rects2 = ax.bar((2*(N+2)) +ind, (mins[13], means[13], maxs[13]), width, color=ne
 rects3 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
 rects4 = ax.bar((4*(N+2)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
 rects5 = ax.bar((5*(N+2)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
+rects6 = ax.bar((5*(N+2)) +ind, (mins[12], means[12], maxs[12]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

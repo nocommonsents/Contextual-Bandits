@@ -30,7 +30,7 @@ ax.plot(data['t'],data['Softmax001'], label=r'$Softmax(0.01)$', lw='1.25', color
 ax.plot(data['t'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EXP305'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['UCB1'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')
-ax.plot(data['t'],data['BinomialUCI'], label=r'$BinomialUCB$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['BinomialUCI'], label=r'$BinomialUCI$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

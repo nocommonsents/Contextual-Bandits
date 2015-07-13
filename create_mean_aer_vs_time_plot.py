@@ -32,7 +32,7 @@ ax.plot(data['TimeBin'],data['Softmax001']/data['Random'], label=r'$Softmax(0.01
 ax.plot(data['TimeBin'],data['Softmax01']/data['Random'], label=r'$Softmax(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['EXP305']/data['Random'], label=r'$EXP\ 3(0.5)$', color='fuchsia', lw='1.25', marker='D', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['UCB1']/data['Random'], label=r'$UCB1$', color='lawngreen', lw='1.25', marker='<', markevery=500, fillstyle='none')
-ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label=r'$BinomialUCB$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['BinomialUCI']/data['Random'], label=r'$BinomialUCI$', color='darkorange', lw='1.25', marker='x', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

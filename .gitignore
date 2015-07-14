@@ -16,3 +16,5 @@ exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt
 plots/*.png
 
 banditPolicyProportionsVsEvalNumber.txt
+
+banditPolicyProportionsVsEvalNumber.txt

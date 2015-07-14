@@ -12,7 +12,7 @@ my $output_file_7 = "banditMeanAERVsTimeSummaryPostProcessed.csv";
 
 my $policy; my $dataset; my $num_evals; my $num_runs; my $data_points;
 my $mean_aer; my $min_aer; my $max_aer; my $var_aer; my $stdev_aer;
-my $time_bin;
+my $time_bin; my $temp;
 
 my @line;
 
@@ -54,7 +54,7 @@ while (<INPUT1>){
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
 	#if ($data_points >= 10) {
-	if ($data_points >= 25) {
+	if ($data_points >= 5) {
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
@@ -76,6 +76,8 @@ foreach my $key (keys %all_policies_hash) {
 	print OUTPUT4 "$key,";
 	print OUTPUT5 "$key,";
 }
+print OUTPUT1 "MaxInRow";
+
 print OUTPUT1 "\n";
 print OUTPUT2 "\n";
 print OUTPUT3 "\n";
@@ -84,9 +86,14 @@ print OUTPUT5 "\n";
 
 foreach my $key1 (sort {$a<=>$b} keys %mean_aer_hash){
 	print OUTPUT1 "$key1,";
+	$temp = 0;
     foreach my $key2 (keys %all_policies_hash){
-        print OUTPUT1 "$mean_aer_hash{$key1}{$key2}," ;
+        print OUTPUT1 "$mean_aer_hash{$key1}{$key2},";
+        if ($mean_aer_hash{$key1}{$key2} ne '' && $mean_aer_hash{$key1}{$key2} > $temp) {
+            $temp = $mean_aer_hash{$key1}{$key2}
+        }
     }
+    print OUTPUT1 "$temp";
     print OUTPUT1 "\n";
 }
 foreach my $key3 (sort {$a<=>$b} keys %min_aer_hash){

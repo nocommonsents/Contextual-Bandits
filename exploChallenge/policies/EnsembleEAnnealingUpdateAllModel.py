@@ -18,8 +18,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 def rargmax(x):
     m = np.amax(x)

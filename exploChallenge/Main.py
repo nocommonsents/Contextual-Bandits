@@ -79,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleRandomUpdateAllWithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleEAnnealingUpdateAllWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -183,13 +183,13 @@ class Main:
         #policyName = "EnsembleRandom"
         #outputFile.write("Policy: EnsembleRandom\n")
 
-        policy = EnsembleRandomUpdateAllModel()
-        policyName = "EnsembleRandomUpdateAll"
-        outputFile.write("Policy: EnsembleRandomUpdateAll\n")
+        #policy = EnsembleRandomUpdateAllModel()
+        #policyName = "EnsembleRandomUpdateAll"
+        #outputFile.write("Policy: EnsembleRandomUpdateAll\n")
 
-        #policy = EnsembleEAnnealingUpdateAllModel()
-        #policyName = "EnsembleEAnnealingUpdateAll"
-        #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
+        policy = EnsembleEAnnealingUpdateAllModel()
+        policyName = "EnsembleEAnnealingUpdateAll"
+        outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
         #policy = EnsembleSoftmaxUpdateAllModel(0.1)
         #policyName = "EnsembleSoftmaxUpdateAll" + str(policy.getTemp())

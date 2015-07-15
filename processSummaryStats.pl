@@ -10,13 +10,14 @@ my $output_file_5 = "banditStDevAERSummary.csv";
 my $output_file_6 = "banditMeanAERVsTimeSummary.csv";
 my $output_file_7 = "banditMeanAERVsTimeSummaryPostProcessed.csv";
 
+
 my $policy; my $dataset; my $num_evals; my $num_runs; my $data_points;
 my $mean_aer; my $min_aer; my $max_aer; my $var_aer; my $stdev_aer;
 my $time_bin; my $temp;
 
 my @line;
 
-my %mean_aer_hash; my %min_aer_hash; my %max_aer_hash; my %var_aer_hash; my %stdev_aer_hash;
+my %mean_aer_hash; my %mean_aer_vs_time_hash; my %min_aer_hash; my %max_aer_hash; my %var_aer_hash; my %stdev_aer_hash;
 my %all_policies_hash;
 
 my %mean_time_vs_ctr_hash; my %max_evals_by_policy_hash; my %column_to_bandit_mapping_hash;
@@ -191,6 +192,7 @@ while (<INPUT3>){
 	@line = split /,/, $_;
 	chomp(@line);
 	if ($. == 1){
+	    my $first_line = join(',',@line)."MaxInRow";
 	    $n = @line;
 	    my $count_bandits = 0;
 	    for my $element (@line){
@@ -201,11 +203,12 @@ while (<INPUT3>){
 	    }
 	    #print "Number of columns = $n\n";
         #print %column_to_bandit_mapping_hash;
-		print OUTPUT7 "$_";
+		print OUTPUT7 "$first_line,\n";
 	}
 	else {
 	    $time_bin = $line[0];
 	    print OUTPUT7 "$time_bin,";
+	    my $largest_this_row = 0;
 	    # Iterate through each column
 	    for (my $i =1; $i < $n; $i++){
 	        #print "Max evals for $column_to_bandit_mapping_hash{$i} is $max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}}.";
@@ -213,18 +216,25 @@ while (<INPUT3>){
 	        if ($line[$i] ne ''){
 	            $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} = $line[$i];
 	            print OUTPUT7 "$line[$i],";
+	            if ($line[$i]>$largest_this_row){
+	                $largest_this_row = $line[$i];
+	            }
 	            #print "Latest value for $column_to_bandit_mapping_hash{$i} is $line[$i]\n";
 	        }
 	        # If there's a blank value and bandit algorithm has valid data beyond this point, fill in this data point with the latest valid one
 	        # If it's the random algorithm, fill in the value no matter what, since we need data points to compare the longer running algorithms against
 	        elsif ($max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}} > $time_bin || $column_to_bandit_mapping_hash{$i}=~/^Random/){
                 print OUTPUT7 "$latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}},";
+                if ($latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}}>$largest_this_row){
+            	                $largest_this_row = $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}};
+            	}
                 #print "Inserting placeholder for $column_to_bandit_mapping_hash{$i} at time bin $line[0] as $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} for max evals of $max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}}!\n";
 	        }
 	        elsif ($i < ($n-1)) {
 	            print OUTPUT7 ",";
 	        }
 	    }
+	    print OUTPUT7 "$largest_this_row,";
 	    print OUTPUT7 "\n";
 	}
 	#}

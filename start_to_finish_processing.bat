@@ -29,6 +29,7 @@ python create_mean_aer_vs_time_plot.py
 python create_mean_aer_vs_time_plot_contextual.py
 python create_mean_aer_vs_time_plot_ensemble.py
 python create_mean_aer_plot_with_ranges.py
+python create_aer_proportion_of_optimal_ensemble_plot.py
 
 python create_mean_ensemble_bandit_proportions_plot.py EnsembleRandom
 python create_mean_ensemble_bandit_proportions_plot.py EnsembleRandomUpdateAll

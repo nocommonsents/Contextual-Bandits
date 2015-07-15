@@ -1,12 +1,21 @@
 use strict;
 
+use Cwd qw();
+use File::Slurp;
+use Statistics::Descriptive qw(:all);
+
+my $path = Cwd::cwd();
+my @files = read_dir $path;
+
 my $ensemble; my $ensemble_name; my $policy_name; my $num_evals; my $num_runs;
 my $mean_prop; my $min_prop; my $max_prop; my $var_prop; my $stdev_prop;
+
+my $bandit; my $policy;
 
 my @line;
 
 my %mean_prop_hash; my %min_prop_hash; my %max_prop_hash; my %var_prop_hash; my %stdev_prop_hash;
-my %all_policies_hash;
+my %all_policies_hash; my %mean_evals_to_time_hash; my %sum_evals_to_time_hash; my %count_evals_to_time_hash;
 
 my $num_args = $#ARGV + 1;
 
@@ -17,6 +26,21 @@ if ($num_args != 1){
 else {
     $ensemble = $ARGV[0];
 }
+my $string_to_match = "banditOutputs$ensemble"."WithTime\.txt";
+#print "String to match: $string_to_match";
+for my $file (@files) {
+	if ($file =~ /^$string_to_match/){
+		open FILE, $file or DIE $!;
+		#print "Found a match.";
+		while (<FILE>){
+            @line = split /,/,$_;
+            chomp(@line);
+            $sum_evals_to_time_hash{$line[2]} += $line[4];
+            $count_evals_to_time_hash{$line[2]}++;
+		}
+	}
+}
+
 my $input_file_1 = "banditPolicyProportionsVsEvalNumberSummary.csv";
 my $output_file_1 = "banditMeanPolicyProportionsVsEvalNumberSummary$ensemble.csv";
 open INPUT1, $input_file_1 or die "Could not open input file 1 for reading!";
@@ -36,7 +60,7 @@ while (<INPUT1>){
 	    next;
 	}
 	$policy_name = $line[1];
-	$num_evals = $line[2];
+	$num_evals = int($line[2]);
 	$num_runs = $line[3];
 	$mean_prop = $line[4];
 	$min_prop = $line[5];
@@ -55,14 +79,21 @@ while (<INPUT1>){
 }
 
 # Print out header row
-print OUTPUT1 "EvalNumber,";
+print OUTPUT1 "BanditAlgorithm,EvalNumber,Time,";
 foreach my $key (keys %all_policies_hash) {
 	print OUTPUT1 "$key,";
 }
 print OUTPUT1 "\n";
 
 foreach my $key1 (sort {$a<=>$b} keys %mean_prop_hash){
-	print OUTPUT1 "$key1,";
+    $key1 = int($key1);
+    if ($count_evals_to_time_hash{$key1} > 0){
+        $mean_evals_to_time_hash{$key1} = $sum_evals_to_time_hash{$key1}/$count_evals_to_time_hash{$key1};
+    }
+    else {
+        print "Key of $key1 has no count for file $ensemble.\n";
+    }
+	print OUTPUT1 "$ensemble,$key1,$mean_evals_to_time_hash{$key1},";
     foreach my $key2 (keys %all_policies_hash){
         print OUTPUT1 "$mean_prop_hash{$key1}{$key2}," ;
     }

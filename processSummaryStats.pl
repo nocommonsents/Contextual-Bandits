@@ -216,7 +216,8 @@ while (<INPUT3>){
 	        if ($line[$i] ne ''){
 	            $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} = $line[$i];
 	            print OUTPUT7 "$line[$i],";
-	            if ($line[$i]>$largest_this_row){
+	            if ($line[$i]>$largest_this_row && !($column_to_bandit_mapping_hash{$i}=~/^Ensemble/)){
+	                #print "Code 1 for $column_to_bandit_mapping_hash{$i} at $time_bin\n";
 	                $largest_this_row = $line[$i];
 	            }
 	            #print "Latest value for $column_to_bandit_mapping_hash{$i} is $line[$i]\n";
@@ -225,8 +226,9 @@ while (<INPUT3>){
 	        # If it's the random algorithm, fill in the value no matter what, since we need data points to compare the longer running algorithms against
 	        elsif ($max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}} > $time_bin || $column_to_bandit_mapping_hash{$i}=~/^Random/){
                 print OUTPUT7 "$latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}},";
-                if ($latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}}>$largest_this_row){
-            	                $largest_this_row = $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}};
+                if ($latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}}>$largest_this_row && !($column_to_bandit_mapping_hash{$i}=~/^Ensemble/)){
+            	    #print "Code 2 for $column_to_bandit_mapping_hash{$i} at $time_bin\n";
+            	    $largest_this_row = $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}};
             	}
                 #print "Inserting placeholder for $column_to_bandit_mapping_hash{$i} at time bin $line[0] as $latest_values_by_bandit_hash{$column_to_bandit_mapping_hash{$i}} for max evals of $max_evals_by_policy_hash{$column_to_bandit_mapping_hash{$i}}!\n";
 	        }

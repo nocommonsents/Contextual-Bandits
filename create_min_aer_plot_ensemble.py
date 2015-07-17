@@ -27,7 +27,7 @@ ax.plot(data['t'],data['EnsembleRandom']/data2['Random'], lw='1.25', label=r'$En
 ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsEAnnUpdateAll$', marker='^', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
-#ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleSoftmax01UpdateAll']/data2['Random'], lw='1.25', label=r'$EnsSoftmax0.1UpdateAll$', marker='+', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleMostCTRUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsMostCTRUpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 

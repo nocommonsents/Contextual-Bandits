@@ -26,7 +26,7 @@ ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Evaluation\ Number\ -
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$Proportion$")
 
-ax.plot(data['EvalNumber'],data['MostCTR'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')
+ax.plot(data['EvalNumber'],data['MostCTR'], label=r'$HighestCTR$', lw='1.25', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['BinomialUCI'], label=r'$BinomialUCI$', lw='1.25', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['UCB1'], label=r'$UCB1$', lw='1.25', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', marker='s', markevery=500, fillstyle='none')

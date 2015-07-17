@@ -67,6 +67,9 @@ class MyEvaluationPolicy(EvaluationPolicy):
             self.logger.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str((float(currentTimeMillis()) - self.startTime)/1000) + "\n")
             self.outputFile.write(str(self.policyName) + "," + str(self.inputFileShort) + "," + str(self.evaluations) + "," + str(self.getResult()) + "," + str((float(currentTimeMillis()) - self.startTime)/1000) +"\n")
         self.logger.flush()
+        # if (self.policyName.startsWith("Ensemble") and (float(currentTimeMillis()) - self.startTime)/1000 > 3000):
+        #     print "Exiting ensemble program early!"
+        #     raise SystemExit(0)
 
     #@Override
     def getResult(self):

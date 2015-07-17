@@ -25,7 +25,7 @@ ax.plot(data['t'],data['EnsembleRandom']/data['Random'], lw='1.25', label=r'$Ens
 ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data['Random'], lw='1.25', label=r'$EnsEAnnUpdateAll$', marker='^', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data['Random'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
-#ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleSoftmax01UpdateAll']/data['Random'], lw='1.25', label=r'$EnsSoftmax0.1UpdateAll$', marker='+', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleMostCTRUpdateAll']/data['Random'], lw='1.25', label=r'$EnsMostCTRUpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 box = ax.get_position()

@@ -22,11 +22,11 @@ data = np.genfromtxt('banditRuntimeOutputSummary.csv', delimiter=',', names = Tr
 
 N = 3
 ind = np.arange(N)
-width = 0.5
+width = 0.65
 count = 0
 
-x = np.arange(10)
-ys = [i+x+(i*x)**2 for i in range(10)]
+x = np.arange(8)
+ys = [i+x+(i*x)**2 for i in range(14)]
 
 fig, ax = plt.subplots()
 policies = []
@@ -52,12 +52,12 @@ for line in data:
     count+=1
 
 # Contextual
-rects1 = ax.bar((N+2) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
-rects2 = ax.bar((2*(N+2)) +ind, (mins[13], means[13], maxs[13]), width, color=next(colors))
-rects3 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
-rects4 = ax.bar((4*(N+2)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
-rects5 = ax.bar((5*(N+2)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
-rects6 = ax.bar((5*(N+2)) +ind, (mins[12], means[12], maxs[12]), width, color=next(colors))
+rects1 = ax.bar((N+2) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[20], means[20], maxs[20]), width, color=next(colors))
+rects3 = ax.bar((3*(N+2)) +ind, (mins[18], means[18], maxs[18]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
+rects5 = ax.bar((5*(N+2)) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
+rects6 = ax.bar((6*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -70,19 +70,15 @@ ax.set_title(r'$Contextual\ Algorithm\ Comparison\ -\ Runtime\ (Min,\ Mean,\ Max
 ax.xaxis.set_major_formatter(majorFormatter)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=False))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
-ax.xaxis.set_major_locator(MultipleLocator(5.5))
+ax.xaxis.set_major_locator(MultipleLocator(5.2))
 plt.tight_layout()
 
 # Contextual
-relevant_policies = [r'$eGreedy(0.1)$', r'$eAnnealing$', r'$LinUCB$', r'$Softmax(0.1)$', r'$NaiveBayes$']
+relevant_policies = [r'$$', r'$NaiveBayes$', r'$eGreedy(0.1)$', r'$eAnnealing$', r'$Softmax(0.01)$', r'$Softmax(0.1)$', r'$LinUCB$']
 #relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
 ax.set_xticklabels(relevant_policies)
 
-
-#ax.set_yscale('log')
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
-#ax.legend((rects1[0], rects2[0], rects3[0], rects4[0], rects5[0], rects6[0], rects7[0]), ('Min','Mean','Max'))
-#ax.legend((rects1[0], rects2[0], rects3[0], rects1[1], rects2[1], rects3[1], rects1[2], rects2[2]), (policies))
 plt.savefig("plots/runtimeComparisonContextual.png", dpi=240)
 #plt.show()

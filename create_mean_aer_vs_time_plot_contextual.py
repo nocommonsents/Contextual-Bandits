@@ -48,7 +48,8 @@ ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 
-ax.set_xlim([0, max(data['TimeBin'])])
+ax.set_xlim([0, 27100])
+#ax.set_xlim([0, max(data['TimeBin'])])
 
 ax.set_axisbelow(True)
 ax.xaxis.grid(color='gray', linestyle='dashed')

@@ -89,19 +89,19 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         self.chosen_policy = categorical_draw(adjusted_policy_probs)
         #print self.chosen_policy
         #print "Chosen policy: " + str(self.chosen_policy)
-        self.start_time = time.clock()
+        #self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
     #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         #print "Updating policy " + str(self.chosen_policy)
-        self.end_time = time.clock()
-        elapsed_time = self.end_time - self.start_time
+        #self.end_time = time.clock()
+        #elapsed_time = self.end_time - self.start_time
         #print "Elapsed time: " + str(elapsed_time)
-        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        #self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
         self.policy_counts[str(self.chosen_policy)] += 1
-        self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
-                                                                     /self.policy_counts[str(self.chosen_policy)]
+        #self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+        #                                                            /self.policy_counts[str(self.chosen_policy)]
         self.updates += 1
         for p in self.policies:
             try:

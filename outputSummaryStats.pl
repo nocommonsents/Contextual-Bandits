@@ -45,7 +45,6 @@ for my $file (@files) {
 				# Bin times into 10 second buckets
 				$time_bin = int($5/10)*10;
 				$time_parameters = "$1,$2,$time_bin";
-				
 				$total_ctr_hash{$current_parameters} += $4;
 				$count_ctr_hash{$current_parameters}++;
 				if ($count_ctr_hash{$current_parameters} == 1){

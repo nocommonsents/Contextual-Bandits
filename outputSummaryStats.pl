@@ -96,7 +96,8 @@ foreach $key1 (sort keys %total_ctr_hash){
 	$stdev = sprintf("%.10f", $stdev);
 	print OUTPUT "$key1,$count,$mean,$min,$max,$var,$stdev\n";
 }
-print OUTPUT2 "Key,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime,AllRuntimes\n";
+print OUTPUT2 "Key,,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime\n";
+#print OUTPUT2 "Key,,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime,AllRuntimes\n";
 foreach $key2 (sort keys %total_runtime_hash){
 	$temp_hash_to_string = "$all_runtime_hash{$key2}";
 	@runtime_array = split /,/,$temp_hash_to_string;
@@ -110,10 +111,12 @@ foreach $key2 (sort keys %total_runtime_hash){
 	$var = sprintf("%.2f", $var);
 	$stdev = $stat->standard_deviation();
 	$stdev = sprintf("%.2f", $stdev);
-	print OUTPUT2 "$key2,$count,$mean,$min,$max,$var,$stdev,$temp_hash_to_string\n";
+	print OUTPUT2 "$key2,$count,$mean,$min,$max,$var,$stdev\n";
+	#print OUTPUT2 "$key2,$count,$mean,$min,$max,$var,$stdev,$temp_hash_to_string\n";
 }
 
-print OUTPUT3 "Key,,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR,AllCTRs\n";
+print OUTPUT3 "Key,,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
+#print OUTPUT3 "Key,,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR,AllCTRs\n";
 foreach $key3 (sort keys %total_time_vs_ctr_hash){
 	$temp_hash_to_string = "$all_time_vs_ctr_hash{$key3}";
 	@time_vs_ctr_array = split /,/,$temp_hash_to_string;
@@ -127,5 +130,6 @@ foreach $key3 (sort keys %total_time_vs_ctr_hash){
 	$var = sprintf("%.2f", $var);
 	$stdev = $stat->standard_deviation();
 	$stdev = sprintf("%.2f", $stdev);
-	print OUTPUT3 "$key3,$count,$mean,$min,$max,$var,$stdev,$temp_hash_to_string\n";
+	print OUTPUT3 "$key3,$count,$mean,$min,$max,$var,$stdev\n";
+	#print OUTPUT3 "$key3,$count,$mean,$min,$max,$var,$stdev,$temp_hash_to_string\n";
 }

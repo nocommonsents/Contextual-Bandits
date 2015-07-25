@@ -18,7 +18,7 @@ data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ AER\ Proportion\ of\ Optimal\ Policy$", fontsize='16', y=1.02)
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ AER\ Proportion\ of\ Optimal\ Policy\ vs.\ Time$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time (sec)$")
 ax.set_ylabel(r"$AER\ Proportion\ of\ Optimal\ Policy$")
 
@@ -41,7 +41,7 @@ ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop = fontP)
 ax.get_xaxis().set_major_locator(MaxNLocator(integer=True))
 ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 #ax.set_xlim([0, max(data['TimeBin'])])
-ax.set_xlim([0, 2750])
+ax.set_xlim([0, 2897])
 ax.set_axisbelow(True)
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')

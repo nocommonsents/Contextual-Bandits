@@ -55,7 +55,7 @@ while (<INPUT1>){
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
 	#if ($data_points >= 10) {
-	if ($data_points >= 5) {
+	if ($data_points >= 8) {
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
@@ -142,7 +142,7 @@ while (<INPUT2>){
 	$max_aer = $line[6];
 	$all_time_vs_ctr_policies_hash{$policy}++;
 
-	if ($data_points >= 50) {
+	if ($data_points >= 20) {
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
 	}
 	
@@ -207,6 +207,7 @@ while (<INPUT3>){
 	}
 	else {
 	    $time_bin = $line[0];
+	    #print "Time bin is $time_bin\n";
 	    print OUTPUT7 "$time_bin,";
 	    my $largest_this_row = 0;
 	    # Iterate through each column

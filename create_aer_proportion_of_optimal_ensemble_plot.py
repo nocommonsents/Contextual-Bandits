@@ -18,7 +18,7 @@ data = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ AER\ Proportion\ of\ Optimal\ Policy$", fontsize='16', y=1.02)
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ AER\ Proportion\ of\ Optimal\ Policy\ vs.\ Evaluation\ Number$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$AER\ Proportion\ of\ Optimal\ Policy$")
 
@@ -27,7 +27,7 @@ ax.plot(data['t'],data['EnsembleRandomUpdateAll']/data['MaxInRow'], lw='1.25', l
 ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsEAnnUpdateAll$', marker='^', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
-#ax.plot(data['t'],data['EnsembleSoftmax01UpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsSoftmax0.1UpdateAll$', marker='+', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleSoftmax001UpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsSoftmax0.01UpdateAll$', marker='+', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleMostCTRUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsMostCTRUpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

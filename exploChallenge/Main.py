@@ -79,7 +79,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleSoftmax0.01WithTime.txt", "a+")
+        outputFile = open("banditOutputsUCB1WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -135,9 +135,9 @@ class Main:
         #policyName = "Softmax" + str(policy.getTemp())
         #outputFile.write("Policy: Softmax" + str(policy.getTemp()) + "\n")
 
-        #policy = UCB1()
-        #policyName = "UCB1"
-        #outputFile.write("Policy: UCB1\n")
+        policy = UCB1()
+        policyName = "UCB1"
+        outputFile.write("Policy: UCB1\n")
 
         #policy = EXP3(0.5)
         #policyName = "EXP3" + str(policy.getGamma())
@@ -191,9 +191,9 @@ class Main:
         #policyName = "EnsembleEAnnealingUpdateAll"
         #outputFile.write("Policy: EnsembleEAnnealingUpdateAll\n")
 
-        policy = EnsembleSoftmaxUpdateAllModel(0.01)
-        policyName = "EnsembleSoftmax" + str(policy.getTemp()) + "UpdateAll"
-        outputFile.write("Policy: EnsembleSoftmaxUpdateAll\n")
+        #policy = EnsembleSoftmaxUpdateAllModel(0.01)
+        #policyName = "EnsembleSoftmax" + str(policy.getTemp()) + "UpdateAll"
+        #outputFile.write("Policy: EnsembleSoftmax" + str(policy.getTemp()) + "UpdateAll\n")
 
         #policy = EnsembleBayesianUpdateAllModel(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBayesianUpdateAll"

@@ -18,8 +18,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 def categorical_draw(probs):
     z = random.random()
@@ -82,11 +82,12 @@ class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
         # Calculate the probability that each arm will be selected
         for v in self.policies:
             policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature) / z
-            adjusted_policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature/\
-                                       math.exp(self.policy_runtime_to_count_ratios[str(v)]) / z)
+            #adjusted_policy_probs[v] = math.exp(self.policy_scores[str(v)] / self.temperature/\
+            #                           math.exp(self.policy_runtime_to_count_ratios[str(v)]) / z)
+            #print policy_probs
 
         # Generate random number and see which bin it falls into to select arm
-        self.chosen_policy = categorical_draw(adjusted_policy_probs)
+        self.chosen_policy = categorical_draw(policy_probs)
         #print self.chosen_policy
         #print "Chosen policy: " + str(self.chosen_policy)
         #self.start_time = time.clock()

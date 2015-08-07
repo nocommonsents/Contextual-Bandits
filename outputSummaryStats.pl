@@ -42,8 +42,8 @@ for my $file (@files) {
 
 			elsif ($_ =~ /([\w\d\.]+),(\w+),(\d+),([\d\.]+),([\d\.]+)/){
 				$current_parameters = "$1,$2,$3";
-				# Bin times into 10 second buckets
-				$time_bin = int($5/10)*10;
+				# Bin times into 25 second buckets
+				$time_bin = int($5/25)*25;
 				$time_parameters = "$1,$2,$time_bin";
 				$total_ctr_hash{$current_parameters} += $4;
 				$count_ctr_hash{$current_parameters}++;
@@ -80,7 +80,7 @@ for my $file (@files) {
 		}
 	}
 }
-print OUTPUT "Key,,NumberofCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
+print OUTPUT "Key,NumberofCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
 foreach $key1 (sort keys %total_ctr_hash){
 	$temp_hash_to_string = "$all_ctr_hash{$key1}";
 	@ctr_array = split /,/,$temp_hash_to_string;
@@ -96,7 +96,7 @@ foreach $key1 (sort keys %total_ctr_hash){
 	$stdev = sprintf("%.10f", $stdev);
 	print OUTPUT "$key1,$count,$mean,$min,$max,$var,$stdev\n";
 }
-print OUTPUT2 "Key,,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime\n";
+print OUTPUT2 "Key,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime\n";
 #print OUTPUT2 "Key,,NumberofRuntimeValues,MeanRuntime,MinRuntime,MaxRuntime,VarRuntime,StdevRuntime,AllRuntimes\n";
 foreach $key2 (sort keys %total_runtime_hash){
 	$temp_hash_to_string = "$all_runtime_hash{$key2}";
@@ -115,7 +115,7 @@ foreach $key2 (sort keys %total_runtime_hash){
 	#print OUTPUT2 "$key2,$count,$mean,$min,$max,$var,$stdev,$temp_hash_to_string\n";
 }
 
-print OUTPUT3 "Key,,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
+print OUTPUT3 "Key,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR\n";
 #print OUTPUT3 "Key,,NumberofTimeVsCTRValues,MeanCTR,MinCTR,MaxCTR,VarCTR,StdevCTR,AllCTRs\n";
 foreach $key3 (sort keys %total_time_vs_ctr_hash){
 	$temp_hash_to_string = "$all_time_vs_ctr_hash{$key3}";

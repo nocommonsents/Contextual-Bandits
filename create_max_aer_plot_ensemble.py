@@ -29,7 +29,7 @@ ax.plot(data['t'],data['EnsembleEAnnealingUpdateAll']/data2['Random'], lw='1.25'
 #ax.plot(data['t'],data['EnsembleBayesianUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleBinomialUCIUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleSoftmax001UpdateAll']/data2['Random'], lw='1.25', label=r'$EnsSoftmax0.01UpdateAll$', marker='+', markevery=500, fillstyle='none')
-#ax.plot(data['t'],data['EnsembleMostCTRUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsMostCTRUpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
+#ax.plot(data['t'],data['EnsembleBinomialUCIMod1UpdateAll']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCIMod1UpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

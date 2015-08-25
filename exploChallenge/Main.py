@@ -207,13 +207,13 @@ class Main:
         #policyName = "EnsembleBinomialUCIUpdateAll"
         #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
-        policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIMod1UpdateAll"
-        outputFile.write("Policy: EnsembleBinomialUCIMod1UpdateAll\n")
+        #policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod1UpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod1UpdateAll\n")
 
-        #policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIMod2UpdateAll"
-        #outputFile.write("Policy: EnsembleBinomialUCIMod2UpdateAll\n")
+        policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIMod2UpdateAll"
+        outputFile.write("Policy: EnsembleBinomialUCIMod2UpdateAll\n")
 
         #policy = EnsembleBinomialUCIMod3(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCIMod3UpdateAll"

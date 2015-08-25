@@ -27,8 +27,9 @@ ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll']/data['Random'], lw='1.25
 ax.plot(data['TimeBin'],data['EnsembleEAnnealingUpdateAll']/data['Random'], lw='1.25', label=r'$EnsEAnnUpdateAll$', marker='^', markevery=500, fillstyle='none')
 #ax.plot(data['TimeBin'],data['EnsembleBayesianUpdateAll']/data['Random'], lw='1.25', label=r'$EnsBayesianUpdateAll$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleBinomialUCIUpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIUpdateAll$', marker='*', markevery=500, fillstyle='none')
-ax.plot(data['TimeBin'],data['EnsembleSoftmax001UpdateAll']/data['Random'], lw='1.25', label=r'$EnsSoftmax0.01UpdateAll$', marker='+', markevery=500, fillstyle='none')
-ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod1UpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIMod1UpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['EnsembleSoftmax001UpdateAll']/data['Random'], lw='1.25', label=r'$EnsSoftmax0.01UpdateAll$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod1UpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIMod1UpdateAll$', marker='+', markevery=500, fillstyle='none')
+ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod2UpdateAll']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIMod2UpdateAll$', color='fuchsia', marker='D', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

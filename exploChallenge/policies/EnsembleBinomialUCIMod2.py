@@ -69,8 +69,7 @@ class EnsembleBinomialUCIMod2(ContextualBanditPolicy):
 
         #print self.policy_ucis
         current_uci_values = [self.policy_ucis[str(a)] for a in self.policies]
-        current_runtime_values = [self.policy_runtime_to_count_ratios[str(b)] for b in self.policies]
-        current_uci_mod_values = [self.policy_ucis[str(c)]/math.exp(self.policy_most_recent_runtimes[str(c)]) for c in self.policies]
+        current_uci_mod_values = [self.policy_ucis[str(c)]/math.pow(self.policy_most_recent_runtimes[str(c)],0.5) for c in self.policies]
         self.chosen_policy = self.policies[rargmax(current_uci_mod_values)]
 
         #print "Chosen policy: " + str(self.chosen_policy) + "\n"
@@ -114,8 +113,9 @@ class EnsembleBinomialUCIMod2(ContextualBanditPolicy):
         #print "After update UCIs are: " + str(self.policy_ucis) + "\n"
 
         if (self.updates % 100 == 0):
-            current_uci_mod_values = [self.policy_ucis[str(c)]/math.exp(self.policy_most_recent_runtimes[str(c)]) for c in self.policies]
+            current_uci_mod_values = [self.policy_ucis[str(c)]/math.pow(self.policy_most_recent_runtimes[str(c)],0.5) for c in self.policies]
             print current_uci_mod_values
+            print self.policy_ucis
             print self.policy_most_recent_runtimes
             for i in self.policies:
 

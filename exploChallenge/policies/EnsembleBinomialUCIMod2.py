@@ -25,7 +25,7 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return random.choice(indices)
 
-class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
+class EnsembleBinomialUCIMod2(ContextualBanditPolicy):
 
 
     def __init__(self, regressor):
@@ -70,7 +70,7 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
         #print self.policy_ucis
         current_uci_values = [self.policy_ucis[str(a)] for a in self.policies]
         current_runtime_values = [self.policy_runtime_to_count_ratios[str(b)] for b in self.policies]
-        current_uci_mod_values = [self.policy_ucis[str(c)]/self.policy_most_recent_runtimes[str(c)] for c in self.policies]
+        current_uci_mod_values = [self.policy_ucis[str(c)]/math.exp(self.policy_most_recent_runtimes[str(c)]) for c in self.policies]
         self.chosen_policy = self.policies[rargmax(current_uci_mod_values)]
 
         #print "Chosen policy: " + str(self.chosen_policy) + "\n"
@@ -114,13 +114,13 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
         #print "After update UCIs are: " + str(self.policy_ucis) + "\n"
 
         if (self.updates % 100 == 0):
-            current_uci_mod_values = [self.policy_ucis[str(c)]/self.policy_most_recent_runtimes[str(c)] for c in self.policies]
+            current_uci_mod_values = [self.policy_ucis[str(c)]/math.exp(self.policy_most_recent_runtimes[str(c)]) for c in self.policies]
             print current_uci_mod_values
             print self.policy_most_recent_runtimes
             for i in self.policies:
 
-                print str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleBinomialUCIMod2UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleBinomialUCIMod2UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")
             print "\n"

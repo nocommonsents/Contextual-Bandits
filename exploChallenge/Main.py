@@ -61,6 +61,9 @@ from exploChallenge.policies.EnsembleSoftmaxUpdateAllModel import EnsembleSoftma
 from exploChallenge.policies.EnsembleBayesianUpdateAll import EnsembleBayesianUpdateAllModel
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleBinomialUCIMod1 import EnsembleBinomialUCIMod1
+from exploChallenge.policies.EnsembleBinomialUCIMod2 import EnsembleBinomialUCIMod2
+from exploChallenge.policies.EnsembleBinomialUCIMod3 import EnsembleBinomialUCIMod3
+from exploChallenge.policies.EnsembleBinomialUCIMod4 import EnsembleBinomialUCIMod4
 from exploChallenge.policies.EnsembleMostCTR import EnsembleMostCTR
 
 from time import strftime
@@ -80,8 +83,8 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsSoftmaxContextual0.1WithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsBinomialUCIMod1UpdateAllWithTime.txt", "a+")
+        outputFile = open("testing.txt", "a+")
 
 
         try:
@@ -172,9 +175,9 @@ class Main:
         #policyName = "LinearBayes"
         #outputFile.write("Policy: LinearBayes\n")
 
-        policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "SoftmaxContextual" + str(policy.getTemp())
-        outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
+        #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "SoftmaxContextual" + str(policy.getTemp())
+        #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 
         #policy = NaiveBayesContextual()
         #policyName = "NaiveBayesContextual"
@@ -204,9 +207,21 @@ class Main:
         #policyName = "EnsembleBinomialUCIUpdateAll"
         #outputFile.write("Policy: EnsembleBinomialUCIUpdateAll\n")
 
-        #policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIMod1UpdateAll"
-        #outputFile.write("Policy: EnsembleBinomialUCIMod1UpdateAll\n")
+        policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIMod1UpdateAll"
+        outputFile.write("Policy: EnsembleBinomialUCIMod1UpdateAll\n")
+
+        #policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod2UpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod2UpdateAll\n")
+
+        #policy = EnsembleBinomialUCIMod3(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod3UpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod3UpdateAll\n")
+
+        #policy = EnsembleBinomialUCIMod4(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod4UpdateAll"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod4UpdateAll\n")
 
         #policy = EnsembleMostCTR()
         #policyName = "EnsembleMostCTR"

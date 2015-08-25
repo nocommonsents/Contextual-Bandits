@@ -7,7 +7,7 @@ use Statistics::Descriptive qw(:all);
 my $path = Cwd::cwd();
 my @files = read_dir $path;
 
-my $ensemble; my $ensemble_name; my $policy_name; my $num_evals; my $num_runs;
+my $ensemble; my $ensemble_name; my $policy_name; my $num_evals; my $data_points;
 my $mean_prop; my $min_prop; my $max_prop; my $var_prop; my $stdev_prop;
 
 my $bandit; my $policy;
@@ -61,7 +61,7 @@ while (<INPUT1>){
 	}
 	$policy_name = $line[1];
 	$num_evals = int($line[2]);
-	$num_runs = $line[3];
+	$data_points = $line[3];
 	$mean_prop = $line[4];
 	$min_prop = $line[5];
 	$max_prop = $line[6];
@@ -69,7 +69,7 @@ while (<INPUT1>){
 	$stdev_prop = $line[8];
 	$all_policies_hash{$policy_name}++;
 	#if ($data_points >= 10) {
-	#if ($data_points >= 23) {}
+	#if ($data_points >= 23 || ($policy=~/LinUCB/ && $data_points >= 15)) {}
         $mean_prop_hash{$num_evals}{$policy_name} = $mean_prop;
         $min_prop_hash{$num_evals}{$policy_name} = $min_prop;
         $max_prop_hash{$num_evals}{$policy_name} = $max_prop;

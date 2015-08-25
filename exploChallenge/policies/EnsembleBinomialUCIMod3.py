@@ -25,7 +25,7 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return random.choice(indices)
 
-class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
+class EnsembleBinomialUCIMod3(ContextualBanditPolicy):
 
 
     def __init__(self, regressor):
@@ -119,8 +119,8 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
             print self.policy_most_recent_runtimes
             for i in self.policies:
 
-                print str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleBinomialUCIMod3UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleBinomialUCIMod3UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")
             print "\n"

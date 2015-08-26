@@ -83,8 +83,8 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        #outputFile = open("banditOutputsBinomialUCIMod1UpdateAllWithTime.txt", "a+")
-        outputFile = open("testing.txt", "a+")
+        outputFile = open("banditOutputsBinomialUCIMod2UpdateAllWithTime.txt", "a+")
+        #outputFile = open("testing.txt", "a+")
 
 
         try:

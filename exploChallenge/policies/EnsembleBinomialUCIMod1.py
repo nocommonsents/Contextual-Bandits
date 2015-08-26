@@ -17,8 +17,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 def rargmax(x):
     m = np.amax(x)
@@ -69,6 +69,7 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
 
         #print self.policy_ucis
         current_uci_values = [self.policy_ucis[str(a)] for a in self.policies]
+        #print current_uci_values
         current_runtime_values = [self.policy_runtime_to_count_ratios[str(b)] for b in self.policies]
         current_uci_mod_values = [self.policy_ucis[str(c)]/self.policy_most_recent_runtimes[str(c)] for c in self.policies]
         self.chosen_policy = self.policies[rargmax(current_uci_mod_values)]
@@ -123,4 +124,4 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
                 output_file.write(str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")
-            print "\n"
+            #print "\n"

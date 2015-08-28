@@ -61,7 +61,7 @@ while (<INPUT1>){
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
         $var_aer_hash{$num_evals}{$policy} = $var_aer;
         $stdev_aer_hash{$num_evals}{$policy} = $stdev_aer;
-	#}
+	}
 }
 
 # Print out header row

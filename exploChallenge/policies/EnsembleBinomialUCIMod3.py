@@ -119,8 +119,8 @@ class EnsembleBinomialUCIMod3(ContextualBanditPolicy):
             print self.policy_most_recent_runtimes
             for i in self.policies:
 
-                print str("EnsembleBinomialUCIMod3UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleBinomialUCIMod3") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleBinomialUCIMod3UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleBinomialUCIMod3") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")
             print "\n"

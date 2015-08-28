@@ -55,7 +55,7 @@ while (<INPUT1>){
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
 	#if ($data_points >= 23 || $policy=~/LinUCB/) {
-	if ($data_points >= 10) {
+	if ($data_points >= 12) {
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
@@ -65,11 +65,11 @@ while (<INPUT1>){
 }
 
 # Print out header row
-print OUTPUT1 "t,";
-print OUTPUT2 "t,";
-print OUTPUT3 "t,";
-print OUTPUT4 "t,";
-print OUTPUT5 "t,";
+print OUTPUT1 "NumEvals,";
+print OUTPUT2 "NumEvals,";
+print OUTPUT3 "NumEvals,";
+print OUTPUT4 "NumEvals,";
+print OUTPUT5 "NumEvals,";
 foreach my $key (keys %all_policies_hash) {
 	print OUTPUT1 "$key,";
 	print OUTPUT2 "$key,";

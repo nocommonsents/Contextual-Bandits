@@ -23,7 +23,7 @@ ax.set_ylabel(r"$Standard\ Deviation$")
 
 ax.plot(data['t'],data['EnsembleRandom'], lw='1.25', label=r'$EnsRandom$', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleRandomUpdateAll'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')
-ax.plot(data['t'],data['EnsembleEAnnealing'], lw='1.25', label=r'$EnsEAnn$', marker='^', markevery=500, fillstyle='none')
+ax.plot(data['t'],data['EnsembleEAnnealing'], lw='1.25', label=r'$EnsEAnnealing$', marker='^', markevery=500, fillstyle='none')
 #ax.plot(data['t'],data['EnsembleBayesian'], lw='1.25', label=r'$EnsBayesian$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleBinomialUCI'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['t'],data['EnsembleSoftmax001'], lw='1.25', label=r'$EnsSoftmax0.01$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')

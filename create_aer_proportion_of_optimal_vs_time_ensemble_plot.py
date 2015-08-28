@@ -24,7 +24,7 @@ ax.set_ylabel(r"$AER\ Proportion\ of\ Optimal\ Policy$")
 
 ax.plot(data['TimeBin'],data['EnsembleRandom']/data['MaxInRow'], lw='1.25', label=r'$EnsRandom$', marker='o', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=20, fillstyle='none')
-ax.plot(data['TimeBin'],data['EnsembleEAnnealing']/data['MaxInRow'], lw='1.25', label=r'$EnsEAnn$', marker='^', markevery=20, fillstyle='none')
+ax.plot(data['TimeBin'],data['EnsembleEAnnealing']/data['MaxInRow'], lw='1.25', label=r'$EnsEAnnealing$', marker='^', markevery=20, fillstyle='none')
 #ax.plot(data['TimeBin'],data['EnsembleBayesian']/data['MaxInRow'], lw='1.25', label=r'$EnsBayesian$', marker='s', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleBinomialUCI']/data['MaxInRow'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleSoftmax001']/data['MaxInRow'], lw='1.25', label=r'$EnsSoftmax0.01$', color='deepskyblue', marker='>', markevery=20, fillstyle='none')

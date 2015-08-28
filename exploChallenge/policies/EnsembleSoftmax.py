@@ -31,7 +31,7 @@ def categorical_draw(probs):
             return p
     return probs.iterkeys().next()
 
-class EnsembleSoftmaxUpdateAllModel(ContextualBanditPolicy):
+class EnsembleSoftmax(ContextualBanditPolicy):
 
     def __init__(self, temp):
         self.temperature = temp

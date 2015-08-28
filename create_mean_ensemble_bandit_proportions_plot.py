@@ -30,7 +30,7 @@ ax.plot(data['EvalNumber'],data['MostCTR'], label=r'$HighestCTR$', lw='1.25', ma
 ax.plot(data['EvalNumber'],data['BinomialUCI'], label=r'$BinomialUCI$', lw='1.25', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['UCB1'], label=r'$UCB1$', lw='1.25', marker='^', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', marker='s', markevery=500, fillstyle='none')
-ax.plot(data['EvalNumber'],data['NaiveBayesContextual'], label=r'$NaiveBayesContextual$', lw='1.25', marker='*', markevery=500, fillstyle='none')
+ax.plot(data['EvalNumber'],data['NaiveBayesContextual'], label=r'$NaiveBayes$', lw='1.25', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['LinUCB01'], label=r'$LinUCB(0.1)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['SoftmaxContextual01'], label=r'$SoftmaxContextual(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 

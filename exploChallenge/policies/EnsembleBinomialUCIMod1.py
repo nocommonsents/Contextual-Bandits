@@ -116,8 +116,8 @@ class EnsembleBinomialUCIMod1(ContextualBanditPolicy):
 
         if (self.updates % 100 == 0):
             current_uci_mod_values = [self.policy_ucis[str(c)]/self.policy_most_recent_runtimes[str(c)] for c in self.policies]
-            print current_uci_mod_values
-            print self.policy_most_recent_runtimes
+            #print current_uci_mod_values
+            #print self.policy_most_recent_runtimes
             for i in self.policies:
 
                 print str("EnsembleBinomialUCIMod1UpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \

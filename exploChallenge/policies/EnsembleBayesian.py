@@ -1,12 +1,11 @@
 __author__ = 'bixlermike'
 
-# Final verification 1 Jun 2015
-
-import math
 import numpy as np
-import random as rn
+import random
+from scipy.stats import beta
 import time
 
+rand = np.random.rand
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy
 from exploChallenge.policies.RidgeRegressor import RidgeRegressor
 
@@ -18,18 +17,21 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 def rargmax(x):
     m = np.amax(x)
     indices = np.nonzero(x == m)[0]
-    return rn.choice(indices)
+    return random.choice(indices)
 
-class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
+class EnsembleBayesian(ContextualBanditPolicy):
 
 
-    def __init__(self):
+    def __init__(self, regressor):
+        self.regressor = regressor
+        self.prior_alpha = 1.0
+        self.prior_beta = 1.0
         # Create an object from each class to use for ensemble model
         self.policy_one = BinomialUCI()
         self.policy_two = MostCTR()
@@ -42,45 +44,45 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
                          self.policy_six, self.policy_seven]
         self.policy_nicknames = ["BinomialUCI", "MostCTR", "Softmax0.1", "UCB1", "LinUCB(0.1)", "NaiveBayesContextual",
                                  "SoftmaxContextual0.1"]
-        self.policy_scores = {}
         self.policy_counts = {}
+        self.policy_successes = {}
         self.policy_runtimes = {}
-        self.policy_runtime_to_count_ratios = {}
         self.start_time = 0
         self.end_time = 0
-        self.updates = 7.0
-        self.trials = 7.0
+        self.updates = 0
+        self.policy_runtime_to_count_ratios = {}
         for i in self.policies:
-            self.policy_counts[str(i)] = 1.0
-            self.policy_scores[str(i)] = 1.0
             self.policy_runtimes[str(i)] = 0
+            self.policy_counts[str(i)] = 0
+            self.policy_successes[str(i)] = 0
             self.policy_runtime_to_count_ratios[str(i)] = 0.01
         self.chosen_policy = None
 
     #@Override
     def getActionToPerform(self, visitor, possibleActions):
-        random_number = rn.random()
-        self.epsilon = 1 / math.log(self.trials + 0.0000001)
-        self.trials += 1
-        #print "Epsilon is: " + str(self.epsilon)
+        sampled_theta = []
+        dist = {}
+        #Construct beta distribution for posterior
 
-        if random_number > self.epsilon:
-            #print "Exploiting!"
-            policy_values = [self.policy_scores[str(a)] for a in self.policies]
-            #adjusted_policy_values = [(self.policy_scores[str(a)]/math.pow(self.policy_runtime_to_count_ratios[str(a)],0.1)) for a in self.policies]
-            self.chosen_policy = self.policies[rargmax(policy_values)]
-            #print "Chosen policy: " + str(self.chosen_policy)
-            self.start_time = time.clock()
-            return self.chosen_policy.getActionToPerform(visitor, possibleActions)
-        else:
-            #print "Exploring"
-            self.chosen_policy =  rn.choice(self.policies)
-            #print "Chosen policy: " + str(self.chosen_policy)
-            self.start_time = time.clock()
-            return self.chosen_policy.getActionToPerform(visitor, possibleActions)
+        for i in self.policies:
+            # print str(i)
+            # print self.policy_successes[str(i)]
+            # print self.policy_counts[str(i)]
+            # print "\n"
+            dist = beta(self.prior_alpha+self.policy_successes[str(i)],
+                        self.prior_beta+self.policy_counts[str(i)]-self.policy_successes[str(i)])
+            #Draw sample from beta distribution
+            sampled_theta += [dist.rvs()]
 
+        #print str(self.policies) + " " + str(sampled_theta)
+        #print "Best index: " + str(sampled_theta.index(max(sampled_theta)))
+        # Return the policy corresponding to the index of the sample with the largest value
+        self.chosen_policy = self.policies[(sampled_theta.index(max(sampled_theta)))]
+        #print str(self.chosen_policy)  + "\n"
+        self.start_time = time.clock()
+        return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
-    #@Override
+#@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
         self.end_time = time.clock()
         elapsed_time = self.end_time - self.start_time
@@ -90,8 +92,6 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
         self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
                                                                      /self.policy_counts[str(self.chosen_policy)]
         self.updates += 1
-        #print self.policy_scores
-        #print "Updating policy " + str(self.chosen_policy)
         for p in self.policies:
             try:
                 #print "Updating policy: " + str(p)
@@ -100,14 +100,13 @@ class EnsembleEAnnealingUpdateAllModel(ContextualBanditPolicy):
                 #print "Error updating: " + str(self.chosen_policy) + " for chosen arm " + str(chosen_arm) + "."
                 pass
 
-        new_value = ((self.policy_counts[str(self.chosen_policy)] - 1) / float(self.policy_counts[str(self.chosen_policy)])) * \
-                    self.policy_scores[str(self.chosen_policy)] + reward * (1 / float(self.policy_counts[str(self.chosen_policy)]))
-        self.policy_scores[str(self.chosen_policy)] = new_value
-        #print "Scores are: " + str(self.policy_scores)
-        #print "Counts are: " + str(self.policy_counts)
+        #print "Counts for: " + str(self.chosen_policy) + " is " + str(self.policy_counts[str(self.chosen_policy)])
+        if reward is True:
+            self.policy_successes[str(self.chosen_policy)] += 1
+
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleEAnnealingUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleEAnnealingUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")

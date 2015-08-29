@@ -27,10 +27,10 @@ ax.set_ylabel(r"$Relative\ Mean\ AER$")
 minimum = data2['BinomialUCI']/data['Random']
 mean = data['BinomialUCI']/data['Random']
 maximum = data3['BinomialUCI']/data['Random']
-ax.plot(data['t'], maximum, label='Max', lw='1.25', color='green')
-ax.plot(data['t'], mean, label='Mean', lw='1.25', color='blue')
-ax.plot(data['t'], minimum, label='Min', lw='1.25', color='red')
-ax.fill_between(data['t'], minimum, maximum, facecolor='blue', alpha=0.5)
+ax.plot(data['NumEvals'], maximum, label='Max', lw='1.25', color='green')
+ax.plot(data['NumEvals'], mean, label='Mean', lw='1.25', color='blue')
+ax.plot(data['NumEvals'], minimum, label='Min', lw='1.25', color='red')
+ax.fill_between(data['NumEvals'], minimum, maximum, facecolor='blue', alpha=0.5)
 
 
 box = ax.get_position()

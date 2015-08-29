@@ -4,3 +4,6 @@ python2.7 exploChallenge/Main.py
 python2.7 exploChallenge/Main.py
 python2.7 exploChallenge/Main.py
 python2.7 exploChallenge/Main.py
+python2.7 exploChallenge/Main.py
+python2.7 exploChallenge/Main.py
+python2.7 exploChallenge/Main.py

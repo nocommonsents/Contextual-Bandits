@@ -83,7 +83,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleBinomialUCIMod2WithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleBinomialUCIMod1WithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -207,13 +207,13 @@ class Main:
         #policyName = "EnsembleBinomialUCI"
         #outputFile.write("Policy: EnsembleBinomialUCI\n")
 
-        #policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIMod1"
-        #outputFile.write("Policy: EnsembleBinomialUCIMod1\n")
+        policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBinomialUCIMod1"
+        outputFile.write("Policy: EnsembleBinomialUCIMod1\n")
 
-        policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIMod2"
-        outputFile.write("Policy: EnsembleBinomialUCIMod2\n")
+        #policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod2"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod2\n")
 
         #policy = EnsembleBinomialUCIMod3(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCIMod3"

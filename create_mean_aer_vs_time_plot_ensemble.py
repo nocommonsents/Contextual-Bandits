@@ -28,8 +28,8 @@ ax.plot(data['TimeBin'],data['EnsembleEAnnealing']/data['Random'], lw='1.25', la
 #ax.plot(data['TimeBin'],data['EnsembleBayesian']/data['Random'], lw='1.25', label=r'$EnsBayesian$', marker='s', markevery=50, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleBinomialUCI']/data['Random'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=50, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleSoftmax001']/data['Random'], lw='1.25', label=r'$EnsSoftmax0.01$', color='deepskyblue', marker='>', markevery=50, fillstyle='none')
-#ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod1']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIMod1$', marker='+', markevery=50, fillstyle='none')
-#ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod2']/data['Random'], lw='1.25', label=r'$EnsBinomialUCIMod2$', color='fuchsia', marker='D', markevery=50, fillstyle='none')
+#ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod1']/data['Random'], lw='1.25', label=r'$EBUCIM1$', marker='+', markevery=50, fillstyle='none')
+#ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod2']/data['Random'], lw='1.25', label=r'$EBUCIM2$', color='fuchsia', marker='D', markevery=50, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

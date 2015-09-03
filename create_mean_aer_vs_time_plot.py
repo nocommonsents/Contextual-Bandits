@@ -19,7 +19,7 @@ data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER\ vs.\ Time$", fontsize='16', y=1.02)
+ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Mean\ Relative\ AER\ vs.\ Time$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time\ (Seconds)$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 

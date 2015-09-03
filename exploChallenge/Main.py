@@ -48,9 +48,7 @@ from exploChallenge.policies.BinomialUCI import BinomialUCI
 from exploChallenge.policies.eGreedyContextual import eGreedyContextual
 from exploChallenge.policies.eAnnealingContextual import eAnnealingContextual
 from exploChallenge.policies.LinUCB import LinUCB
-from exploChallenge.policies.LinearBayes import LinearBayes
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
-from exploChallenge.policies.GMPolicy import GMPolicy
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
 # Ensemble bandit policies
@@ -83,7 +81,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleBinomialUCIMod1WithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleBayesianWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -199,17 +197,17 @@ class Main:
         #policyName = "EnsembleSoftmax" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax" + str(policy.getTemp())
 
-        #policy = EnsembleBayesian(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBayesian"
-        #outputFile.write("Policy: EnsembleBayesian\n")
+        policy = EnsembleBayesian(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleBayesian"
+        outputFile.write("Policy: EnsembleBayesian\n")
 
         #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCI"
         #outputFile.write("Policy: EnsembleBinomialUCI\n")
 
-        policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBinomialUCIMod1"
-        outputFile.write("Policy: EnsembleBinomialUCIMod1\n")
+        #policy = EnsembleBinomialUCIMod1(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleBinomialUCIMod1"
+        #outputFile.write("Policy: EnsembleBinomialUCIMod1\n")
 
         #policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCIMod2"

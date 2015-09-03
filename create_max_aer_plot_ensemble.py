@@ -19,7 +19,7 @@ data2 = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Relative\ Maximum\ AER$", fontsize='16', y=1.02)
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Maximum\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$Relative\ Maximum\ AER$")
 

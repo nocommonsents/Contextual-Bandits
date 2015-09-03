@@ -17,7 +17,7 @@ data = np.genfromtxt('banditMeanAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Relative\ Mean\ AER$", fontsize='16', y=1.02)
+ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Mean\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$Relative\ Mean\ AER$")
 
@@ -48,6 +48,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #    ax1.axhline(y=ymaj,ls='-')
 #plt.tight_layout()
 
-plt.savefig("plots/averageAERContextual.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/meanAERContextual.png", dpi=240, bbox_inches='tight')
 
 

@@ -17,8 +17,8 @@ from exploChallenge.policies.LinUCB import LinUCB
 from exploChallenge.policies.NaiveBayesContextual import NaiveBayesContextual
 from exploChallenge.policies.SoftmaxContextual import SoftmaxContextual
 
-#output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
-output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
+output_file = open("banditPolicyProportionsVsEvalNumber.txt", "a+")
+#output_file = open("testPolicyCountsVsEvalNumber.txt", "a+")
 
 def rargmax(x):
     m = np.amax(x)
@@ -79,18 +79,18 @@ class EnsembleBayesian(ContextualBanditPolicy):
         # Return the policy corresponding to the index of the sample with the largest value
         self.chosen_policy = self.policies[(sampled_theta.index(max(sampled_theta)))]
         #print str(self.chosen_policy)  + "\n"
-        self.start_time = time.clock()
+        #self.start_time = time.clock()
         return self.chosen_policy.getActionToPerform(visitor, possibleActions)
 
 #@Override
     def updatePolicy(self, content, chosen_arm, reward, *possibleActions):
-        self.end_time = time.clock()
-        elapsed_time = self.end_time - self.start_time
+        #self.end_time = time.clock()
+        #elapsed_time = self.end_time - self.start_time
         #print "Elapsed time: " + str(elapsed_time)
-        self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
+        #self.policy_runtimes[str(self.chosen_policy)] += elapsed_time
         self.policy_counts[str(self.chosen_policy)] += 1
-        self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
-                                                                     /self.policy_counts[str(self.chosen_policy)]
+        #self.policy_runtime_to_count_ratios[str(self.chosen_policy)] = self.policy_runtimes[str(self.chosen_policy)] \
+        #                                                             /self.policy_counts[str(self.chosen_policy)]
         self.updates += 1
         for p in self.policies:
             try:

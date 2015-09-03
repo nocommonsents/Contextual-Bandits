@@ -20,7 +20,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Mean\ Relative\ AER\ vs.\ Time$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time\ (Seconds)$")
-ax.set_ylabel(r"$Relative\ Mean\ AER$")
+ax.set_ylabel(r"$Mean\ Relative\ AER$")
 
 #ax.plot(data['TimeBin'],data['Random'], label='Random')
 ax.plot(data['TimeBin'],data['eGreedyContextual01']/data['Random'], lw='1.25', label=r'$eGreedy(0.1)$', marker='o', markevery=500, fillstyle='none')

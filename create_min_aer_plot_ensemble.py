@@ -21,7 +21,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Minimum\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Relative\ Minimum\ AER$")
+ax.set_ylabel(r"$Minimum\ Relative\ AER$")
 
 ax.plot(data['NumEvals'],data['EnsembleRandom']/data2['Random'], lw='1.25', label=r'$EnsRandom$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],data['EnsembleRandomUpdateAll']/data2['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')

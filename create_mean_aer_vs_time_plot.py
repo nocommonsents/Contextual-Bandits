@@ -21,7 +21,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Mean\ Relative\ AER\ vs.\ Time$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time\ (Seconds)$")
-ax.set_ylabel(r"$Relative\ Mean\ AER$")
+ax.set_ylabel(r"$Mean\ Relative\ AER$")
 
 ax.plot(data['TimeBin'],data['MostClicked']/data['Random'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')
 ax.plot(data['TimeBin'],data['MostRecent']/data['Random'], label=r'$MostRecent$', lw='1.25', marker='v', markevery=500, fillstyle='none')

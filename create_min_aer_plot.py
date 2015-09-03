@@ -21,7 +21,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Minimum\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Relative\ Minimum\ AER$")
+ax.set_ylabel(r"$Minimum\ Relative\ AER$")
 
 #ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['NumEvals'],data['MostClicked']/data2['Random'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')

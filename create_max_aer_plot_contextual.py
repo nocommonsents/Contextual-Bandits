@@ -22,7 +22,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Maximum\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Relative\ Maximum\ AER$")
+ax.set_ylabel(r"$Maximum\ Relative\ AER$")
 
 #ax.plot(data['NumEvals'],data['Random'], label='Random')
 ax.plot(data['NumEvals'],data['eGreedyContextual01']/data2['Random'], lw='1.25', label=r'$e-Greedy(0.1)$', marker='s', markevery=500, fillstyle='none')

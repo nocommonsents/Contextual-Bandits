@@ -20,9 +20,9 @@ data3 = np.genfromtxt('banditMaxAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Mean\ Relative\ AER\ Range\ vs.\ Evaluation\ Number\ -\ BinomialUCI\ Algorithm$", fontsize='16', y=1.02)
+ax.set_title(r"$Binomial\ UCI\ Algorithm\ -\ Mean\ Relative\ AER\ Range\ vs.\ Evaluation\ Number$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Relative\ Mean\ AER$")
+ax.set_ylabel(r"$Mean\ Relative\ AER$")
 
 minimum = data2['BinomialUCI']/data['Random']
 mean = data['BinomialUCI']/data['Random']
@@ -53,6 +53,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #    ax1.axhline(y=ymaj,ls='-')
 plt.tight_layout()
 #plt.show()
-plt.savefig("plots/averageAERwithRangesBinomialUCIAlgorithm.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/meanAERwithRangesBinomialUCIAlgorithm.png", dpi=240, bbox_inches='tight')
 
 

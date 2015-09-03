@@ -20,7 +20,7 @@ ax = fig.add_subplot(111)
 
 ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Mean\ Relative\ AER\ vs.\ Time$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time\ (Seconds)$")
-ax.set_ylabel(r"$Relative\ Mean\ AER$")
+ax.set_ylabel(r"$Mean\ Relative\ AER$")
 
 ax.plot(data['TimeBin'],data['EnsembleRandom']/data['Random'], lw='1.25', label=r'$EnsRandom$', marker='o', markevery=50, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll']/data['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=50, fillstyle='none')

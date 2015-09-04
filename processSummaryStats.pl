@@ -55,7 +55,7 @@ while (<INPUT1>){
 	$stdev_aer = $line[8];
 	$all_policies_hash{$policy}++;
 	#if ($data_points >= 23 || $policy=~/LinUCB/) {
-	if ($data_points >= 12) {
+	if ($data_points >= 12 || $policy=~/Bayesian/) {
         $mean_aer_hash{$num_evals}{$policy} = $mean_aer;
         $min_aer_hash{$num_evals}{$policy} = $min_aer;
         $max_aer_hash{$num_evals}{$policy} = $max_aer;
@@ -141,7 +141,7 @@ while (<INPUT2>){
 	$mean_aer = $line[4];
 	$max_aer = $line[6];
 
-	if ($data_points >= 75 || ($policy=~/LinUCB/ && $data_points >= 25) || $policy=~/Mod/) {
+	if ($data_points >= 75 || ($policy=~/LinUCB/ && $data_points >= 25) || $policy=~/Bayesian/ || $policy=~/Mod/) {
 	    $all_time_vs_ctr_policies_hash{$policy}++;
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
 	}

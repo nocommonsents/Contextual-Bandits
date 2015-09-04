@@ -106,7 +106,7 @@ class EnsembleBayesian(ContextualBanditPolicy):
 
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleBayesian") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleBayesianUpdateAll") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleBayesian") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")

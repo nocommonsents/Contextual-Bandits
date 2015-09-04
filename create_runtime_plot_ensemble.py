@@ -37,7 +37,7 @@ vars = []
 stdevs = []
 dict = {}
 
-colors = iter(cm.rainbow(np.linspace(0.25, 2, len(ys))))
+colors = iter(cm.rainbow(np.linspace(0.2, 2, len(ys))))
 
 for line in data:
     policy, num_sims, mean, min, max, var, stdev = line
@@ -52,14 +52,13 @@ for line in data:
     count+=1
 
 # Contextual
-rects1 = ax.bar((N+2) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
-rects2 = ax.bar((2*(N+2)) +ind, (mins[20], means[20], maxs[20]), width, color=next(colors))
-rects3 = ax.bar((3*(N+2)) +ind, (mins[18], means[18], maxs[18]), width, color=next(colors))
-rects4 = ax.bar((4*(N+2)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
-rects5 = ax.bar((5*(N+2)) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
-rects6 = ax.bar((6*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
-rects7 = ax.bar((7*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
-rects8 = ax.bar((8*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
+rects1 = ax.bar((N+2) +ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[2], means[2], maxs[2]), width, color=next(colors))
+rects3 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
+rects5 = ax.bar((5*(N+2)) +ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
+rects6 = ax.bar((6*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
+rects7 = ax.bar((7*(N+2)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -75,8 +74,9 @@ ax.set_xticklabels(ax.xaxis.get_majorticklocs(), rotation=45)
 ax.xaxis.set_major_locator(MultipleLocator(5.2))
 plt.tight_layout()
 
-# Contextual
-relevant_policies = [r'$$', r'$Random$', r'$RandomUpdateAll$', r'$eAnnealing$', r'$Bayesian$', r'$BinomialUCI$', r'$Softmax(0.01)$', r'$BinomialUCIMod1$', r'$BinomialUCIMod1$']
+# Ensemble
+relevant_policies = [r'$$', r'$RandomUpdateAll$', r'$Bayesian$', r'$BinomialUCI$', r'$eAnnealing$', r'$Softmax(0.01)$', r'$BinomialUCIMod1$', r'$BinomialUCIMod2$']
+#relevant_policies = [r'$$', r'$Random$', r'$RandomUpdateAll$', r'$eAnnealing$', r'$Bayesian$', r'$BinomialUCI$', r'$Softmax(0.01)$', r'$BinomialUCIMod1$', r'$BinomialUCIMod1$']
 #relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
 ax.set_xticklabels(relevant_policies)
 

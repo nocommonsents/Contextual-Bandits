@@ -56,7 +56,7 @@ from exploChallenge.policies.EnsembleRandom import EnsembleRandom
 from exploChallenge.policies.EnsembleRandomUpdateAll import EnsembleRandomUpdateAll
 from exploChallenge.policies.EnsembleEAnnealing import EnsembleEAnnealing
 from exploChallenge.policies.EnsembleSoftmax import EnsembleSoftmax
-from exploChallenge.policies.EnsembleBayesian import EnsembleBayesian
+from exploChallenge.policies.EnsembleTS import EnsembleTS
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleBinomialUCIMod1 import EnsembleBinomialUCIMod1
 from exploChallenge.policies.EnsembleBinomialUCIMod2 import EnsembleBinomialUCIMod2
@@ -81,7 +81,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleBayesianWithTime.txt", "a+")
+        outputFile = open("banditOutputsEnsembleTSWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -197,9 +197,9 @@ class Main:
         #policyName = "EnsembleSoftmax" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax" + str(policy.getTemp())
 
-        policy = EnsembleBayesian(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleBayesian"
-        outputFile.write("Policy: EnsembleBayesian\n")
+        policy = EnsembleTS(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "EnsembleTS"
+        outputFile.write("Policy: EnsembleTS\n")
 
         #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCI"

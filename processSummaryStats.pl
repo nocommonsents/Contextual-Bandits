@@ -141,7 +141,7 @@ while (<INPUT2>){
 	$mean_aer = $line[4];
 	$max_aer = $line[6];
 
-	if ($data_points >= 100 || ($policy=~/LinUCB/ && $data_points >= 25) || $policy=~/Bayesian/) {
+	if ($data_points >= 100 || ($policy=~/LinUCB/ && $data_points >= 25) || $policy=~/EnsembleTS/) {
 	    $all_time_vs_ctr_policies_hash{$policy}++;
 		$mean_time_vs_ctr_hash{$time_bin}{$policy} = $mean_aer;
 	}

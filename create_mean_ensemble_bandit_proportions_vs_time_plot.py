@@ -24,7 +24,6 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ %s$" % ensemble_bandit, fontsize='16', y=1.02)
-#ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ EnsembleTS$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time (sec)$")
 ax.set_ylabel(r"$Proportion$")
 

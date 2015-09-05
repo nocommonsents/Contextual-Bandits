@@ -25,7 +25,7 @@ def rargmax(x):
     indices = np.nonzero(x == m)[0]
     return random.choice(indices)
 
-class EnsembleBayesian(ContextualBanditPolicy):
+class EnsembleTS(ContextualBanditPolicy):
 
 
     def __init__(self, regressor):
@@ -106,7 +106,7 @@ class EnsembleBayesian(ContextualBanditPolicy):
 
         if (self.updates % 100 == 0):
             for i in self.policies:
-                print str("EnsembleBayesian") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
+                print str("EnsembleTS") + "," + str(self.policy_nicknames[self.policies.index(i)]) + "," + \
                       str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates)
-                output_file.write(str("EnsembleBayesian") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
+                output_file.write(str("EnsembleTS") + "," + str(self.policy_nicknames[self.policies.index(i)]) + ","
                                   + str(self.updates) + "," + str(float(self.policy_counts[str(i)])/self.updates) + "\n")

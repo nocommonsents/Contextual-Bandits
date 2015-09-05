@@ -23,6 +23,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Evaluation\ Number\ -\ %s$" % ensemble_bandit, fontsize='16', y=1.02)
+
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
 ax.set_ylabel(r"$Proportion$")
 

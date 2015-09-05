@@ -21,9 +21,9 @@ data3 = np.genfromtxt('banditMinAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Delta\ Relative\ AER$", fontsize='16', y=1.02)
+ax.set_title(r"$Contextual\ Algorithm\ Comparison\ -\ Range\ of\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Delta\ Relative\ AER$")
+ax.set_ylabel(r"$Range\ of\ Relative\ AER$")
 
 #ax.plot(data['NumEvals'],data['Random'], label='Random')
 ax.plot(data['NumEvals'],(data['eGreedyContextual01']-data3['eGreedyContextual01'])/data2['Random'], lw='1.25', label=r'$e-Greedy(0.1)$', marker='s', markevery=500, fillstyle='none')
@@ -50,6 +50,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 
-plt.savefig("plots/deltaAERContextual.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/rangeAERContextual.png", dpi=240, bbox_inches='tight')
 
 

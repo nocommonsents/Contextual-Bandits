@@ -13,6 +13,7 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 
 majorFormatter = FormatStrFormatter('%d')
 
+#data = np.genfromtxt('banditMeanAERVsTimeSummary.csv', delimiter=',', names = True)
 data = np.genfromtxt('banditMeanAERVsTimeSummaryPostProcessed.csv', delimiter=',', names = True)
 
 fig = plt.figure()
@@ -25,7 +26,7 @@ ax.set_ylabel(r"$AER\ Proportion\ of\ Optimal\ Policy$")
 ax.plot(data['TimeBin'],data['EnsembleRandom']/data['MaxInRow'], lw='1.25', label=r'$EnsRandom$', marker='o', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleRandomUpdateAll']/data['MaxInRow'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleEAnnealing']/data['MaxInRow'], lw='1.25', label=r'$EnsEAnnealing$', marker='^', markevery=20, fillstyle='none')
-ax.plot(data['TimeBin'],data['EnsembleBayesian']/data['MaxInRow'], lw='1.25', label=r'$EnsBayesian$', marker='s', markevery=20, fillstyle='none')
+ax.plot(data['TimeBin'],data['EnsembleBayesian']/data['MaxInRow'], lw='1.25', label=r'$EnsTS$', marker='s', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleBinomialUCI']/data['MaxInRow'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleSoftmax001']/data['MaxInRow'], lw='1.25', label=r'$EnsSoftmax0.01$', color='deepskyblue', marker='>', markevery=20, fillstyle='none')
 ax.plot(data['TimeBin'],data['EnsembleBinomialUCIMod1']/data['MaxInRow'], lw='1.25', label=r'$EBUCIM1$', marker='+', markevery=20, fillstyle='none')

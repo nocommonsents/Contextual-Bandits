@@ -20,9 +20,9 @@ data3 = np.genfromtxt('banditMinAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Delta\ Relative\ AER$", fontsize='16', y=1.02)
+ax.set_title(r"$Context-Free\ Algorithm\ Comparison\ -\ Range\ of\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Delta\ Relative\ AER$")
+ax.set_ylabel(r"$Range\ of\ Relative\ AER$")
 
 #ax.plot(data['t'],data['Random'], label='Random')
 ax.plot(data['NumEvals'],(data['MostClicked']-data3['MostClicked'])/data2['Random'], label=r'$MostClicked$', lw='1.25', marker='o', markevery=500, fillstyle='none')
@@ -52,6 +52,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 
-plt.savefig("plots/deltaAER.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/rangeAER.png", dpi=240, bbox_inches='tight')
 
 

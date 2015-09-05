@@ -20,6 +20,9 @@ python create_min_aer_plot_ensemble.py
 python create_max_aer_plot.py
 python create_max_aer_plot_contextual.py
 python create_max_aer_plot_ensemble.py
+python create_delta_aer_plot.py
+python create_delta_aer_plot_contextual.py
+python create_delta_aer_plot_ensemble.py
 python create_stdev_aer_plot.py
 python create_stdev_aer_plot_contextual.py
 python create_stdev_aer_plot_ensemble.py
@@ -50,4 +53,3 @@ python create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleBayesian
 python create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleBinomialUCI
 python create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleBinomialUCIMod1
 python create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleBinomialUCIMod2
-

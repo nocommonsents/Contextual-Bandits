@@ -16,6 +16,7 @@ matplotlib.rcParams['font.family'] = 'STIXGeneral'
 majorFormatter = FormatStrFormatter('%d')
 
 ensemble_bandit = str(sys.argv[1])
+
 input_file = "banditMeanPolicyProportionsVsEvalNumberSummary" + ensemble_bandit + ".csv"
 data = np.genfromtxt(input_file, delimiter=',', names = True)
 
@@ -23,6 +24,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ %s$" % ensemble_bandit, fontsize='16', y=1.02)
+#ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ EnsembleTS$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Time (sec)$")
 ax.set_ylabel(r"$Proportion$")
 
@@ -33,6 +35,14 @@ ax.plot(data['Time'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', mark
 ax.plot(data['Time'],data['NaiveBayesContextual'], label=r'$NaiveBayes$', lw='1.25', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['Time'],data['LinUCB01'], label=r'$LinUCB(0.1)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['Time'],data['SoftmaxContextual01'], label=r'$SoftmaxContextual(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
+
+#ax.plot(data['Time'],data['MostCTR'], label=r'$HighestCTR$', lw='1.25', marker='o', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['BinomialUCI'], label=r'$BinomialUCI$', lw='1.25', marker='v', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['UCB1'], label=r'$UCB1$', lw='1.25', marker='^', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['Softmax01'], label=r'$Softmax(0.1)$', lw='1.25', marker='s', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['NaiveBayesContextual'], label=r'$NaiveBayes$', lw='1.25', marker='*', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['LinUCB01'], label=r'$LinUCB(0.1)$', lw='1.25', color='deepskyblue', marker='>', markevery=25, fillstyle='none')
+#ax.plot(data['Time'],data['SoftmaxContextual01'], label=r'$SoftmaxContextual(0.1)$', lw='1.25', marker='+', markevery=25, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

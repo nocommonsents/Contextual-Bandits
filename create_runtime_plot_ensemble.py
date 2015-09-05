@@ -26,6 +26,7 @@ width = 0.65
 count = 0
 
 x = np.arange(8)
+
 ys = [i+x+(i*x)**2 for i in range(14)]
 
 fig, ax = plt.subplots()
@@ -52,13 +53,19 @@ for line in data:
     count+=1
 
 # Contextual
-rects1 = ax.bar((N+2) +ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
-rects2 = ax.bar((2*(N+2)) +ind, (mins[2], means[2], maxs[2]), width, color=next(colors))
-rects3 = ax.bar((3*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
-rects4 = ax.bar((4*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
-rects5 = ax.bar((5*(N+2)) +ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
-rects6 = ax.bar((6*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
-rects7 = ax.bar((7*(N+2)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
+
+rects1 = ax.bar((N+2) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
+rects3 = ax.bar((3*(N+2)) +ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
+rects5 = ax.bar((5*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
+rects6 = ax.bar((6*(N+2)) +ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
+rects7 = ax.bar((7*(N+2)) +ind, (mins[2], means[2], maxs[2]), width, color=next(colors))
+
+#Mod1 and Mod2, respectively
+#rects6 = ax.bar((6*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
+#rects7 = ax.bar((7*(N+2)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
+
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -75,10 +82,9 @@ ax.xaxis.set_major_locator(MultipleLocator(5.2))
 plt.tight_layout()
 
 # Ensemble
-relevant_policies = [r'$$', r'$RandomUpdateAll$', r'$Bayesian$', r'$BinomialUCI$', r'$eAnnealing$', r'$Softmax(0.01)$', r'$BinomialUCIMod1$', r'$BinomialUCIMod2$']
-#relevant_policies = [r'$$', r'$Random$', r'$RandomUpdateAll$', r'$eAnnealing$', r'$Bayesian$', r'$BinomialUCI$', r'$Softmax(0.01)$', r'$BinomialUCIMod1$', r'$BinomialUCIMod1$']
-#relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
+relevant_policies = [r'$$', r'$EBUCIM1$', r'$EBUCIM2$', r'$Softmax(0.01)$', r'$BinomialUCI$', r'$eAnnealing$', r'$RandomUpdateAll$', r'$TS$']
 ax.set_xticklabels(relevant_policies)
+ax.set_yscale('log')
 
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')

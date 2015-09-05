@@ -20,14 +20,14 @@ data3 = np.genfromtxt('banditMinAERSummary.csv', delimiter=',', names = True)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Delta\ Relative\ AER$", fontsize='16', y=1.02)
+ax.set_title(r"$Ensemble\ Algorithm\ Comparison\ -\ Range\ of\ Relative\ AER$", fontsize='16', y=1.02)
 ax.set_xlabel(r"$Number\ of\ Evaluations$")
-ax.set_ylabel(r"$Delta\ Relative\ AER$")
+ax.set_ylabel(r"$Range\ of\ Relative\ AER$")
 
 ax.plot(data['NumEvals'],(data['EnsembleRandom']-data3['EnsembleRandom'])/data2['Random'], lw='1.25', label=r'$EnsRandom$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['EnsembleRandomUpdateAll']-data3['EnsembleRandomUpdateAll'])/data2['Random'], lw='1.25', label=r'$EnsRandomUpdateAll$', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['EnsembleEAnnealing']-data3['EnsembleEAnnealing'])/data2['Random'], lw='1.25', label=r'$EnsEAnnealing$', marker='^', markevery=500, fillstyle='none')
-ax.plot(data['NumEvals'],(data['EnsembleBayesian']-data3['EnsembleBayesian'])/data2['Random'], lw='1.25', label=r'$EnsBayesian$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['NumEvals'],(data['EnsembleBayesian']-data3['EnsembleBayesian'])/data2['Random'], lw='1.25', label=r'$EnsTS$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['EnsembleBinomialUCI']-data3['EnsembleBinomialUCI'])/data2['Random'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['EnsembleSoftmax001']-data3['EnsembleSoftmax001'])/data2['Random'], lw='1.25', label=r'$EnsSoftmax0.01$', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['EnsembleBinomialUCIMod1']-data3['EnsembleBinomialUCIMod1'])/data2['Random'], lw='1.25', label=r'$EBUCIM1$', marker='+', markevery=500, fillstyle='none')
@@ -50,6 +50,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #for ymaj in ax1.yaxis.get_majorticklocs():
 #    ax1.axhline(y=ymaj,ls='-')
 
-plt.savefig("plots/deltaAEREnsemble.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/rangeAEREnsemble.png", dpi=240, bbox_inches='tight')
 
 

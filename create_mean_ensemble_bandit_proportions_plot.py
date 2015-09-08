@@ -35,6 +35,7 @@ ax.plot(data['EvalNumber'],data['NaiveBayesContextual'], label=r'$NaiveBayes$', 
 ax.plot(data['EvalNumber'],data['LinUCB01'], label=r'$LinUCB(0.1)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['EvalNumber'],data['SoftmaxContextual01'], label=r'$SoftmaxContextual(0.1)$', lw='1.25', marker='+', markevery=500, fillstyle='none')
 
+
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 fontP = FontProperties()

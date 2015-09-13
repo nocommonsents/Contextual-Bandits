@@ -60,8 +60,6 @@ from exploChallenge.policies.EnsembleTS import EnsembleTS
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleBinomialUCIMod1 import EnsembleBinomialUCIMod1
 from exploChallenge.policies.EnsembleBinomialUCIMod2 import EnsembleBinomialUCIMod2
-from exploChallenge.policies.EnsembleBinomialUCIMod3 import EnsembleBinomialUCIMod3
-from exploChallenge.policies.EnsembleBinomialUCIMod4 import EnsembleBinomialUCIMod4
 from exploChallenge.policies.EnsembleMostCTR import EnsembleMostCTR
 
 from time import strftime

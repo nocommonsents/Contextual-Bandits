@@ -27,10 +27,10 @@ ax.set_ylabel(r"$Range\ of\ Relative\ AER$")
 
 #ax.plot(data['NumEvals'],data['Random'], label='Random')
 ax.plot(data['NumEvals'],(data['eGreedyContextual01']-data3['eGreedyContextual01'])/data2['Random'], lw='1.25', label=r'$e-Greedy(0.1)$', marker='s', markevery=500, fillstyle='none')
-ax.plot(data['NumEvals'],(data['eAnnealingContextual']-data3['eAnnealingContextual'])/data2['Random'], lw='1.25', label=r'$eAnnealing$', marker='v', markevery=500, fillstyle='none')
+ax.plot(data['NumEvals'],(data['eAnnealingContextual']-data3['eAnnealingContextual'])/data2['Random'], lw='1.25', label=r'$e-Annealing$', marker='v', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['SoftmaxContextual001']-data3['SoftmaxContextual001'])/data2['Random'], lw='1.25', label=r'$Softmax(0.01)$', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['SoftmaxContextual01']-data3['SoftmaxContextual01'])/data2['Random'], lw='1.25', label=r'$Softmax(0.1)$', marker='^', markevery=500, fillstyle='none')
-ax.plot(data['NumEvals'],(data['LinUCB01']-data3['LinUCB01'])/data2['Random'], lw='1.25', label=r'$LinUCB$', marker='s', markevery=500, fillstyle='none')
+ax.plot(data['NumEvals'],(data['LinUCB01']-data3['LinUCB01'])/data2['Random'], lw='1.25', label=r'$LinUCB(0.1)$', marker='s', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],(data['NaiveBayesContextual']-data3['NaiveBayesContextual'])/data2['Random'], lw='1.25', label=r'$NaiveBayes$', color='darkorange', marker='*', markevery=500, fillstyle='none')
 
 box = ax.get_position()

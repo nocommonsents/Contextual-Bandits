@@ -52,12 +52,12 @@ for line in data:
     count+=1
 
 # Contextual
-rects1 = ax.bar((N+2) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
-rects2 = ax.bar((2*(N+2)) +ind, (mins[20], means[20], maxs[20]), width, color=next(colors))
-rects3 = ax.bar((3*(N+2)) +ind, (mins[18], means[18], maxs[18]), width, color=next(colors))
-rects4 = ax.bar((4*(N+2)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
-rects5 = ax.bar((5*(N+2)) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
-rects6 = ax.bar((6*(N+2)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
+rects1 = ax.bar((N+2) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[24], means[24], maxs[24]), width, color=next(colors))
+rects3 = ax.bar((3*(N+2)) +ind, (mins[22], means[22], maxs[22]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[18], means[18], maxs[18]), width, color=next(colors))
+rects5 = ax.bar((5*(N+2)) +ind, (mins[19], means[19], maxs[19]), width, color=next(colors))
+rects6 = ax.bar((6*(N+2)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
@@ -74,7 +74,7 @@ ax.xaxis.set_major_locator(MultipleLocator(5.2))
 plt.tight_layout()
 
 # Contextual
-relevant_policies = [r'$$', r'$NaiveBayes$', r'$eGreedy(0.1)$', r'$eAnnealing$', r'$Softmax(0.01)$', r'$Softmax(0.1)$', r'$LinUCB$']
+relevant_policies = [r'$$', r'$NaiveBayes$', r'$e-Greedy(0.1)$', r'$e-Annealing$', r'$Softmax(0.01)$', r'$Softmax(0.1)$', r'$LinUCB(0.1)$']
 #relevant_policies = [policies[15],policies[13],policies[3],policies[10],policies[7]]
 ax.set_xticklabels(relevant_policies)
 

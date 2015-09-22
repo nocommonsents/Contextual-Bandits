@@ -1,5 +1,6 @@
 __author__ = 'bixlermike'
-# Derived from ideas from Dai Shi and John White
+
+# Derived from ideas from Dai Shi and "Bandit Algorithms for Website Optimization" by John Myles White
 
 # Final verification 8 Apr 2015
 

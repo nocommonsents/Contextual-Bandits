@@ -1,7 +1,5 @@
 __author__ = 'bixlermike'
 
-# Final verification 8 Apr 2015
-
 # Ridge regression estimates the weight coefficient vector as:
 # Theta = (xT * x + I)^-1 * xT * y (I can be a multiple of the identity vector...here we will use 1)
 # x: Feature vector, xT = transpose of feature vector, I = identity matrix, y = reward vector (all 0s or 1s)

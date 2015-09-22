@@ -1,12 +1,11 @@
 __author__ = 'bixlermike'
 
-# Final verification 8 Apr 2015
-
 # Ridge regression estimates the weight coefficient vector as:
 # Theta = (xT * x + I)^-1 * xT * y
 # x: Feature vector, xT = transpose of feature vector, I = identity matrix, y = reward vector (all 0s or 1s)
 # Here we use A = (xT * x + I)^-1 and B = (xT * y), so theta is then theta = A^-1 * b
 # Get predictions for each article by multiplying weight vector (theta) * feature vector (x)
+
 import math
 import numpy as np
 import random as rn

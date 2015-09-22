@@ -1,8 +1,6 @@
 __original_author__ = 'dai.shi'
 __revised__ = 'bixlermike'
 
-# Final verification 8 Apr 2015
-
 import numpy as np
 import random as rn
 

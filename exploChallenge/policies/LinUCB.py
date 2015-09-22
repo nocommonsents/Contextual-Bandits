@@ -3,9 +3,7 @@ __author__ = 'bixlermike'
 
 # LinUCB with disjoint linear models
 # Algorithm details and psuedocode at http://www.research.rutgers.edu/~lihong/pub/Li10Contextual.pdf
-# Using Ridge-regression as opposed to least-squares solution that could also be explored
-
-# Final verification 8 Apr 2015
+# Uses ridge-regression model
 
 import operator
 import numpy as np

@@ -1,5 +1,6 @@
 __author__ = 'bixlermike'
-# UCI from https://www.ki.tu-berlin.de/fileadmin/fg135/publikationen/Seiler_2013_MLR.pdf, page 8
+
+# BinomialUCI algorithm from https://www.ki.tu-berlin.de/fileadmin/fg135/publikationen/Seiler_2013_MLR.pdf, page 8
 # Using 95% confidence interval, 2-tailed -> z-value = 1.96
 import math
 import numpy as np

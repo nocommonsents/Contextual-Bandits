@@ -1,5 +1,7 @@
 __author__ = 'bixlermike'
 
+# Beta distribution sampling technique in getActionToPerform originally from https://www.chrisstucchio.com/blog/2013/bayesian_bandit.html
+
 import numpy as np
 import random
 from scipy.stats import beta

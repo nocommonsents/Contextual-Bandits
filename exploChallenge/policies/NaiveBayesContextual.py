@@ -1,9 +1,8 @@
 __author__ = 'ftruzzi'
 __revised__ = 'bixlermike'
 
-# Final verification 8 Apr 2015
-
 # Naive Bayesian approach based on https://explochallenge.inria.fr/wp-content/uploads/2012/05/paper3.pdf (section 2.3)
+
 import numpy as np
 import random as rn
 from exploChallenge.policies.ContextualBanditPolicy import ContextualBanditPolicy

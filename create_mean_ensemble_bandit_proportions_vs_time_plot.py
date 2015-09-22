@@ -24,7 +24,6 @@ fig = plt.figure()
 ax = fig.add_subplot(111)
 
 ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ %s$" % ensemble_bandit, fontsize='16', y=1.02)
-#ax.set_title(r"$Base\ Bandit\ Algorithm\ Proportions\ vs.\ Time\ -\ EBUCIM1$", fontsize='16', y=1.02)
 
 ax.set_xlabel(r"$Time (sec)$")
 ax.set_ylabel(r"$Proportion$")
@@ -37,6 +36,7 @@ ax.plot(data['Time'],data['NaiveBayesContextual'], label=r'$NaiveBayes$', lw='1.
 ax.plot(data['Time'],data['LinUCB01'], label=r'$LinUCB(0.1)$', lw='1.25', color='deepskyblue', marker='>', markevery=500, fillstyle='none')
 ax.plot(data['Time'],data['SoftmaxContextual01'], label=r'$SoftmaxContextual(0.1)$', lw='1.25', color='greenyellow', marker='+', markevery=500, fillstyle='none')
 
+# Used for plots that have very large runtimes...using more frequent markers ensures that we get enough markers on the plot to make it distinguishable on black and white prinout
 # ax.plot(data['Time'],data['MostCTR'], label=r'$HighestCTR$', lw='1.25', marker='o', markevery=50, fillstyle='none')
 # ax.plot(data['Time'],data['BinomialUCI'], label=r'$BinomialUCI$', lw='1.25', marker='v', markevery=50, fillstyle='none')
 # ax.plot(data['Time'],data['UCB1'], label=r'$UCB1$', lw='1.25', marker='^', markevery=50, fillstyle='none')

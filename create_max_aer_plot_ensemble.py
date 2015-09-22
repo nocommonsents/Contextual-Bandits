@@ -29,8 +29,8 @@ ax.plot(data['NumEvals'],data['EnsembleEAnnealing']/data2['Random'], lw='1.25', 
 ax.plot(data['NumEvals'],data['EnsembleTS']/data2['Random'], lw='1.25', label=r'$EnsTS$', color='darkorange', marker='<', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],data['EnsembleBinomialUCI']/data2['Random'], lw='1.25', label=r'$EnsBinomialUCI$', marker='*', markevery=500, fillstyle='none')
 ax.plot(data['NumEvals'],data['EnsembleSoftmax001']/data2['Random'], lw='1.25', label=r'$EnsSoftmax0.01$', color='greenyellow', marker='>', markevery=500, fillstyle='none')
-ax.plot(data['NumEvals'],data['EnsembleBinomialUCIMod1']/data2['Random'], lw='1.25', label=r'$EBUCIM1$', marker='+', markevery=500, fillstyle='none')
-ax.plot(data['NumEvals'],data['EnsembleBinomialUCIMod2']/data2['Random'], lw='1.25', label=r'$EBUCIM2$', color='fuchsia', marker='D', markevery=500, fillstyle='none')
+ax.plot(data['NumEvals'],data['EBUCIM1']/data2['Random'], lw='1.25', label=r'$EBUCIM1$', marker='+', markevery=500, fillstyle='none')
+ax.plot(data['NumEvals'],data['EBUCIM2']/data2['Random'], lw='1.25', label=r'$EBUCIM2$', color='fuchsia', marker='D', markevery=500, fillstyle='none')
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

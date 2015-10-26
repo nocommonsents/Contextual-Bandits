@@ -84,4 +84,4 @@ ax.set_xticklabels(relevant_policies)
 
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
-plt.savefig("plots/runtimeComparison.png", dpi=240)
+plt.savefig("plots/runtimeComparison.png", dpi=120)

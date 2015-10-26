@@ -90,5 +90,5 @@ ax.set_ylim([1000, 105000])
 
 ax.xaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.grid(color='gray', linestyle='dashed')
-plt.savefig("plots/runtimeComparisonEnsemble.png", dpi=240)
+plt.savefig("plots/runtimeComparisonEnsemble.png", dpi=120)
 #plt.show()

@@ -57,6 +57,6 @@ plt.tight_layout()
 
 output_file = "plots/banditMeanPolicyProportionsVsEvalNumber" + ensemble_bandit + ".png"
 
-plt.savefig(output_file, dpi=240, bbox_inches='tight')
+plt.savefig(output_file, dpi=120, bbox_inches='tight')
 
 

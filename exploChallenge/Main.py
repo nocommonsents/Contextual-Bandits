@@ -60,7 +60,6 @@ from exploChallenge.policies.EnsembleTS import EnsembleTS
 from exploChallenge.policies.EnsembleBinomialUCI import EnsembleBinomialUCI
 from exploChallenge.policies.EnsembleBinomialUCIMod1 import EnsembleBinomialUCIMod1
 from exploChallenge.policies.EnsembleBinomialUCIMod2 import EnsembleBinomialUCIMod2
-from exploChallenge.policies.EnsembleMostCTR import EnsembleMostCTR
 
 from time import strftime
 
@@ -79,7 +78,7 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsEnsembleTSWithTime.txt", "a+")
+        outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
         #outputFile = open("testing.txt", "a+")
 
 
@@ -163,9 +162,9 @@ class Main:
         #policyName = "GMPolicy"
         #outputFile.write("Policy: GaussianMixture\n")
 
-        #policy = LinUCB(0.1)
-        #policyName = "LinUCB" + str(policy.getAlpha())
-        #outputFile.write("Policy: LinUCB\n")
+        policy = LinUCB(0.1)
+        policyName = "LinUCB" + str(policy.getAlpha())
+        outputFile.write("Policy: LinUCB\n")
 
         #policy = LinearBayes()
         #policyName = "LinearBayes"
@@ -195,9 +194,9 @@ class Main:
         #policyName = "EnsembleSoftmax" + str(policy.getTemp())
         #outputFile.write("Policy: EnsembleSoftmax" + str(policy.getTemp())
 
-        policy = EnsembleTS(RidgeRegressor(np.eye(136), np.zeros(136)))
-        policyName = "EnsembleTS"
-        outputFile.write("Policy: EnsembleTS\n")
+        #policy = EnsembleTS(RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policyName = "EnsembleTS"
+        #outputFile.write("Policy: EnsembleTS\n")
 
         #policy = EnsembleBinomialUCI(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCI"
@@ -218,10 +217,6 @@ class Main:
         #policy = EnsembleBinomialUCIMod4(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCIMod4"
         #outputFile.write("Policy: EnsembleBinomialUCIMod4\n")
-
-        #policy = EnsembleMostCTR()
-        #policyName = "EnsembleMostCTR"
-        #outputFile.write("Policy: EnsembleMostCTR\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

@@ -53,6 +53,6 @@ ax.xaxis.set_major_formatter(majorFormatter)
 #    ax1.axhline(y=ymaj,ls='-')
 #plt.tight_layout()
 
-plt.savefig("plots/stdevAER.png", dpi=240, bbox_inches='tight')
+plt.savefig("plots/stdevAER.png", dpi=120, bbox_inches='tight')
 
 

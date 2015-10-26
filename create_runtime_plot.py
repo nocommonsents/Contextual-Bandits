@@ -52,17 +52,17 @@ for line in data:
     count+=1
 
 # Non-contextual
-rects1 = ax.bar(ind, (mins[9], means[9], maxs[9]), width, color=next(colors))
-rects2 = ax.bar((N+2.5) +ind, (mins[17], means[17], maxs[17]), width, color=next(colors))
-rects3 = ax.bar((2*(N+2.5)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
-rects4 = ax.bar((3*(N+2.5)) +ind, (mins[6], means[6], maxs[6]), width, color=next(colors))
-rects5 = ax.bar((4*(N+2.5)) +ind, (mins[10], means[10], maxs[10]), width, color=next(colors))
-rects6 = ax.bar((5*(N+2.5)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
-rects7 = ax.bar((6*(N+2.5)) +ind, (mins[11], means[11], maxs[11]), width, color=next(colors))
+rects1 = ax.bar(ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
+rects2 = ax.bar((N+2.5) +ind, (mins[23], means[23], maxs[23]), width, color=next(colors))
+rects3 = ax.bar((2*(N+2.5)) +ind, (mins[11], means[11], maxs[11]), width, color=next(colors))
+rects4 = ax.bar((3*(N+2.5)) +ind, (mins[12], means[12], maxs[12]), width, color=next(colors))
+rects5 = ax.bar((4*(N+2.5)) +ind, (mins[16], means[16], maxs[16]), width, color=next(colors))
+rects6 = ax.bar((5*(N+2.5)) +ind, (mins[13], means[13], maxs[13]), width, color=next(colors))
+rects7 = ax.bar((6*(N+2.5)) +ind, (mins[17], means[17], maxs[17]), width, color=next(colors))
 rects8 = ax.bar((7*(N+2.5)) +ind, (mins[0], means[0], maxs[0]), width, color=next(colors))
-rects9 = ax.bar((8*(N+2.5)) +ind, (mins[1], means[1], maxs[1]), width, color=next(colors))
-rects10 = ax.bar((9*(N+2.5)) +ind, (mins[15], means[15], maxs[15]), width, color=next(colors))
-rects11 = ax.bar((10*(N+2.5)) +ind, (mins[14], means[14], maxs[14]), width, color=next(colors))
+rects9 = ax.bar((8*(N+2.5)) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
+rects10 = ax.bar((9*(N+2.5)) +ind, (mins[21], means[21], maxs[21]), width, color=next(colors))
+rects11 = ax.bar((10*(N+2.5)) +ind, (mins[20], means[20], maxs[20]), width, color=next(colors))
 
 box = ax.get_position()
 ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])

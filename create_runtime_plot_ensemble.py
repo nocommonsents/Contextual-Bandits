@@ -54,10 +54,10 @@ for line in data:
 
 # Contextual
 
-rects1 = ax.bar((N+2) +ind, (mins[3], means[3], maxs[3]), width, color=next(colors))
-rects2 = ax.bar((2*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
+rects1 = ax.bar((N+2) +ind, (mins[1], means[1], maxs[1]), width, color=next(colors))
+rects2 = ax.bar((2*(N+2)) +ind, (mins[2], means[2], maxs[2]), width, color=next(colors))
 rects3 = ax.bar((3*(N+2)) +ind, (mins[8], means[8], maxs[8]), width, color=next(colors))
-rects4 = ax.bar((4*(N+2)) +ind, (mins[2], means[2], maxs[2]), width, color=next(colors))
+rects4 = ax.bar((4*(N+2)) +ind, (mins[4], means[4], maxs[4]), width, color=next(colors))
 rects5 = ax.bar((5*(N+2)) +ind, (mins[5], means[5], maxs[5]), width, color=next(colors))
 rects6 = ax.bar((6*(N+2)) +ind, (mins[7], means[7], maxs[7]), width, color=next(colors))
 rects7 = ax.bar((7*(N+2)) +ind, (mins[9], means[9], maxs[9]), width, color=next(colors))

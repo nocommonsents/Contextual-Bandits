@@ -41,7 +41,6 @@ from exploChallenge.policies.eAnnealing import eAnnealing
 from exploChallenge.policies.Softmax import Softmax
 from exploChallenge.policies.UCB1 import UCB1
 from exploChallenge.policies.EXP3 import EXP3
-from exploChallenge.policies.ThompsonSampling import ThompsonSampling
 from exploChallenge.policies.BinomialUCI import BinomialUCI
 
 # Contextual bandit policies
@@ -78,14 +77,14 @@ class Main:
         reader = None
 
         ## Create file to write output to..."a+" option appends
-        outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
-        #outputFile = open("testing.txt", "a+")
+        #outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
+        outputFile = open("dissertationTesting.txt", "a+")
 
 
         try:
             # First file is for testing only
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
@@ -104,7 +103,7 @@ class Main:
         outputFile.write("Simulation started at: " + strftime("%Y-%m-%d %H:%M:%S") + "\n")
         outputFile.write("Input file: " + os.path.basename(inputFile) + "\n")
 
-        ## Pick a single contextual bandit algorithm and corresponding policy name / output file
+        ## Pick a single bandit algorithm and corresponding policy name / output file
 
         #policy = RandomPolicy()
         #policyName = "Random"
@@ -118,9 +117,9 @@ class Main:
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        #policy = MostCTR()
-        #policyName = "MostCTR"
-        #outputFile.write("Policy: MostCTR\n")
+        policy = MostCTR()
+        policyName = "MostCTR"
+        outputFile.write("Policy: MostCTR\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
@@ -146,10 +145,6 @@ class Main:
         #policyName = "BinomialUCI"
         #outputFile.write("Policy: BinomialUCI\n")
 
-        #policy = ThompsonSampling(1.0, 1.0)
-        #policyName = "ThompsonSampling" + str(policy.getPriors())
-        #outputFile.write("Policy: ThompsonSampling" + str(policy.getPriors()) + "\n")
-
         #policy = eGreedyContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
@@ -158,13 +153,9 @@ class Main:
         #policyName = "eAnnealingContextual"
         #outputFile.write("Policy: eAnnealingContextual" + "\n")
 
-        #policy = GMPolicy()
-        #policyName = "GMPolicy"
-        #outputFile.write("Policy: GaussianMixture\n")
-
-        policy = LinUCB(0.1)
-        policyName = "LinUCB" + str(policy.getAlpha())
-        outputFile.write("Policy: LinUCB\n")
+        #policy = LinUCB(0.1)
+        #policyName = "LinUCB" + str(policy.getAlpha())
+        #outputFile.write("Policy: LinUCB\n")
 
         #policy = LinearBayes()
         #policyName = "LinearBayes"
@@ -209,14 +200,6 @@ class Main:
         #policy = EnsembleBinomialUCIMod2(RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "EnsembleBinomialUCIMod2"
         #outputFile.write("Policy: EnsembleBinomialUCIMod2\n")
-
-        #policy = EnsembleBinomialUCIMod3(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIMod3"
-        #outputFile.write("Policy: EnsembleBinomialUCIMod3\n")
-
-        #policy = EnsembleBinomialUCIMod4(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "EnsembleBinomialUCIMod4"
-        #outputFile.write("Policy: EnsembleBinomialUCIMod4\n")
 
         evalPolicy = MyEvaluationPolicy(sys.stdout, logStep, 0, policyName, inputFileShort, outputFile)
 

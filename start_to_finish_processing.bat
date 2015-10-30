@@ -55,8 +55,8 @@ python create_aer_proportion_of_optimal_ensemble_plot.py
 python create_aer_proportion_of_optimal_vs_time_ensemble_plot.py
 echo "Done generating AER proportion of optimality plots."
 
-python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleRandom
-python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleRandomUpdateAll
+#python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleRandom
+#python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleRandomUpdateAll
 python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleEAnnealing
 python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleSoftmax0.01
 python -W ignore create_mean_ensemble_bandit_proportions_plot.py EnsembleTS
@@ -65,8 +65,8 @@ python -W ignore create_mean_ensemble_bandit_proportions_plot.py EBUCIM1
 python -W ignore create_mean_ensemble_bandit_proportions_plot.py EBUCIM2
 echo "Done generating ensemble bandit proportion plots."
 
-python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleRandom
-python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleRandomUpdateAll
+#python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleRandom
+#python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleRandomUpdateAll
 python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleEAnnealing
 python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleSoftmax0.01
 python -W ignore create_mean_ensemble_bandit_proportions_vs_time_plot.py EnsembleTS

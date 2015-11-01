@@ -8,8 +8,8 @@
 # Contributors:
 #     Jose Antonio Martin H. - Translation to Python from Java
 #     Jeremie Mary - very minor adaptation for the challenge
-#     Michael Bixler - Adapted to add additional non-contextual and contextual bandit algorithms
-#                      as well as pre and post-processing analysis/plots
+#     Michael Bixler - Adapted to add numerous non-contextual and contextual bandit algorithms
+#                      as well as ensemble approaches and pre and post-processing analysis/plots
 #-------------------------------------------------------------------------------
 #package exploChallenge;
 
@@ -83,11 +83,11 @@ class Main:
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_lines.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_10000_lines_filtered.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_lines_filtered.txt"
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08-filtered10percent.txt"
 
             inputFileShort = "y"    # Yahoo! data = "y"
@@ -117,17 +117,17 @@ class Main:
         #policyName = "MostRecent"
         #outputFile.write("Policy: MostRecent\n")
 
-        policy = MostCTR()
-        policyName = "MostCTR"
-        outputFile.write("Policy: MostCTR\n")
+        #policy = MostCTR()
+        #policyName = "MostCTR"
+        #outputFile.write("Policy: MostCTR\n")
 
         #policy = eGreedy(0.1)
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealing()
-        #policyName = "eAnnealing"
-        #outputFile.write("Policy: eAnnealing\n")
+        policy = eAnnealing()
+        policyName = "eAnnealing"
+        outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())

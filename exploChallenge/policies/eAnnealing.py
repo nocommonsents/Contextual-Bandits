@@ -1,6 +1,6 @@
 __author__ = 'bixlermike'
 
-# Based on algorithm in "Bandit Algorithms for Website Opitimization" by John Myles White.
+# Based on algorithm in "Bandit Algorithms for Website Optimization" by John Myles White.
 
 import math
 import random as rn

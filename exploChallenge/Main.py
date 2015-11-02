@@ -157,10 +157,6 @@ class Main:
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        #policy = LinearBayes()
-        #policyName = "LinearBayes"
-        #outputFile.write("Policy: LinearBayes\n")
-
         #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
         #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")

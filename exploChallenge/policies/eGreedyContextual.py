@@ -53,16 +53,16 @@ class eGreedyContextual(ContextualBanditPolicy):
                 self.A[article.getID()] = np.identity(self.d)
                 self.b[article.getID()] = np.zeros((self.d, 1))
                 self.AI[article.getID()] = np.identity(self.d)
-                self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
-                self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+                #self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
+                #self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+                # Completes calculation of theta
+            self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
+            self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
+            # Now use estimated feature coefficients to predict which article is best given the contextual information
+            self.regressor_predictions[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
+
         ## Exploit
         if rn.random() > self.epsilon:
-            for article in possibleActions:
-                # Completes calculation of theta
-                self.theta[article.getID()] = np.dot(self.AI[article.getID()], self.b[article.getID()])
-                self.thetaT[article.getID()] = np.transpose(self.theta[article.getID()])
-                # Now use estimated feature coefficients to predict which article is best given the contextual information
-                self.regressor_predictions[article.getID()] = float(np.dot(self.thetaT[article.getID()], x))
 
             regressor_values = [self.regressor_predictions[a.getID()] for a in possibleActions]
             return possibleActions[rargmax(regressor_values)]
@@ -82,7 +82,7 @@ class eGreedyContextual(ContextualBanditPolicy):
         # Part of theta calculation equivalent to x * x transpose + identity matrix
         self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
         # Equivalent to x transpose * y (reward)
-        self.b[chosen_arm.getID()] += self.rewards * self.x
+        self.b[chosen_arm.getID()] += self.x * self.rewards
         # Need to do inverse of A for final calculation of theta
         self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
         #print str(chosen_arm.getID()) + " " + str(self.thetaT[chosen_arm.getID()])

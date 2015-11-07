@@ -78,13 +78,13 @@ class Main:
 
         ## Create file to write output to..."a+" option appends
         #outputFile = open("banditOutputsLinUCBWithTime.txt", "a+")
-        outputFile = open("dissertationTesting.txt", "a+")
+        outputFile = open("afterTesting.txt", "a+")
 
 
         try:
             # First file is for testing only
-            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_lines.txt"
-            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
+            #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_lines.txt"
+            inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/ydata-fp-td-clicks-v2_0.20111002-08.txt"
 
             # Filtered subset that only contains features with > 10% support
             #inputFile = "/Users/bixlermike/Contextual-Bandits/exploChallenge/first_lines_filtered.txt"
@@ -125,9 +125,9 @@ class Main:
         #policyName = "eGreedy" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedy" + str(policy.getEpsilon()) + "\n")
 
-        policy = eAnnealing()
-        policyName = "eAnnealing"
-        outputFile.write("Policy: eAnnealing\n")
+        #policy = eAnnealing()
+        #policyName = "eAnnealing"
+        #outputFile.write("Policy: eAnnealing\n")
 
         #policy = Softmax(0.1)
         #policyName = "Softmax" + str(policy.getTemp())
@@ -149,15 +149,15 @@ class Main:
         #policyName = "eGreedyContextual" + str(policy.getEpsilon())
         #outputFile.write("Policy: eGreedyContextual" + str(policy.getEpsilon()) + "\n")
 
-        #policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
-        #policyName = "eAnnealingContextual"
-        #outputFile.write("Policy: eAnnealingContextual" + "\n")
+        policy = eAnnealingContextual(RidgeRegressor(np.eye(136), np.zeros(136)))
+        policyName = "eAnnealingContextual"
+        outputFile.write("Policy: eAnnealingContextual" + "\n")
 
         #policy = LinUCB(0.1)
         #policyName = "LinUCB" + str(policy.getAlpha())
         #outputFile.write("Policy: LinUCB\n")
 
-        #policy = SoftmaxContextual(0.1, RidgeRegressor(np.eye(136), np.zeros(136)))
+        #policy = SoftmaxContextual(0.01, RidgeRegressor(np.eye(136), np.zeros(136)))
         #policyName = "SoftmaxContextual" + str(policy.getTemp())
         #outputFile.write("Policy: SoftmaxContextual" + str(policy.getTemp()) + "\n")
 

@@ -93,7 +93,7 @@ class SoftmaxContextual(ContextualBanditPolicy):
         # Part of theta calculation equivalent to x * x tranpose + identity matrix
         self.A[chosen_arm.getID()] += np.outer(self.x, self.x) + np.identity(self.d)
         # Equivalent to x transpose * y (reward)
-        self.b[chosen_arm.getID()] += self.rewards * self.x
+        self.b[chosen_arm.getID()] += self.x * self.rewards
         # Need to do inverse of A for final calculation of theta
         self.AI[chosen_arm.getID()] = np.linalg.inv(self.A[chosen_arm.getID()])
 
